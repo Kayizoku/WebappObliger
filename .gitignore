@@ -24,4 +24,7 @@ hs_err_pid*
 
 *.csproj
 
+# Directories
 Gruppeoppgave1/Gruppeoppgave1/obj/Debug/netcoreapp3.1/
+Gruppeoppgave1/.vs/Gruppeoppgave1/
+Gruppeoppgave1/Gruppeoppgave1/obj/

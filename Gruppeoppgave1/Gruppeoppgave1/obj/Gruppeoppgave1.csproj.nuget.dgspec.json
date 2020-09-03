@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tayya\\Desktop\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {}
+    "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tayya\\Desktop\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {
+    "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tayya\\Desktop\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+        "projectUniqueName": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
         "projectName": "Gruppeoppgave1",
-        "projectPath": "C:\\Users\\tayya\\Desktop\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
-        "packagesPath": "C:\\Users\\tayya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tayya\\Desktop\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
+        "projectPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+        "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

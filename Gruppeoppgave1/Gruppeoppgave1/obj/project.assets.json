@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\benja\\.nuget\\packages\\": {}
+    "C:\\Users\\Eier\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+      "projectUniqueName": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
       "projectName": "Gruppeoppgave1",
-      "projectPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
-      "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
+      "projectPath": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+      "packagesPath": "C:\\Users\\Eier\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Eier\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

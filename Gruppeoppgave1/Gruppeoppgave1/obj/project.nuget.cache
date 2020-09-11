@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "v+reeTYQr9blCGR2EdzaUXotoMG2qkkbrsHII+kMXQ3pTFMTVZ58CjGoBJrbZAFrnwxibOIDALwA32+zMU9H+w==",
+<<<<<<< Updated upstream
+  "dgSpecHash": "nFSIXs1Gu67YeoicrAnw6LrUDN0yBoUjnWdSHO3H9fB+ek2EXRElQeg3RwFSkRnO4sxF5swdRM/mHsJFK4WFgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+  "projectFilePath": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+=======
+  "dgSpecHash": "gjfGztzmD/AjNWq/E78iRNbihTPNrPnlIpZjw4vwbCcN9fYU2tAIywWj81cM/a+6EET+OJJOW4aMrAUFEBUajA==",
+  "success": true,
+  "projectFilePath": "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/Gruppeoppgave1.csproj",
+>>>>>>> Stashed changes
   "expectedPackageFiles": [],
   "logs": []
 }

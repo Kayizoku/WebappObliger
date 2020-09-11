@@ -1,27 +1,43 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {}
+<<<<<<< Updated upstream
+    "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {
+    "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+        "projectUniqueName": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
         "projectName": "Gruppeoppgave1",
-        "projectPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
-        "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\benja\\Source\\Repos\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
+        "projectPath": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\Gruppeoppgave1.csproj",
+        "packagesPath": "C:\\Users\\Eier\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Eier\\Documents\\GitHub\\WebappObliger\\Gruppeoppgave1\\Gruppeoppgave1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Eier\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+    "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/Gruppeoppgave1.csproj": {}
+  },
+  "projects": {
+    "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/Gruppeoppgave1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/Gruppeoppgave1.csproj",
+        "projectName": "Gruppeoppgave1",
+        "projectPath": "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/Gruppeoppgave1.csproj",
+        "packagesPath": "/Users/eskilnysether/.nuget/packages/",
+        "outputPath": "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/eskilnysether/.config/NuGet/NuGet.Config"
+>>>>>>> Stashed changes
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -55,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.401/RuntimeIdentifierGraph.json"
         }
       }
     }

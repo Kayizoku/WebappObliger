@@ -7,10 +7,10 @@ namespace Gruppeoppgave1.Model
 {
     public class Bestillinger
     {
-        public string fra { get; set; };
+        public string fra { get; set; }
 
-        public string til { get; set; };
+        public string til { get; set; }
 
-        public int antall { get; set; };
+        public int antall { get; set; }
     }
 }

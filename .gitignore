@@ -24,7 +24,10 @@ hs_err_pid*
 
 *.csproj
 
+# IntelliJ Platform Excludes
+**/.idea/
+
 # Directories
+**/.vs/
 Gruppeoppgave1/Gruppeoppgave1/obj/Debug/netcoreapp3.1/
-Gruppeoppgave1/.vs/Gruppeoppgave1/
 Gruppeoppgave1/Gruppeoppgave1/obj/

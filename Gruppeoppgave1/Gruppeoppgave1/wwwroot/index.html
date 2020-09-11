@@ -2,14 +2,46 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gruppeoppgave1</title>
+    <title>Nor_Way</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <script src=""></script>
+    <script src="js/index.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Tester push</h1>
+        <form>
+            <table class="table">
+                <tr>
+                    <td>Bestilling</td>
+                    <td>
+                        <select id="FraSted" class="form-control">
+                            <option value="Sandvika">Sandvika</option>
+                            <option value="Bekkestua">Bekkestua</option>
+                            <option value="Oslo">Oslo</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="TilSted" class="form-control">
+                            <option value="Stavanger">Stavanger<option>
+                            <option value="Bergen">Bergen</option>
+                            <option value="Trondheim">Trondheim</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Antall</td>
+                    <td><input type="text" id="antall" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="datetime-local" id="Tid" class="form-control" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="Bestill" name="bestill" onclick="lagreBestilling()" class="btn btn-primary" />
+        </form>
     </div>
 </body>
 </html>

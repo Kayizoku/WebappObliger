@@ -7,5 +7,7 @@ namespace Gruppeoppgave1.Model
 {
     public class Bestillinger
     {
+        public int id { get; set; }
+
     }
 }

@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Model
 {
-    public class Bestillinger
+    public class Bestilling
     {
         public int id { get; set; }
 
     }
+
+
+
+
+
 }

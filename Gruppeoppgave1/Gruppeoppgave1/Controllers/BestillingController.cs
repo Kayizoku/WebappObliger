@@ -1,23 +1,45 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Gruppeoppgave1.Model;
 using Gruppeoppgave1.DAL;
+using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Gruppeoppgave1.Controllers
+namespace Gruppeoppgave1.Controller;
 {
     [Route("[controller]/[action]")]
     public class BestillingController : ControllerBase
     {
-        private readonly DbContext _db;
+        private readonly IBestillingRepository _db;
 
-
-
-        public List<Bestillinger> HentAlle()
+        public BestillingController(IBestillingRepository db)
         {
+            _db = db;
+        }
 
+        public async Task<bool> Lagre(Bestilling innBestilling)
+        {
+            return await _db.Lagre(innBestilling);
+        }
+
+        public async Task<List<Bestilling>> HentAlle()
+        {
+            return await _db.HentAlle();
+        }
+
+        public async Task<bool> Slett(int id)
+        {
+            return await _db.Slett(id);
+        }
+
+        public async Task<Bestilling> HentEn(int id)
+        {
+            return await _db.HentEn(id);
+        }
+
+        public async Task<bool> Endre(Bestilling endreBestillinger)
+        {
+            return await _db.Endre(endreBestillinger);
         }
     }
 }

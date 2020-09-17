@@ -11,7 +11,7 @@ namespace Gruppeoppgave1.Model
         [Key]
         public int Id { get; set; }
         public string Navn { get; set; }
-        public List<DbStasjoner> stasjoner;
+        public List<Stasjoner> stasjoner;
 
     }
 }

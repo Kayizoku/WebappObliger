@@ -7,6 +7,20 @@
 # BlueJ files
 *.ctxt
 
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+bin/
+Bin/
+obj/
+Obj/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

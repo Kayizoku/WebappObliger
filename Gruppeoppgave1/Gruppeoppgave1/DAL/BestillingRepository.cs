@@ -10,29 +10,104 @@ namespace Gruppeoppgave1.DAL
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
-        public Task<bool> Lagre(Bestilling innBestilling)
+
+        public BestillingRepository(BestillingContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Task<List<Bestilling>> HentAlle()
+        public async Task<bool> Lagre(Bestilling innBestilling)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var nyBestillingRad = new Bestillinger();
+                nyBestillingRad.pris = innBestilling.pris;
+                nyBestillingRad.Fra = innBestilling.Fra;
+                nyBestillingRad.Til = innBestilling.Til;
+                nyBestillingRad.Dato = innBestilling.Dato;
+                nyBestillingRad.Tid = innBestilling.Tid;
+                _db.Bestillinger.Add(nyBestillingRad);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw new NotImplementedException();
+            }
         }
 
-        public Task<bool> Slett(int id)
+        public async Task<List<Bestilling>> HentAlle()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Bestilling> alleBestillinger = await _db.Bestillinger.Select(b => new Bestilling
+                {
+                    Id = b.Id,
+                    pris = b.pris,
+                    Fra = b.Fra,
+                    Til = b.Til,
+                    Dato = b.Dato,
+                    Tid = b.Tid
+                }).ToListAsync();
+                return alleBestillinger;
+            }
+            catch
+            {
+                return null;
+                throw new NotImplementedException();
+            }  
         }
 
-        public Task<Bestilling> HentEn(int id)
+        public async Task<bool> Slett(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
+                _db.Bestillinger.Remove(enDBBestilling);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public Task<bool> Endre(Bestilling endreBestilling)
+        public async Task<Bestilling> HentEn(int id)
         {
-            throw new NotImplementedException();
+                Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
+            var hentetBestilling = new Bestilling()
+            {
+                Id = enBestilling.Id,
+                pris = enBestilling.pris,
+                Fra = enBestilling.Fra,
+                Til = enBestilling.Til,
+                Dato = enBestilling.Dato,
+                Tid = enBestilling.Tid
+            };
+            return hentetBestilling;
+        }
+
+        public async Task<bool> Endre(Bestilling endreBestilling)
+        {
+            try
+            {
+                var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.id);
+                endreObjekt.pris = endreBestilling.pris;
+                endreObjekt.Fra = endreBestilling.Fra;
+                endreObjekt.Til = endreBestilling.Til;
+                endreObjekt.Dato = endreBestilling.Dato;
+                endreObjekt.Tid = endreBestilling.Tid;
+                await _db.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+                throw new NotImplementedException();
+            }
+            return true;
+            
         }
     }
 }

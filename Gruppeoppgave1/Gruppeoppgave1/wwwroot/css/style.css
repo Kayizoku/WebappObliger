@@ -1,0 +1,37 @@
+﻿body {
+    padding-top: 84px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.nav-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: rgba(47, 46, 46, 0.616);
+    color: white;
+}
+
+div.container {
+    font-size: 18px;
+    padding-top: 24px;
+    text-align: center;
+}
+
+.form-control {
+    width: 400px;
+    height: 20px;
+    margin: 8px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.835);
+    color: white;
+    text-align: center;
+}

@@ -5,7 +5,7 @@ using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gruppeoppgave1.Controller;
+namespace Gruppeoppgave1.Controller
 {
     [Route("[controller]/[action]")]
     public class BestillingController : ControllerBase
@@ -27,19 +27,9 @@ namespace Gruppeoppgave1.Controller;
             return await _db.HentAlle();
         }
 
-        public async Task<bool> Slett(int id)
-        {
-            return await _db.Slett(id);
-        }
-
         public async Task<Bestilling> HentEn(int id)
         {
             return await _db.HentEn(id);
-        }
-
-        public async Task<bool> Endre(Bestilling endreBestillinger)
-        {
-            return await _db.Endre(endreBestillinger);
         }
     }
 }

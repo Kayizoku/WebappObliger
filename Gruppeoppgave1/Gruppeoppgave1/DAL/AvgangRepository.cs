@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gruppeoppgave1.Model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,9 +7,9 @@ namespace Gruppeoppgave1.DAL
 {
     public class AvgangRepository : IAvgangerRepository
     {
-        prvate readonly AvgangContext _db;
+        private readonly BestillingContext _db;
 
-        public AvgangRepository(AvgangContext db)
+        public AvgangRepository(BestillingContext db)
         {
             _db = db;
         }
@@ -41,5 +42,14 @@ namespace Gruppeoppgave1.DAL
             return hentetAvgang;
         }
 
+        Task<List<Avganger>> IAvgangerRepository.HentAlle()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Avganger> IAvgangerRepository.HentEn(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

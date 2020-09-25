@@ -1,4 +1,10 @@
-﻿body {
+﻿* {
+    box-sizing: border-box;
+    padding: 0 auto;
+}
+
+
+body {
     padding-top: 84px;
     padding-left: 15px;
     padding-right: 15px;
@@ -14,16 +20,9 @@
     color: white;
 }
 
-div.container {
-    font-size: 18px;
-    padding-top: 24px;
-    text-align: center;
-}
-
-.form-control {
-    width: 400px;
-    height: 20px;
-    margin: 8px;
+.main-container {
+    padding-left: 400px;
+    justify-content: center;
 }
 
 .footer {

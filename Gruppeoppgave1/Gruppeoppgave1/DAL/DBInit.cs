@@ -15,21 +15,38 @@ namespace Gruppeoppgave1.Model
             {
                 var context = serviceScope.ServiceProvider.GetService<BestillingContext>();
 
-                // må slette og opprette databasen hver gang når den skalinitieres (seed`es)
+                // m? slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                //her skal vi legge til når det er sikkert hvordan alle tabeller med relasjoner og attributter skal se ut
-                //under beholder jeg som eksempel foreløpig
+                var stasjon1 = new Stasjoner { Navn = "Oslo", NummerPaaStopp = "1" };
+                var stasjon2 = new Stasjoner { Navn = "Drammen", NummerPaaStopp = "2" };
+                var stasjon3 = new Stasjoner { Navn = "Horten", NummerPaaStopp = "3" };
 
-                /*var poststed1 = new Poststeder { Postnr = "0270", Poststed = "Oslo" };
-                var poststed2 = new Poststeder { Postnr = "1370", Poststed = "Asker" };
+                var avgang1 = new Avganger {
+                    Fra = stasjon1,
+                    Til = stasjon2,
+                    Dato = "01.01.21",
+                    Tid = "07:00",
+                }
+                var avgang2 = new Avganger
+                {
+                    Fra = stasjon2,
+                    Til = stasjon3,
+                    Dato = "02.01.21",
+                    Tid = "07:00",
+                }
 
-                var kunde1 = new Kunder { Fornavn = "Ole", Etternavn = "Hansen", Adresse = "Olsloveien 82", Poststed = poststed1 };
-                var kunde2 = new Kunder { Fornavn = "Line", Etternavn = "Jensen", Adresse = "Askerveien 72", Poststed = poststed2 };
+                var bestilling1 = new Bestillinger { Avgang = avgang1, }
+                var bestilling2 = new Bestillinger { Avgang = avgang2, }
 
-                context.Kunder.Add(kunde1);
-                context.Kunder.Add(kunde2);*/
+                context.Stasjoner.Add(stasjon1);
+                context.Stasjoner.Add(stasjon2);
+                context.Stasjoner.Add(stasjon3);
+                context.Avganger.Add(avgang1);
+                context.Avganger.Add(avgang2);
+                context.Bestillinger.Add(bestilling1);
+                context.Bestillinger.Add(bestilling2);
 
                 context.SaveChanges();
             }

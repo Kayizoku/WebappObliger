@@ -6,7 +6,7 @@ namespace Gruppeoppgave1.DAL
 {
     public class AvgangRepository : IAvgangerRepository
     {
-        prvate readonly AvgangContext _db;
+        private readonly AvgangContext _db;
 
         public AvgangRepository(AvgangContext db)
         {

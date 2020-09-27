@@ -1,26 +1,25 @@
-﻿using Castle.Components.DictionaryAdapter;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Model
 {
     public class Bestillinger 
     {
         public int Id { get; set; }
+        virtual public double Pris { get; set; }
+        public string Dato { get; set; }
         virtual public Avganger Avgang { get; set; }
-        virtual public Priser Pris { get; set; }
-
     }
 
     public class Avganger
     {
+        [Key]
+        [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         virtual public Stasjoner Fra { get; set; }
         virtual public Stasjoner Til { get; set; }
-        public string Dato { get; set; }
         public string Tid { get; set; }
         virtual public List<Bestillinger> Bestillinger { get; set; }
 
@@ -28,19 +27,13 @@ namespace Gruppeoppgave1.Model
 
     public class Stasjoner
     {
+        [Key]
+        [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        public string Navn { get; set;  }
+        public string StasjonsNavn { get; set;  }
         public int NummerPaaStopp { get; set; } //vet ikke om dette skal med enda
         virtual public List<Avganger> Avganger { get; set; }
 
-    }
-
-    public class Priser
-    {
-        public int Id { get; set; }
-        public string Pristype { get; set; } //ikke sikker på om dette skal med enda, eller om må endres på
-        public double Pris { get; set; }
-        virtual public List<Bestillinger> Bestillinger { get; set; }
     }
 
     public class BestillingContext : DbContext
@@ -48,19 +41,17 @@ namespace Gruppeoppgave1.Model
         public BestillingContext(DbContextOptions<BestillingContext> options)
                 : base(options)
         {
-            //  for å opprette databasen fysisk dersom den ikke er opprettet
+            //  for å opprette databasen fysisk hvis den ikke allerede er det
             Database.EnsureCreated();
         }
 
         public DbSet<Bestillinger> Bestillinger { get; set; }
         public DbSet<Avganger> Avganger { get; set; }
         public DbSet<Stasjoner> Stasjoner { get; set; }
-        public DbSet<Priser> Priser { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // må importere  Microsoft.EntityFrameworkCore.Proxies
-            // og legge til"virtual" på de attriuttene som ønskes å lastes automatisk (LazyLoading)
+            // legg til "virtual" på de attriuttene som skal lastes automatisk 
             optionsBuilder.UseLazyLoadingProxies();
         }
 

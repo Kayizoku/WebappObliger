@@ -1,48 +1,88 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Nor_Way</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <script src="js/index.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+    <div class="nav-header">
+        <h1>Bestill Biletter</h1>
+    </div>
 </head>
+
 <body>
-    <div class="container">
-        <form>
-            <table class="table">
-                <tr>
-                    <td>Bestilling</td>
-                    <td>
-                        <select id="FraSted" class="form-control">
-                            <option value="Sandvika">Sandvika</option>
-                            <option value="Bekkestua">Bekkestua</option>
-                            <option value="Oslo">Oslo</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <select id="TilSted" class="form-control">
-                            <option value="Stavanger">Stavanger<option>
-                            <option value="Bergen">Bergen</option>
-                            <option value="Trondheim">Trondheim</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Antall</td>
-                    <td><input type="text" id="antall" /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="datetime-local" id="Tid" class="form-control" />
-                    </td>
-                </tr>
-            </table>
-            <input type="button" value="Bestill" name="bestill" onclick="lagreBestilling()" class="btn btn-primary" />
+    <form>
+        <div class="main-container">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="ex1">Fra</label>
+                    <input class="form-control" id="fra" name="" placeholder="Hvor vil du reise fra?" type="text">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="ex2">Til</label>
+                    <input class="form-control" id="til" name="" placeholder="Hvor vil du reise til?" type="text">
+                </div>
+            </div>
+    </form>
+
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="dato">Reise dato</label>
+            <input class="form-control text-box single-line" data-val="true" data-val-required="Dato må velges" id="Ticket_ValidFromDate" name="Ticket.ValidFromDate" type="date" value="">
+        </div>
+        </form>
+
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label for="ex2">Fornavn</label>
+                <input class="form-control" id="fornavn" name="" type="text">
+            </div>
+        </div>
+        </form>
+
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label for="ex2">Etternavn</label>
+                <input class="form-control" id="eternavn" name="" type="text">
+            </div>
+        </div>
+        </form>
+
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label for="ex2">Telefonnummer</label>
+                <input class="form-control" id="telefonnr" name="" type="text">
+            </div>
+        </div>
+        </form>
+
+        <div class="col-sm-6">
+            <label for="ex2">Reisende</label>
+            <select class="form-control valid" data-val="true" data-val-required="Billettype må oppgis!" id="Ticket_PassengerType" name="Ticket.PassengerType" aria-describedby="Ticket_PassengerType-error" aria-invalid="false">
+                <option>Voksen</option>
+                <option>Honør</option>
+                <option>Student</option>
+                <option>Barn</option>
+            </select>
+        </div>
+        <br>
+
+
+        <button class="btn btn-primary">Bestill</button>
+        <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
         </form>
     </div>
 </body>
+<div class="footer">
+    <p>© 2020 Copyright: lorem</p>
+</div>
+
+<script src="index.js"></script>
 </html>

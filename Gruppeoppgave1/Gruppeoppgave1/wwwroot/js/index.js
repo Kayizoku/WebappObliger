@@ -1,26 +1,31 @@
 //velg FRA og TIL på DATO, returner liste med tilgjengelige AVGANGER, velg der så lagre bestilling
 
-$(function () {
-    $.get("/hentAlleStasjoner", function (data) {
-        formaterStasjoner(data);
-    });
-});
-
-function formaterStasjoner(stasjonsarray) {
-    //skal være autocomplete med plugin hvis det er lov
-}
 
 
-function lagreBestilling() {
+function lagreBestilling(bestilling) {
     $.post("api/bestilling/lagre", bestilling, function (){
-
+        alert("Bestillingen er lagret");
     });
 }
 
+
+//henter alle bestillinger i et array
 function hentAlleBestillinger() {
     $.get("api/bestilling/hentAlle", function (data) {
         formaterBestillinger();
     });
+}
+
+function formaterBestillinger(bestillinger) {
+    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato><th>Avgang</th></tr>";
+
+    for (const bestilling in bestillinger) {
+        ut += "<tr><td>" + bestilling.Fra + "</td><td>" + bestilling.Til + "</td><td>" +
+                bestilling.Dato + "</td><td>" + bestilling.Avgang + "</td></tr>";
+    }
+
+    ut += "</table>";
+    $("#visAlleBestillinger").val(ut);
 }
 
 $("#FraFelt").click(function (){
@@ -31,11 +36,27 @@ $("#TilFelt").click(function () {
     visStasjonerAuto();
 });
 
-$("#lagreKnapp").click(function () {
-    if (validerFelt() != 0) {
-        alert("Feil i bestillingskjema");
-        //veldig usikker på denne, hvor skal lagre være?
-    });
+$("#lagreKnapp").click(function ( {
+    if (validerFelt() != 0) alert("Feil i bestillingskjema");
+    
+    const bestilling = {
+        Fra : $("#FraFelt").val(),
+        Til : $("#TilFelt").val(),
+        Dato : $("#dato").val(),
+        Avgang : $("avgangValgt").val()
+    };
+
+    lagreBestilling(bestilling);
+    hentAlleBestillinger();
+    resetInput();
+});
+
+function resetInput() {
+    $("#FraFelt").val("");
+    $("#TilFelt").val("");
+    $("#dato").val("");
+    $("avgangValgt").val("");
+}
 
 //generelt inputvalidering metode
 function validerFelt() {
@@ -72,14 +93,6 @@ function validerFelt() {
 }
 
 
-     
-function formaterData(beestilling){
-        let ut ="<table class='table table-striped'><tr><th>Fra</th><th>Til</th><th>Dato</th>" +
-            "<th>Tid</th><th>Pris</th>";
-
-    ut += "<tr>";
-    ut += "<td>" + beestilling.fra + "</td><td>";
-}
 
 function visStasjonerAuto() {
     //skal bruke autocomplete plugin hvis lov
@@ -92,9 +105,6 @@ function velgAvganger(fra, til, dato) {
 }
 
 function formaterAvganger(avgangsliste) {
-    //formaterer i html så det kan velges
+    
 }
 
-function formaterBestillinger() {
-    //formater i html og vis i visalle div
-}

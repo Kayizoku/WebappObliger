@@ -1,9 +1,15 @@
-//velg FRA og TIL på DATO, returner liste med tilgjengelige AVGANGER, velg der så lagre bestilling
+ï»¿//variabler som brukes til Ã¥ regne ut pris
+var pris = 0;
+var antallStasjoner = 0;
+
+$(function () {
+    hentAlleBestillinger();
+});
 
 
 
 function lagreBestilling(bestilling) {
-    $.post("api/bestilling/lagre", bestilling, function (){
+    $.post("bestilling/lagre", bestilling, function () {
         alert("Bestillingen er lagret");
     });
 }
@@ -21,14 +27,14 @@ function formaterBestillinger(bestillinger) {
 
     for (const bestilling in bestillinger) {
         ut += "<tr><td>" + bestilling.Fra + "</td><td>" + bestilling.Til + "</td><td>" +
-                bestilling.Dato + "</td><td>" + bestilling.Avgang + "</td></tr>";
+            bestilling.Dato + "</td><td>" + bestilling.Avgang + "</td></tr>";
     }
 
     ut += "</table>";
-    $("#visAlleBestillinger").innerHTML= ut;
+    $("#visAlleBestillinger").innerHTML = ut;
 }
 
-$("#FraFelt").click(function (){
+$("#FraFelt").click(function () {
     visStasjonerAuto();
 });
 
@@ -37,18 +43,21 @@ $("#TilFelt").click(function () {
 });
 
 $("#lagreKnapp").click(function ( {
-    if (validerFelt() != 0) alert("Feil i bestillingskjema");
+    if (validerFelt() != 0) {
+    console.log("Feil i bestillingskjema");
+}
     
     const bestilling = {
-        Fra : $("#FraFelt").val(),
-        Til : $("#TilFelt").val(),
-        Dato : $("#dato").val(),
-        Avgang : $("avgangValgt").val()
-    };
+        Fra: $("#FraFelt").val(),
+        Til: $("#TilFelt").val(),
+        Dato: $("#dato").val(),
+        Avgang: $("avgangValgt").val(),
+        Pris: pris
+};
 
-    lagreBestilling(bestilling);
-    hentAlleBestillinger();
-    resetInput();
+lagreBestilling(bestilling);
+hentAlleBestillinger();
+resetInput();
 });
 
 function resetInput() {
@@ -56,6 +65,7 @@ function resetInput() {
     $("#TilFelt").val("");
     $("#dato").val("");
     $("avgangValgt").val("");
+
 }
 
 //generelt inputvalidering metode
@@ -67,7 +77,7 @@ function validerFelt() {
 
     if (fra === til) {
         feil++;
-        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner!");
+        $("#feilmelding").html("Du mÃ¥ velge ulike FRA- og TIL-stasjoner!");
         event.preventDefault();
     }
     else if (fra === "") {
@@ -87,12 +97,12 @@ function validerFelt() {
     }
     else if (dato.split("-")[2] !== "2020") {
         feil++;
-        $("#feilmelding").html("Vi kan kun tilby turer ut året foreløpig");
+        $("#feilmelding").html("Vi kan kun tilby turer ut Ã¥ret forelÃ¸pig");
     }
     return feil;
 }
 
-
+function prisKalk()
 
 function visStasjonerAuto() {
     //skal bruke autocomplete plugin hvis lov
@@ -105,6 +115,6 @@ function velgAvganger(fra, til, dato) {
 }
 
 function formaterAvganger(avgangsliste) {
-    
+
 }
 

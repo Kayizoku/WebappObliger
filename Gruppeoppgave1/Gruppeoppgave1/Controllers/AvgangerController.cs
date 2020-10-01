@@ -23,7 +23,7 @@ namespace Gruppeoppgave1.Controllers
             return await _db.HentAlle();
         }
 
-        public async Task<Avganger> HentEn(int id)
+        public async Task<Avgang> HentEn(int id)
         {
             return await _db.HentEn(id);
         }

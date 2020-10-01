@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
 {
@@ -21,7 +22,7 @@ namespace Gruppeoppgave1.DAL
             try
             {
                 var nyBestillingRad = new Bestillinger();
-                nyBestillingRad.pris = innBestilling.pris;
+                nyBestillingRad.Pris = innBestilling.pris;
                 nyBestillingRad.Fra = innBestilling.Fra;
                 nyBestillingRad.Til = innBestilling.Til;
                 nyBestillingRad.Dato = innBestilling.Dato;
@@ -44,7 +45,7 @@ namespace Gruppeoppgave1.DAL
                 List<Bestilling> alleBestillinger = await _db.Bestillinger.Select(b => new Bestilling
                 {
                     Id = b.Id,
-                    pris = b.pris,
+                    pris = b.Pris,
                     Fra = b.Fra,
                     Til = b.Til,
                     Dato = b.Dato,
@@ -80,7 +81,7 @@ namespace Gruppeoppgave1.DAL
             var hentetBestilling = new Bestilling()
             {
                 Id = enBestilling.Id,
-                pris = enBestilling.pris,
+                pris = enBestilling.Pris,
                 Fra = enBestilling.Fra,
                 Til = enBestilling.Til,
                 Dato = enBestilling.Dato,
@@ -93,8 +94,8 @@ namespace Gruppeoppgave1.DAL
         {
             try
             {
-                var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.id);
-                endreObjekt.pris = endreBestilling.pris;
+                var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.Id);
+                endreObjekt.Pris = endreBestilling.pris;
                 endreObjekt.Fra = endreBestilling.Fra;
                 endreObjekt.Til = endreBestilling.Til;
                 endreObjekt.Dato = endreBestilling.Dato;

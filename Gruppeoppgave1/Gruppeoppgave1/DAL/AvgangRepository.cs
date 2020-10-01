@@ -1,14 +1,16 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gruppeoppgave1.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
 {
     public class AvgangRepository : IAvgangerRepository
     {
-        private readonly AvgangContext _db;
+        private readonly BestillingContext _db;
 
-        public AvgangRepository(AvgangContext db)
+        public AvgangRepository(BestillingContext db)
         {
             _db = db;
         }

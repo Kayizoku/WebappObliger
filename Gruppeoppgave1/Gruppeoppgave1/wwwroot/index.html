@@ -3,87 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
     <title>Document</title>
-    <div class="nav-header">
-        <h1>Bestill Biletter</h1>
-    </div>
+    
 </head>
 
 <body>
-    <form>
-        <div class="main-container">
+    <div class="nav-header">
+        <h1>Bestill Biletter</h1>
+    </div>
+    <div class="main-container">
+        <form>
             <div class="form-group">
                 <div class="col-sm-6">
-                    <label for="ex1">Fra</label>
-                    <input class="form-control" id="fra" name="" placeholder="Hvor vil du reise fra?" type="text">
+                    <label for="Fra">Fra</label>
+                    <select class="form-control" id="Fra" name="" placeholder="Hvor vil du reise fra?">
+                        <option name="Oslo" id="Oslo">Oslo</option>
+                        <option name="Drammen" id="Drammen">Drammen</option>
+                        <option name="Horten" id="Horten">Horten</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-6">
-                    <label for="ex2">Til</label>
-                    <input class="form-control" id="til" name="" placeholder="Hvor vil du reise til?" type="text">
+                    <label for="Til">Til</label>
+                    <select class="form-control" id="Til" name="" placeholder="Hvor vil du reise til?">
+                        <option name="Oslo" id="Oslo">Oslo</option>
+                        <option name="Drammen" id="Drammen">Drammen</option>
+                        <option name="Horten" id="Horten">Horten</option>
+                    </select>
                 </div>
             </div>
-    </form>
 
-    <div class="form-group">
-        <div class="col-sm-6">
-            <label for="dato">Reise dato</label>
-            <input class="form-control text-box single-line" data-val="true" data-val-required="Dato må velges" id="Ticket_ValidFromDate" name="Ticket.ValidFromDate" type="date" value="">
-        </div>
-        </form>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="Ticket_ValidFromDate">Reise dato</label>
+                    <input class="form-control text-box single-line" data-val="true" data-val-required="Dato må velges" id="Ticket_ValidFromDate" name="Ticket.ValidFromDate" type="date" value="">
+                </div>
 
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label for="ex2">Fornavn</label>
-                <input class="form-control" id="fornavn" name="" type="text">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="fornavn">Fornavn</label>
+                        <input class="form-control" id="fornavn" name="" type="text">
+                    </div>
+                </div>
             </div>
-        </div>
-        </form>
 
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label for="ex2">Etternavn</label>
-                <input class="form-control" id="eternavn" name="" type="text">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="eternavn">Etternavn</label>
+                    <input class="form-control" id="eternavn" name="" type="text">
+                </div>
             </div>
-        </div>
-        </form>
 
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label for="ex2">Telefonnummer</label>
-                <input class="form-control" id="telefonnr" name="" type="text">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="telefonnr">Telefonnummer</label>
+                    <input class="form-control" id="telefonnr" name="" type="text">
+                </div>
             </div>
-        </div>
+
+            <br>
+
+
+            <button class="btn btn-primary" id="lagreKnapp" onclick="lagre()">Bestill</button>
+            <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
         </form>
 
-        <div class="col-sm-6">
-            <label for="ex2">Reisende</label>
-            <select class="form-control valid" data-val="true" data-val-required="Billettype må oppgis!" id="Ticket_PassengerType" name="Ticket.PassengerType" aria-describedby="Ticket_PassengerType-error" aria-invalid="false">
-                <option>Voksen</option>
-                <option>Honør</option>
-                <option>Student</option>
-                <option>Barn</option>
-            </select>
-        </div>
-        <br>
+    </div>
 
-
-        <button class="btn btn-primary">Bestill</button>
-        <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
-        </form>
+    <div class="footer">
+        <p>© 2020 Copyright: lorem</p>
     </div>
 </body>
-<div class="footer">
-    <p>© 2020 Copyright: lorem</p>
-</div>
-
 
 </html>

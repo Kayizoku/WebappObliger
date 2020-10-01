@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
@@ -17,7 +18,8 @@ namespace Gruppeoppgave1.DAL
             _db = db;
         }
 
-        public async Task<bool> Lagre(Bestilling innBestilling)
+
+        public async Task<bool> lagre(Bestilling innBestilling)
         {
             try
             {

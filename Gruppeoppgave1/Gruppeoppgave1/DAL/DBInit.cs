@@ -26,19 +26,17 @@ namespace Gruppeoppgave1.Model
                 var avgang1 = new Avganger {
                     Fra = stasjon1,
                     Til = stasjon2,
-                    Dato = "01.01.21",
-                    Tid = "07:00",
+                    Tid = "07:00"
                 };
                 var avgang2 = new Avganger
                 {
                     Fra = stasjon2,
                     Til = stasjon3,
-                    Dato = "02.01.21",
-                    Tid = "07:00",
+                    Tid = "08:00"
                 };
 
-                var bestilling1 = new Bestillinger { Avgang = avgang1, };
-                var bestilling2 = new Bestillinger { Avgang = avgang2, };
+                var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "01.01.2021" };
+                var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "02.01.2021" };
 
                 context.Stasjoner.Add(stasjon1);
                 context.Stasjoner.Add(stasjon2);

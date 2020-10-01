@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +26,11 @@ namespace Gruppeoppgave1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BestillingContext>(options =>
+                options.UseSqlite("Data source=Bestilling.db"));
+            services.AddScoped<IBestillingRepository, BestillingRepository>();
+            services.AddScoped<IAvgangerRepository, AvgangRepository>();
+            services.AddScoped<IStasjonRepository, StasjonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +39,6 @@ namespace Gruppeoppgave1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                DBInit.Initialize(app);
             }
 
             app.UseRouting();

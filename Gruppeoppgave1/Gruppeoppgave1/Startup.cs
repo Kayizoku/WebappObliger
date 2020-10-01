@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Gruppeoppgave1.DAL;
-using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +39,6 @@ namespace Gruppeoppgave1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                DBInit.Initialize(app); //fjernes?
             }
 
             app.UseRouting();

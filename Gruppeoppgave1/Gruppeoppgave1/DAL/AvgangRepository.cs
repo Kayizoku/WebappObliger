@@ -22,8 +22,9 @@ namespace Gruppeoppgave1.DAL
                 List<Avgang> alleAvganger = await _db.Avganger.Select(a => new Avgang
                 {
                     Id = a.Id,
-                    Fra = a.Fra.StasjonsNavn
-
+                    Fra = a.Fra.StasjonsNavn,
+                    Til = a.Til.StasjonsNavn,
+                    Tid = a.Tid
                 }).ToListAsync();
                 return alleAvganger;
             }
@@ -33,16 +34,17 @@ namespace Gruppeoppgave1.DAL
             }
         }
 
-        public async Task<Avganger> HentEn(int id)
+        public async Task<Avgang> HentEn(int id)
         {
             Avganger enAvgang = await _db.Avganger.FindAsync(id);
-            var hentetAvgang = new Avganger()
+            var hentetAvgang = new Avgang()
             {
                 Id = enAvgang.Id,
-
+                Fra = enAvgang.Fra.StasjonsNavn,
+                Til = enAvgang.Til.StasjonsNavn,
+                Tid = enAvgang.Tid
             };
             return hentetAvgang;
         }
-
     }
 }

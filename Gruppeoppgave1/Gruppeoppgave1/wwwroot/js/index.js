@@ -9,7 +9,7 @@ $(function () {
 
 
 function lagreBestilling(bestilling) {
-    $.post("bestilling/lagre", bestilling, function () {
+    $.post("Controllers/BestillingController/lagre", bestilling, function () {
         alert("Bestillingen er lagret");
     });
 }

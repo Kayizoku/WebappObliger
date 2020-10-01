@@ -8,6 +8,9 @@ namespace Gruppeoppgave1.Model
     public class Bestillinger 
     {
         public int Id { get; set; }
+        public string Fra { get; set; }
+        public string Til { get; set; }
+        public string Tid { get; set; }
         virtual public double Pris { get; set; }
         public string Dato { get; set; }
         virtual public Avganger Avgang { get; set; }
@@ -21,6 +24,7 @@ namespace Gruppeoppgave1.Model
         virtual public Stasjoner Fra { get; set; }
         virtual public Stasjoner Til { get; set; }
         public string Tid { get; set; }
+        
         virtual public List<Bestillinger> Bestillinger { get; set; }
 
     }
@@ -32,8 +36,6 @@ namespace Gruppeoppgave1.Model
         public int Id { get; set; }
         public string StasjonsNavn { get; set;  }
         public int NummerPaaStopp { get; set; } //vet ikke om dette skal med enda
-        virtual public List<Avganger> Avganger { get; set; }
-
     }
 
     public class BestillingContext : DbContext

@@ -18,7 +18,7 @@ namespace Gruppeoppgave1.Controllers
             _db = db;
         }
 
-        public async Task<List<Avganger>> HentAlle()
+        public async Task<List<Avgang>> HentAlle()
         {
             return await _db.HentAlle();
         }

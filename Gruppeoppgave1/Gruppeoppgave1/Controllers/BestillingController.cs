@@ -18,7 +18,7 @@ namespace Gruppeoppgave1.Controller
         }
 
         
-        public async Task<bool> lagre(Bestilling innBestilling)
+        public async Task<bool> Lagre(Bestilling innBestilling)
         {
             return await _db.lagre(innBestilling);
         }

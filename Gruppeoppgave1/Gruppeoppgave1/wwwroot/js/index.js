@@ -42,23 +42,24 @@ $("#TilFelt").click(function () {
     visStasjonerAuto();
 });
 
-$("#lagreKnapp").click(function ( {
+function lagre() {
     if (validerFelt() != 0) {
-    console.log("Feil i bestillingskjema");
-}
-    
+        console.log("Feil i bestillingskjema");
+        return;
+    }
+
     const bestilling = {
         Fra: $("#FraFelt").val(),
         Til: $("#TilFelt").val(),
         Dato: $("#dato").val(),
         Avgang: $("avgangValgt").val(),
         Pris: pris
-};
+    };
 
-lagreBestilling(bestilling);
-hentAlleBestillinger();
-resetInput();
-});
+    lagreBestilling(bestilling);
+    hentAlleBestillinger();
+    resetInput();
+}
 
 function resetInput() {
     $("#FraFelt").val("");

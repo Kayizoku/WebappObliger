@@ -104,6 +104,10 @@ function validerFelt() {
 }
 
 
+function prisKalk() {
+    var antallStopp
+}
+
 function visStasjonerAuto() {
     //skal bruke autocomplete plugin hvis lov
 }

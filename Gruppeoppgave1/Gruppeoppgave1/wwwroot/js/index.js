@@ -102,7 +102,6 @@ function validerFelt() {
     return feil;
 }
 
-function prisKalk()
 
 function visStasjonerAuto() {
     //skal bruke autocomplete plugin hvis lov

@@ -23,7 +23,7 @@ namespace Gruppeoppgave1.DAL
                 {
                     Id = s.Id,
                     NummerPaaStopp = s.NummerPaaStopp,
-                    Stasjonsnavn = s.StasjonsNavn,
+                    StasjonsNavn = s.StasjonsNavn,
 
                 }).ToListAsync();
                 return alleStasjoner;
@@ -41,7 +41,7 @@ namespace Gruppeoppgave1.DAL
                 {
                     Id = enStasjon.Id,
                     NummerPaaStopp = enStasjon.NummerPaaStopp,
-                    Stasjonsnavn = enStasjon.StasjonsNavn
+                    StasjonsNavn = enStasjon.StasjonsNavn
 
                 };
                 return hentetStasjon;

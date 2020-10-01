@@ -1,15 +1,16 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
 {
     public class StasjonRepository : IStasjonRepository
     {
-        private readonly StasjonContext _db;
+        private readonly BestillingContext _db;
 
-        public StasjonRepository(StasjonContext db)
+        public StasjonRepository(BestillingContext db)
         {
             _db = db;
         }
@@ -22,7 +23,7 @@ namespace Gruppeoppgave1.DAL
                 {
                     Id = s.Id,
                     NummerPaaStopp = s.NummerPaaStopp,
-                    Stasjonsnavn = s.Stasjonsnavn,
+                    Stasjonsnavn = s.StasjonsNavn,
 
                 }).ToListAsync();
                 return alleStasjoner;
@@ -40,7 +41,7 @@ namespace Gruppeoppgave1.DAL
                 {
                     Id = enStasjon.Id,
                     NummerPaaStopp = enStasjon.NummerPaaStopp,
-                    Stasjonsnavn = enStasjon.Stasjonsnavn
+                    Stasjonsnavn = enStasjon.StasjonsNavn
 
                 };
                 return hentetStasjon;

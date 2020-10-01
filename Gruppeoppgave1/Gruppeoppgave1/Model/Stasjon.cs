@@ -12,6 +12,5 @@ namespace Gruppeoppgave1.Model
         public int Id { get; set; }
         public int NummerPaaStopp { get; set; }
         public string Stasjonsnavn { get; set; }
-        public Ruter Rute;
     }
 } 

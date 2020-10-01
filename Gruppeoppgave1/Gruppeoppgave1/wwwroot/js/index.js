@@ -11,8 +11,8 @@ function lagreBestilling(bestilling) {
 
 //henter alle bestillinger i et array
 function hentAlleBestillinger() {
-    $.get("api/bestilling/hentAlle", function (data) {
-        formaterBestillinger();
+    $.get("bestilling/hentAlle", function (data) {
+        formaterBestillinger(data);
     });
 }
 
@@ -25,7 +25,7 @@ function formaterBestillinger(bestillinger) {
     }
 
     ut += "</table>";
-    $("#visAlleBestillinger").val(ut);
+    $("#visAlleBestillinger").innerHTML= ut;
 }
 
 $("#FraFelt").click(function (){

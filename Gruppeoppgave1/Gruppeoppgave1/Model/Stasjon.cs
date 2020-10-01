@@ -11,6 +11,6 @@ namespace Gruppeoppgave1.Model
         [Key]
         public int Id { get; set; }
         public int NummerPaaStopp { get; set; }
-        public string Stasjonsnavn { get; set; }
+        public string StasjonsNavn { get; set; }
     }
 } 

@@ -8,7 +8,7 @@ namespace Gruppeoppgave1.DAL
 {
     public interface IAvgangerRepository
     {
-        Task<List<Avganger>> HentAlle();
+        Task<List<Avgang>> HentAlle();
         Task<Avganger> HentEn(int id);
     }
 }

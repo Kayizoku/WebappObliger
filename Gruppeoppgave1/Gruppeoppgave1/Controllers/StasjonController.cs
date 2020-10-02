@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gruppeoppgave1.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("stasjoner/")]
     public class StasjonController : ControllerBase
     {
         private readonly IStasjonRepository _db;
@@ -18,6 +18,7 @@ namespace Gruppeoppgave1.Controllers
             _db = db;
         }
 
+        [Route("hentAlleStasjoner")]
         public async Task<List<Stasjon>> HentAlle()
         {
             return await _db.HentAlle();

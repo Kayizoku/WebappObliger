@@ -9,15 +9,15 @@ namespace Gruppeoppgave1.Model
 {
     public static class DBInit
     {
-        public static void Initialize(IApplicationBuilder app)
+        public static void Initialize(IServiceScope serviceScope)
         {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
                 var context = serviceScope.ServiceProvider.GetService<BestillingContext>();
 
                 // m? slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
+
+                Console.WriteLine("HELLO FROM DBINIT");
 
                 var stasjon1 = new Stasjoner { StasjonsNavn = "Oslo", NummerPaaStopp = int.Parse("1") };
                 var stasjon2 = new Stasjoner { StasjonsNavn = "Drammen", NummerPaaStopp = int.Parse("2") };
@@ -47,7 +47,7 @@ namespace Gruppeoppgave1.Model
                 context.Bestillinger.Add(bestilling2);
 
                 context.SaveChanges();
-            }
+      
         }
     }
 

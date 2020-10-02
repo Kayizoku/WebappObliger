@@ -73,13 +73,13 @@ function resetInput() {
 //generelt inputvalidering metode
 function validerFelt() {
     let feil = 0;
-    var fra = $("#FraFelt").val();
-    var til = $("#TilFelt").val();
+    var fra = $("#Fra").val();
+    var til = $("#Til").val();
     var dato = $("#dato").val();
 
     if (fra === til) {
         feil++;
-        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner!");
+        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner!" + fra + ", " + til);
         event.preventDefault();
     }
     else if (fra === "") {

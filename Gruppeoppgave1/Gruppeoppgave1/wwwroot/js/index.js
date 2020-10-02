@@ -35,15 +35,7 @@ function formaterBestillinger(bestillinger) {
     $("#visAlleBestillinger").html(ut);
 }
 
-/*
-$("#FraFelt").click(function () {
-    visStasjonerAuto();
-});
 
-$("#TilFelt").click(function () {
-    visStasjonerAuto();
-});
-*/
 
 function lagre() {
     if (validerFelt() != 0) {
@@ -161,3 +153,5 @@ function visDropDownTil(stasjoner) {
         tilFelt.appendChild(option);
     });
 }
+
+

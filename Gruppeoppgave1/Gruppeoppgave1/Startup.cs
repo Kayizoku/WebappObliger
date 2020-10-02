@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gruppeoppgave1.DAL;
+using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +53,16 @@ namespace Gruppeoppgave1
             {
                 endpoints.MapControllers();
             });
+
+            InitializeMigrations(app);
+        }
+
+        private static void InitializeMigrations(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                DBInit.Initialize(serviceScope);
+            }
         }
     }
 }

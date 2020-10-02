@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.Controller
 {
-    [Route("[controller]/[action]")]
+    [Route("controller/")]
     public class BestillingController : ControllerBase
     {
         private readonly IBestillingRepository _db;
@@ -23,7 +23,7 @@ namespace Gruppeoppgave1.Controller
             return await _db.lagre(innBestilling);
         }
 
-        
+        [Route("hentAllBestillinger")]
         public async Task<List<Bestilling>> HentAlle()
         {
             return await _db.HentAlle();

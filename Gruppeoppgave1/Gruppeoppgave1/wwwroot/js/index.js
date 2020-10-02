@@ -3,13 +3,15 @@ var pris = 0;
 var antallStasjoner = 0;
 
 $(function () {
+    setTimeout(1000);
     hentAlleBestillinger();
+    visStasjonerAuto();
 });
 
 
 
 function lagreBestilling(bestilling) {
-    $.post("bestilling/lagre", bestilling, function () {
+    $.post("Bestilling/lagre", bestilling, function () {
         alert("Bestillingen er lagret");
     });
 }
@@ -17,8 +19,9 @@ function lagreBestilling(bestilling) {
 
 //henter alle bestillinger i et array
 function hentAlleBestillinger() {
-    $.get("bestilling/hentAlle", function (data) {
-        formaterBestillinger(data);
+    $.get("controller/hentAllBestillinger", function (data) {
+        console.log(data);
+        //formaterBestillinger(data);
     });
 }
 
@@ -31,9 +34,10 @@ function formaterBestillinger(bestillinger) {
     }
 
     ut += "</table>";
-    $("#visAlleBestillinger").innerHTML = ut;
+    $("#visAlleBestillinger").html(ut);
 }
 
+/*
 $("#FraFelt").click(function () {
     visStasjonerAuto();
 });
@@ -41,6 +45,7 @@ $("#FraFelt").click(function () {
 $("#TilFelt").click(function () {
     visStasjonerAuto();
 });
+*/
 
 function lagre() {
     if (validerFelt() != 0) {
@@ -78,35 +83,43 @@ function validerFelt() {
 
     if (fra === til) {
         feil++;
-        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner!");
+        $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
         event.preventDefault();
     }
     else if (fra === "") {
         feil++;
-        $("#feilmelding").html("Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n");
+        $("#feilmelding").innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
         event.preventDefault();
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").html("Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n");
+        $("#feilmelding").innerHTML= "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").html("Dato er ikke valgt" + "\nVelg Dato\n");
+        $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
     else if (dato.split("-")[2] !== "2020") {
         feil++;
-        $("#feilmelding").html("Vi kan kun tilby turer ut året foreløpig");
+        $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
     }
     return feil;
 }
 
+/*
+function prisKalk() {
+    var
+}
+*/
 
 function visStasjonerAuto() {
-    //skal bruke autocomplete plugin hvis lov
+    $.get("Stasjon/HentAlle", function (data) {
+        visDropDown(data);
+    });
 }
+
 
 function velgAvganger(fra, til, dato) {
     $.get("api/bestilling/velgAvganger", fra, til, dato, function (data) {
@@ -116,5 +129,16 @@ function velgAvganger(fra, til, dato) {
 
 function formaterAvganger(avgangsliste) {
 
+}
+
+function visDropDown(stasjoner) {
+    var ut = "";
+
+    for (var i in stasjoner) {
+        ut += "<option value='" + stasjoner[i].StasjonsNavn + "'>" + stasjoner[i].NummerPaaStopp + "</option>";
+    }
+
+    $("#FraFelt").append(ut);
+    $("#TilFelt").append(ut);
 }
 

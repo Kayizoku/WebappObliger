@@ -45,3 +45,5 @@ hs_err_pid*
 **/.vs/
 Gruppeoppgave1/Gruppeoppgave1/obj/Debug/netcoreapp3.1/
 Gruppeoppgave1/Gruppeoppgave1/obj/
+/Gruppeoppgave1/Gruppeoppgave1/Bestilling.db-shm
+/Gruppeoppgave1/Gruppeoppgave1/Bestilling.db-wal

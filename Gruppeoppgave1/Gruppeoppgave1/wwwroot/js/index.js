@@ -3,7 +3,6 @@ var pris = 0;
 var antallStasjoner = 0;
 
 $(function () {
-    setTimeout(1000);
     hentAlleBestillinger();
     visStasjonerAuto();
 });

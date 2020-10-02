@@ -53,6 +53,16 @@ namespace Gruppeoppgave1
             {
                 endpoints.MapControllers();
             });
+
+            InitializeMigrations(app);
+        }
+
+        private static void InitializeMigrations(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                DBInit.Initialize(serviceScope);
+            }
         }
     }
 }

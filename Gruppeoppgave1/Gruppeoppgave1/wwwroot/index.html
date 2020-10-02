@@ -38,14 +38,23 @@
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Ticket_ValidFromDate">Reisedato</label>
-                    <input class="form-control text-box single-line"  id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                    <input class="form-control text-box single-line" id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="Tid">Til</label>
+                    <select class="form-control" id="TidFelt" name="" placeholder="Velg Tidspunkt">
+                        <option name="07:00" id="07:00">07:00</option>
+                        <option name="08:00" id="08:00">08:00</option>
+                    </select>
                 </div>
             </div>
 
 
             <br>
             <div id="feilmelding">
-                <p>Hei</p>
             </div>
 
             <button class="btn btn-primary" id="lagreKnapp" onclick="lagre();">Bestill</button>
@@ -53,6 +62,7 @@
         </form>
 
         <div id="feilmelding"></div>
+        <div id="visAlleBestillinger"></div>
 
     </div>
 

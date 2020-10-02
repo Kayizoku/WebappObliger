@@ -8,7 +8,7 @@ namespace Gruppeoppgave1.DAL
 {
     public interface IBestillingRepository
     {
-        Task<bool> lagre(Bestilling innBestilling);
+        Task<bool> Lagre(Bestilling innBestilling);
         Task<List<Bestilling>> HentAlle();
         Task<Bestilling> HentEn(int id);
     }

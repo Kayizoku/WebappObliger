@@ -1,6 +1,8 @@
 ﻿//variabler som brukes til å regne ut pris
 var pris = 0;
 var antallStasjoner = 0;
+var stasjonerListe = [];
+
 
 $(function () {
     hentAlleBestillinger();
@@ -35,6 +37,17 @@ function formaterBestillinger(bestillinger) {
     $("#visAlleBestillinger").html(ut);
 }
 
+function priscalc(fra, til) {
+
+    var nrFra;
+    var nrTil;
+
+    for (var i = 0; i < stasjonerListe.length; i++) {
+        if (fra == stasjonerListe[i].stasjonsNavn) {
+            nrFra = stasjonerListe[i].stasjonsNavn
+        }
+    }
+}
 
 
 function lagre() {
@@ -48,8 +61,28 @@ function lagre() {
         Til: $("#TilFelt").val(),
         Dato: $("#dato").val(),
         Avgang: $("avgangValgt").val(),
-        Pris: pris
+        Pris: 0
     };
+    var nrFra;
+    var nrTil;
+
+    for (var i = 0; i++; stasjonerListe.length) {
+        if (bestilling.Fra == stasjonerListe[i].stasjonsNavn) {
+            nrFra = stasjonerListe[i].nummerPaaStopp;
+        }
+        if (bestilling.Til == stasjonerListe[i].stasjonsNavn) {
+            nrTil = stasjonerListe[i].nummerPaaStopp;
+        } 
+    }
+    bestilling.Pris = Math.abs(nrFra - nrTil);
+    console.log(bestilling.Pris);
+
+
+    stasjonerListe.forEach(s => {
+        if (bestilling.Fra == s.stasjonsNavn) {
+            nr = 
+        }
+    })
 
     lagreBestilling(bestilling);
     hentAlleBestillinger();
@@ -108,6 +141,8 @@ function visStasjonerAuto() {
     $.get("stasjoner/hentAlleStasjoner", function (data) {
         visDropDownFra(data);
         visDropDownTil(data);
+
+      
     });
 }
 
@@ -122,25 +157,33 @@ function formaterAvganger(avgangsliste) {
 
 }
 
+
 function visDropDownFra(stasjoner) {
 
     const fraFelt = $("#FraFelt")[0];
-    
+
 
     stasjoner.forEach(stasjon => {
         console.log(stasjon.stasjonsNavn);
+
 
         const option = document.createElement("option");
         option.value = stasjon.stasjonsNavn;
         option.innerHTML = stasjon.stasjonsNavn;
 
         fraFelt.appendChild(option);
+  
         
     });
 }
 
 function visDropDownTil(stasjoner) {
     const tilFelt = $("#TilFelt")[0];
+
+    stasjoner.forEach(stasjon => {
+        stasjonerListe.push(stasjon);
+        console.log(stasjon);
+    })
 
     stasjoner.forEach(stasjon => {
         console.log(stasjon.stasjonsNavn);

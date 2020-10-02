@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gruppeoppgave1.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("avganger/")]
     public class AvgangerController : ControllerBase
     {
         private readonly IAvgangerRepository _db;
@@ -18,11 +18,13 @@ namespace Gruppeoppgave1.Controllers
             _db = db;
         }
 
+        [Route("hentAlleAvganger")]
         public async Task<List<Avgang>> HentAlle()
         {
             return await _db.HentAlle();
         }
 
+        [Route("hentEnAvgang")]
         public async Task<Avgang> HentEn(int id)
         {
             return await _db.HentEn(id);

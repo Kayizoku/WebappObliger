@@ -26,12 +26,13 @@ function hentAlleBestillinger() {
 }
 
 function formaterBestillinger(bestillinger) {
-    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato><th>Avgang</th></tr>";
+    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
 
-    for (const bestilling in bestillinger) {
-        ut += "<tr><td>" + bestilling.Fra + "</td><td>" + bestilling.Til + "</td><td>" +
-            bestilling.Dato + "</td><td>" + bestilling.Avgang + "</td></tr>";
-    }
+    bestillinger.forEach(bestilling => {
+        ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +
+            bestilling.dato + "</td><td>" + bestilling.tid + "</td><td>" + bestilling.pris + "</td></tr>";
+
+    });
 
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
@@ -77,12 +78,6 @@ function lagre() {
     bestilling.Pris = Math.abs(nrFra - nrTil);
     console.log(bestilling.Pris);
 
-
-    stasjonerListe.forEach(s => {
-        if (bestilling.Fra == s.stasjonsNavn) {
-            nr = 
-        }
-    })
 
     lagreBestilling(bestilling);
     hentAlleBestillinger();

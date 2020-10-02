@@ -10,7 +10,7 @@ $(function () {
 
 
 function lagreBestilling(bestilling) {
-    $.post("Bestilling/lagre", bestilling, function () {
+    $.post("bestillinger/lagreBestilling", bestilling, function () {
         alert("Bestillingen er lagret");
     });
 }
@@ -18,9 +18,8 @@ function lagreBestilling(bestilling) {
 
 //henter alle bestillinger i et array
 function hentAlleBestillinger() {
-    $.get("controller/hentAllBestillinger", function (data) {
-        console.log(data);
-        //formaterBestillinger(data);
+    $.get("bestillinger/hentAlleBestillinger", function (data) {
+        formaterBestillinger(data);
     });
 }
 
@@ -114,14 +113,15 @@ function prisKalk() {
 */
 
 function visStasjonerAuto() {
-    $.get("Stasjon/HentAlle", function (data) {
-        visDropDown(data);
+    $.get("stasjoner/hentAlleStasjoner", function (data) {
+        visDropDownFra(data);
+        visDropDownTil(data);
     });
 }
 
 
 function velgAvganger(fra, til, dato) {
-    $.get("api/bestilling/velgAvganger", fra, til, dato, function (data) {
+    $.get("avganger/hentAlleAvganger", fra, til, dato, function (data) {
         formaterAvganger(data);
     });
 }
@@ -130,14 +130,34 @@ function formaterAvganger(avgangsliste) {
 
 }
 
-function visDropDown(stasjoner) {
-    var ut = "";
+function visDropDownFra(stasjoner) {
 
-    for (var i in stasjoner) {
-        ut += "<option value='" + stasjoner[i].StasjonsNavn + "'>" + stasjoner[i].NummerPaaStopp + "</option>";
-    }
+    const fraFelt = $("#FraFelt")[0];
+    
 
-    $("#FraFelt").append(ut);
-    $("#TilFelt").append(ut);
+    stasjoner.forEach(stasjon => {
+        console.log(stasjon.stasjonsNavn);
+
+        const option = document.createElement("option");
+        option.value = stasjon.stasjonsNavn;
+        option.innerHTML = stasjon.stasjonsNavn;
+
+        fraFelt.appendChild(option);
+        
+    });
 }
 
+function visDropDownTil(stasjoner) {
+    const tilFelt = $("#TilFelt")[0];
+
+    stasjoner.forEach(stasjon => {
+        console.log(stasjon.stasjonsNavn);
+
+        const option = document.createElement("option");
+        option.value = stasjon.stasjonsNavn;
+        option.innerHTML = stasjon.stasjonsNavn;
+
+        
+        tilFelt.appendChild(option);
+    });
+}

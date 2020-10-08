@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,43 +12,60 @@ namespace Gruppeoppgave1.Model
     {
         public static void Initialize(IServiceScope serviceScope)
         {
-                var context = serviceScope.ServiceProvider.GetService<BestillingContext>();
+            var context = serviceScope.ServiceProvider.GetService<BestillingContext>();
 
-                // m? slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+            // m? slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
-                Console.WriteLine("HELLO FROM DBINIT");
+            Console.WriteLine("HELLO FROM DBINIT");
 
-                var stasjon1 = new Stasjoner { StasjonsNavn = "Oslo", NummerPaaStopp = int.Parse("1") };
-                var stasjon2 = new Stasjoner { StasjonsNavn = "Drammen", NummerPaaStopp = int.Parse("2") };
-                var stasjon3 = new Stasjoner { StasjonsNavn = "Horten", NummerPaaStopp = int.Parse("3") };
 
-                var avgang1 = new Avganger {
-                    Fra = stasjon1,
-                    Til = stasjon2,
-                    Tid = "07:00"
-                };
-                var avgang2 = new Avganger
-                {
-                    Fra = stasjon2,
-                    Til = stasjon3,
-                    Tid = "08:00"
-                };
+            var stasjonerList = new ArrayList
+            {
+                new Stasjoner { StasjonsNavn = "Oslo", NummerPaaStopp = int.Parse("1") },
+                new Stasjoner { StasjonsNavn = "Sandvika", NummerPaaStopp = int.Parse("2") },
+                new Stasjoner { StasjonsNavn = "Asker", NummerPaaStopp = int.Parse("3") },
+                new Stasjoner { StasjonsNavn = "Drammen", NummerPaaStopp = int.Parse("4") },
+                new Stasjoner { StasjonsNavn = "Skoger", NummerPaaStopp = int.Parse("5") },
+                new Stasjoner { StasjonsNavn = "Sande", NummerPaaStopp = int.Parse("6") },
+                new Stasjoner { StasjonsNavn = "Holmestrand", NummerPaaStopp = int.Parse("7") },
+                new Stasjoner { StasjonsNavn = "Kopstadkrysset", NummerPaaStopp = int.Parse("8") },
+                new Stasjoner { StasjonsNavn = "Horten", NummerPaaStopp = int.Parse("9") }
+            };
 
-                var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "01.01.2021" };
-                var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "02.01.2021" };
+            var avgang1 = new Avganger
+            {
+                Fra = (Stasjoner)stasjonerList[0],
+                Til = (Stasjoner)stasjonerList[1],
+                Tid = "07:00"
+            };
+            var avgang2 = new Avganger
+            {
+                Fra = (Stasjoner)stasjonerList[3],
+                Til = (Stasjoner)stasjonerList[4],
+                Tid = "08:00"
+            };
 
-                context.Stasjoner.Add(stasjon1);
-                context.Stasjoner.Add(stasjon2);
-                context.Stasjoner.Add(stasjon3);
-                context.Avganger.Add(avgang1);
-                context.Avganger.Add(avgang2);
-                context.Bestillinger.Add(bestilling1);
-                context.Bestillinger.Add(bestilling2);
+            var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "01.01.2021" };
+            var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "02.01.2021" };
 
-                context.SaveChanges();
-      
+            foreach (Stasjoner s in stasjonerList)
+            {
+                context.Stasjoner.Add(s);
+            }
+            /*
+            context.Stasjoner.Add(stasjon1);
+            context.Stasjoner.Add(stasjon2);
+            context.Stasjoner.Add(stasjon3);
+            */
+            context.Avganger.Add(avgang1);
+            context.Avganger.Add(avgang2);
+            context.Bestillinger.Add(bestilling1);
+            context.Bestillinger.Add(bestilling2);
+
+            context.SaveChanges();
+
         }
     }
 

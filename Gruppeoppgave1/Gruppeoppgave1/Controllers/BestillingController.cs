@@ -20,7 +20,7 @@ namespace Gruppeoppgave1.Controller
         [Route("lagreBestilling")]
         public async Task<bool> Lagre(Bestilling innBestilling)
         {
-            return await _db.lagre(innBestilling);
+            return await _db.Lagre(innBestilling);
         }
 
         [Route("hentAlleBestillinger")]

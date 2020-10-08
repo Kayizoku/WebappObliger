@@ -1,8 +1,8 @@
 ﻿//variabler som brukes til å regne ut pris
 var pris = 0;
 var antallStasjoner = 0;
-var stasjonerListe = [];
-
+var fraStasjon;
+var tilStasjon;
 
 $(function () {
     hentAlleBestillinger();
@@ -26,67 +26,74 @@ function hentAlleBestillinger() {
 }
 
 function formaterBestillinger(bestillinger) {
-    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato><th>Avgang</th></tr>";
+    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
 
-    for (const bestilling in bestillinger) {
-        ut += "<tr><td>" + bestilling.Fra + "</td><td>" + bestilling.Til + "</td><td>" +
-            bestilling.Dato + "</td><td>" + bestilling.Avgang + "</td></tr>";
-    }
+    bestillinger.forEach(bestilling => {
+        ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +
+            bestilling.dato + "</td><td>" + bestilling.tid + "</td><td>" + bestilling.pris + "</td></tr>";
+
+    });
 
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
 }
 
-function priscalc(fra, til) {
+function prisKalk(frastasjon, tilstasjon) {
 
-    var nrFra;
-    var nrTil;
+    var prisLokal = 0;
 
-    for (var i = 0; i < stasjonerListe.length; i++) {
-        if (fra == stasjonerListe[i].stasjonsNavn) {
-            nrFra = stasjonerListe[i].stasjonsNavn
-        }
+    if (frastasjon === "Oslo") {
+        fraStasjon = 1;
     }
+
+    else if (frastasjon === "Drammen") {
+        fraStasjon = 2;
+    }
+
+    else if (frastasjon === "Horten") {
+        fraStasjon = 3;
+    }
+
+    if (tilstasjon === "Oslo") {
+        tilStasjon = 1;
+    }
+
+    else if (tilstasjon === "Drammen") {
+        tilStasjon = 2;
+    }
+
+    else if (tilstasjon === "Horten") {
+        tilStasjon = 3;
+    }
+
+    prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
+
+    return prisLokal;
+
 }
 
 
 function lagre() {
     if (validerFelt() != 0) {
-        console.log("Feil i bestillingskjema");
+        alert("Feil i bestillingskjema");
         return;
     }
+
+    pris = prisKalk($("#FraFelt").val(), $("#TilFelt").val());
+
 
     const bestilling = {
         Fra: $("#FraFelt").val(),
         Til: $("#TilFelt").val(),
         Dato: $("#dato").val(),
-        Avgang: $("avgangValgt").val(),
-        Pris: 0
+        Pris: pris,
+        Tid: $("#TidFelt").val()
     };
-    var nrFra;
-    var nrTil;
-
-    for (var i = 0; i++; stasjonerListe.length) {
-        if (bestilling.Fra == stasjonerListe[i].stasjonsNavn) {
-            nrFra = stasjonerListe[i].nummerPaaStopp;
-        }
-        if (bestilling.Til == stasjonerListe[i].stasjonsNavn) {
-            nrTil = stasjonerListe[i].nummerPaaStopp;
-        } 
-    }
-    bestilling.Pris = Math.abs(nrFra - nrTil);
-    console.log(bestilling.Pris);
-
-
-    stasjonerListe.forEach(s => {
-        if (bestilling.Fra == s.stasjonsNavn) {
-            nr = 
-        }
-    })
 
     lagreBestilling(bestilling);
     hentAlleBestillinger();
     resetInput();
+    location.reload();
 }
 
 function resetInput() {
@@ -104,6 +111,9 @@ function validerFelt() {
     var til = $("#TilFelt").val();
     var dato = $("#dato").val();
 
+
+
+
     if (fra === til) {
         feil++;
         $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
@@ -116,7 +126,7 @@ function validerFelt() {
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").innerHTML= "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
         event.preventDefault();
     }
     else if (dato === "") {
@@ -124,25 +134,17 @@ function validerFelt() {
         $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
-    else if (dato.split("-")[2] !== "2020") {
+    else if (dato.split(".")[2] !== "2020") {
         feil++;
         $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
     }
     return feil;
 }
 
-/*
-function prisKalk() {
-    var
-}
-*/
-
 function visStasjonerAuto() {
     $.get("stasjoner/hentAlleStasjoner", function (data) {
         visDropDownFra(data);
         visDropDownTil(data);
-
-      
     });
 }
 
@@ -157,44 +159,37 @@ function formaterAvganger(avgangsliste) {
 
 }
 
-
 function visDropDownFra(stasjoner) {
 
-    const fraFelt = $("#FraFelt")[0];
+    //Henter ut hvert stasjonsnavn fra databasen
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
+    })
 
+    const fraFelt = $("#FraFelt");
+    fraFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 
-    stasjoner.forEach(stasjon => {
-        console.log(stasjon.stasjonsNavn);
-
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-        fraFelt.appendChild(option);
-  
-        
-    });
 }
 
 function visDropDownTil(stasjoner) {
-    const tilFelt = $("#TilFelt")[0];
-
-    stasjoner.forEach(stasjon => {
-        stasjonerListe.push(stasjon);
-        console.log(stasjon);
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
     })
 
-    stasjoner.forEach(stasjon => {
-        console.log(stasjon.stasjonsNavn);
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-        
-        tilFelt.appendChild(option);
-    });
+    const tilFelt = $("#TilFelt");
+    tilFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 }
 
 

@@ -32,6 +32,7 @@ Obj/
 *.zip
 *.tar.gz
 *.rar
+*.db
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -45,3 +46,5 @@ hs_err_pid*
 **/.vs/
 Gruppeoppgave1/Gruppeoppgave1/obj/Debug/netcoreapp3.1/
 Gruppeoppgave1/Gruppeoppgave1/obj/
+
+

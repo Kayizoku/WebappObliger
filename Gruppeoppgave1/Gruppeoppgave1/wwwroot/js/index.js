@@ -134,10 +134,10 @@ function validerFelt() {
         $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
-    else if (dato.split(".")[2] !== "2020") {
+    /*else if (dato.split(".")[2] !== "2020") {
         feil++;
         $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
-    }
+    }*/
     return feil;
 }
 

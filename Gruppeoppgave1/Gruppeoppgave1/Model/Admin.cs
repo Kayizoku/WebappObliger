@@ -7,8 +7,8 @@ namespace Gruppeoppgave1.Model
 {
     public class Admin
     {
-        public string username { get; set; }
-        public string passord { get; set; }
+        public string Brukernavn { get; set; }
+        public string Passord { get; set; }
 
     }
 }

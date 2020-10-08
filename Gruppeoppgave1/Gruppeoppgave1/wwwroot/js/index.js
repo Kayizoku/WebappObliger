@@ -74,26 +74,31 @@ function validerFelt() {
     if (fra === til) {
         feil++;
         $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
+        console.log("Du må velge ulike FRA- og TIL-stasjoner!" + fra + "," + til);
         event.preventDefault();
     }
     else if (fra === "") {
         feil++;
         $("#feilmelding").innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
+        console.log("Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n");
         event.preventDefault();
     }
     else if (til === "") {
         feil++;
         $("#feilmelding").innerHTML= "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        console.log("Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n");
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
         $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        console.log("Dato er ikke valgt \nVelg Dato\n");
         event.preventDefault();
     }
     else if (dato.split("-")[2] !== "2020") {
         feil++;
         $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+        console.log("Vi kan kun tilby turer ut året foreløpig");
     }
     return feil;
 }

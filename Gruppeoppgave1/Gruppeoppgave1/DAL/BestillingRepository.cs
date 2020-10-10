@@ -78,17 +78,24 @@ namespace Gruppeoppgave1.DAL
 
         public async Task<Bestilling> HentEn(int id)
         {
-                Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
-            var hentetBestilling = new Bestilling()
+            try
             {
-                Id = enBestilling.Id,
-                pris = enBestilling.Pris,
-                Fra = enBestilling.Fra,
-                Til = enBestilling.Til,
-                Dato = enBestilling.Dato,
-                Tid = enBestilling.Tid
-            };
-            return hentetBestilling;
+                Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
+                var hentetBestilling = new Bestilling()
+                {
+                    Id = enBestilling.Id,
+                    pris = enBestilling.Pris,
+                    Fra = enBestilling.Fra,
+                    Til = enBestilling.Til,
+                    Dato = enBestilling.Dato,
+                    Tid = enBestilling.Tid
+                };
+                return hentetBestilling;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<bool> Endre(Bestilling endreBestilling)

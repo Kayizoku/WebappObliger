@@ -34,5 +34,17 @@ namespace Gruppeoppgave1.Controller
         {
             return await _db.HentEn(id);
         }
+
+        [Route("slettEnBestilling")]
+        public async Task<bool> Slett(int id)
+        {
+            return await _db.Slett(id);
+        }
+
+        [Route("endreEnBestilling")]
+        public async Task<bool> Endre(Bestilling innBestilling)
+        {
+            return await _db.Endre(innBestilling);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Gruppeoppgave1.DAL
         Task<bool> Lagre(Bestilling innBestilling);
         Task<List<Bestilling>> HentAlle();
         Task<Bestilling> HentEn(int id);
+        Task<bool> Slett(int id);
+        Task<bool> Endre(Bestilling innBestilling);
     }
 }

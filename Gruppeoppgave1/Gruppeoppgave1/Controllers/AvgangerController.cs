@@ -18,6 +18,12 @@ namespace Gruppeoppgave1.Controllers
             _db = db;
         }
 
+        [Route("leggTilAvgang")]
+        public async Task<bool> LeggTil(Avgang avgang)
+        {
+            return await _db.LeggTil(avgang);
+        }
+
         [Route("hentAlleAvganger")]
         public async Task<List<Avgang>> HentAlle()
         {
@@ -28,6 +34,18 @@ namespace Gruppeoppgave1.Controllers
         public async Task<Avgang> HentEn(int id)
         {
             return await _db.HentEn(id);
+        }
+
+        [Route("endreAvgang")]
+        public async Task<bool> Endre(Avgang avgang)
+        {
+            return await _db.Endre(avgang);
+        }
+
+        [Route("slettAvgang")]
+        public async Task<bool> Slett(int id)
+        {
+            return await _db.Slett(id);
         }
     }
 }

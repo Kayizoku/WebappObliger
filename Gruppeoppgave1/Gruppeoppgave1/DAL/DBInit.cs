@@ -14,14 +14,14 @@ namespace Gruppeoppgave1.Model
         {
             var context = serviceScope.ServiceProvider.GetService<BestillingContext>();
 
-            // m? slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
+            // må slette og opprette databasen hver gang n?r den skalinitieres (seed`es)
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            Console.WriteLine("HELLO FROM DBINIT");
 
 
-            var stasjonerList = new ArrayList
+
+            var stasjonerList = new List<Stasjoner>
             {
                 new Stasjoner { StasjonsNavn = "Oslo", NummerPaaStopp = int.Parse("1") },
                 new Stasjoner { StasjonsNavn = "Sandvika", NummerPaaStopp = int.Parse("2") },
@@ -36,14 +36,14 @@ namespace Gruppeoppgave1.Model
 
             var avgang1 = new Avganger
             {
-                Fra = (Stasjoner)stasjonerList[0],
-                Til = (Stasjoner)stasjonerList[1],
+                Fra = stasjonerList[0].StasjonsNavn,
+                Til = stasjonerList[1].StasjonsNavn,
                 Tid = "07:00"
             };
             var avgang2 = new Avganger
             {
-                Fra = (Stasjoner)stasjonerList[3],
-                Til = (Stasjoner)stasjonerList[4],
+                Fra = stasjonerList[3].StasjonsNavn,
+                Til = stasjonerList[4].StasjonsNavn,
                 Tid = "08:00"
             };
 

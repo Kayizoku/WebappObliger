@@ -17,25 +17,19 @@ namespace Gruppeoppgave1.Model
 
     public class Avganger
     {
-        /*
-        [Key]
-        [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(DatabaseGeneratedOption.None)]
-        */
+        
         public int Id { get; set; }
-        virtual public Stasjoner Fra { get; set; }
-        virtual public Stasjoner Til { get; set; }
+        virtual public string Fra { get; set; }
+        virtual public string Til { get; set; }
         public string Tid { get; set; }
     }
 
     public class Stasjoner
     {
-        /*
-        [Key]
-        [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(DatabaseGeneratedOption.None)]
-        */
+        
         public int Id { get; set; }
         public string StasjonsNavn { get; set;  }
-        public int NummerPaaStopp { get; set; } //vet ikke om dette skal med enda
+        public int NummerPaaStopp { get; set; } 
     }
 
     public class BestillingContext : DbContext

@@ -8,7 +8,10 @@ namespace Gruppeoppgave1.DAL
 {
     public interface IAvgangerRepository
     {
+        Task<bool> LeggTil(Avgang avgang);
         Task<List<Avgang>> HentAlle();
         Task<Avgang> HentEn(int id);
+        Task<bool> Endre(Avgang avgang);
+        Task<bool> Slett(int id);
     }
 }

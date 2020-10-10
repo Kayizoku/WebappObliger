@@ -68,12 +68,12 @@ namespace Gruppeoppgave1.DAL
                 Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
                 _db.Bestillinger.Remove(enDBBestilling);
                 await _db.SaveChangesAsync();
-                return true;
             }
             catch
             {
                 return false;
             }
+            return true;
         }
 
         public async Task<Bestilling> HentEn(int id)

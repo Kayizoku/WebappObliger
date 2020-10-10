@@ -28,16 +28,11 @@ namespace XUnitTestProject1
             var mock = new Mock<IBestillingRepository>();
             mock.Setup(k => k.Lagre(innBestilling)).ReturnsAsync(true);
             var bestillingController = new BestillingController(mock.Object);
-
-
             //Act
-
             bool resultat = await bestillingController.Lagre(innBestilling);
 
             //Assert
-
             Assert.True(resultat);
-
         }
 
         [Fact]

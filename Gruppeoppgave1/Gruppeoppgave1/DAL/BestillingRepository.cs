@@ -36,7 +36,6 @@ namespace Gruppeoppgave1.DAL
             catch
             {
                 return false;
-                throw new NotImplementedException();
             }
         }
 
@@ -53,19 +52,12 @@ namespace Gruppeoppgave1.DAL
                     Dato = b.Dato,
                     Tid = b.Tid
                 }).ToListAsync();
-                Console.WriteLine("REPOSITORY LIST: ");
-                Console.WriteLine(alleBestillinger.Count);
-                alleBestillinger.ForEach(bestilling =>
-                {
-                    Console.WriteLine(bestilling);
-                });
+                
                 return alleBestillinger;
-
             }
             catch
             {
                 return null;
-                throw new NotImplementedException();
             }  
         }
 
@@ -114,7 +106,6 @@ namespace Gruppeoppgave1.DAL
             catch
             {
                 return false;
-                throw new NotImplementedException();
             }
             return true;
             

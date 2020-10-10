@@ -2,6 +2,7 @@ using Gruppeoppgave1.Controller;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -87,12 +88,32 @@ namespace XUnitTestProject1
             Assert.Equal<List<Bestilling>>(bestillingListe, resultat);
         }
 
-        public async Task hentEnBestilling()
+        [Fact]
+        public async Task HentEnBestillingOK()
         {
             var bestilling1 = new Bestilling
             {
-
+                Id = 4,
+                pris = 200.00,
+                Fra = "Nordstrand",
+                Til = "Bergen",
+                Dato = "2020-11-01",
+                Tid = "15:00"
             };
+
+            var mock = new Mock<IBestillingRepository>();
+            mock.Setup(k => k.HentEn(1)).ReturnsAsync(bestilling1);
+
+            var bestillingController = new BestillingController(mock.Object);
+            var resultat = await bestillingController.HentEn(1);
+
+            Assert.Equal<Bestilling>(bestilling1, resultat);
+        }
+
+        public async Task HentEnBestillingIkkeOK()
+        {
+            var mock = new Mock<IBestillingRepository>();
+
         }
     }
 }

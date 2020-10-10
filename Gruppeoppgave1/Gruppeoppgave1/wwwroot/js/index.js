@@ -161,33 +161,35 @@ function formaterAvganger(avgangsliste) {
 
 function visDropDownFra(stasjoner) {
 
-    const fraFelt = $("#FraFelt")[0];
+    //Henter ut hvert stasjonsnavn fra databasen
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
+    })
 
+    const fraFelt = $("#FraFelt");
+    fraFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 
-    stasjoner.forEach(stasjon => {
-
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-        fraFelt.appendChild(option);
-
-    });
 }
 
 function visDropDownTil(stasjoner) {
-    const tilFelt = $("#TilFelt")[0];
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
+    })
 
-    stasjoner.forEach(stasjon => {
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-
-        tilFelt.appendChild(option);
-    });
+    const tilFelt = $("#TilFelt");
+    tilFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 }
 
 

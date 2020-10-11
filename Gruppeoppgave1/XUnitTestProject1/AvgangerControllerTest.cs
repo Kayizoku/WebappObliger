@@ -12,6 +12,8 @@ namespace XUnitTestProject1
 {
     public class AvgangerControllerTest
     {
+        private readonly Mock<IAvgangerRepository> mockRep = new Mock<IAvgangerRepository>();
+
         [Fact]
         public async Task LeggTilAvgangTrue()
         {
@@ -23,10 +25,10 @@ namespace XUnitTestProject1
                 Tid = "11:00"
             };
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.LeggTil(avgang)).ReturnsAsync(true);
+            
+            mockRep.Setup(l => l.LeggTil(avgang)).ReturnsAsync(true);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.LeggTil(avgang);
 
             Assert.True(resultat);
@@ -43,10 +45,10 @@ namespace XUnitTestProject1
                 Tid = "11:00"
             };
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.LeggTil(avgang)).ReturnsAsync(false);
+            
+            mockRep.Setup(l => l.LeggTil(avgang)).ReturnsAsync(false);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.LeggTil(avgang);
 
             Assert.False(resultat);
@@ -63,10 +65,10 @@ namespace XUnitTestProject1
                 Tid = "11:00"
             };
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.Endre(avgang)).ReturnsAsync(true);
+            
+            mockRep.Setup(l => l.Endre(avgang)).ReturnsAsync(true);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Endre(avgang);
 
             Assert.True(resultat);
@@ -83,10 +85,10 @@ namespace XUnitTestProject1
                 Tid = "14:00"
             };
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.Endre(avgang)).ReturnsAsync(false);
+            
+            mockRep.Setup(l => l.Endre(avgang)).ReturnsAsync(false);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Endre(avgang);
 
             Assert.False(resultat);
@@ -95,10 +97,10 @@ namespace XUnitTestProject1
         [Fact]
         public async Task SlettTrue()
         {
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(k => k.Slett(1)).ReturnsAsync(true);
+            
+            mockRep.Setup(k => k.Slett(1)).ReturnsAsync(true);
 
-            var avgangcontroller = new AvgangerController(mock.Object);
+            var avgangcontroller = new AvgangerController(mockRep.Object);
             var resultat = await avgangcontroller.Slett(1);
 
             Assert.True(resultat);
@@ -107,10 +109,10 @@ namespace XUnitTestProject1
         [Fact]
         public async Task SlettFalse()
         {
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(k => k.Slett(1)).ReturnsAsync(false);
+            
+            mockRep.Setup(k => k.Slett(1)).ReturnsAsync(false);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Slett(1);
 
             Assert.False(resultat);
@@ -148,10 +150,9 @@ namespace XUnitTestProject1
             avgangsListe.Add(avgang2);
             avgangsListe.Add(avgang3);
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(avgangsListe);
+            mockRep.Setup(k => k.HentAlle()).ReturnsAsync(avgangsListe);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
 
             List<Avgang> resultat = await avgangController.HentAlle();
 
@@ -161,10 +162,9 @@ namespace XUnitTestProject1
         [Fact]
         public async Task HentAlleAvgangerNull()
         {
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(() => null);
+            mockRep.Setup(k => k.HentAlle()).ReturnsAsync(() => null);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
 
             List<Avgang> resultat = await avgangController.HentAlle();
 
@@ -176,10 +176,9 @@ namespace XUnitTestProject1
         {
             var avgangsListe = new List<Avgang>();
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(avgangsListe);
+            mockRep.Setup(k => k.HentAlle()).ReturnsAsync(avgangsListe);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
 
             List<Avgang> resultat = await avgangController.HentAlle();
 
@@ -197,10 +196,9 @@ namespace XUnitTestProject1
                 Tid = "11:00"
             };
 
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.HentEn(1)).ReturnsAsync(avgang);
+            mockRep.Setup(l => l.HentEn(1)).ReturnsAsync(avgang);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.HentEn(1);
 
             Assert.Equal(avgang, resultat);
@@ -209,10 +207,10 @@ namespace XUnitTestProject1
         [Fact]
         public async Task HentEnAvgangNull()
         {
-            var mock = new Mock<IAvgangerRepository>();
-            mock.Setup(l => l.HentEn(1)).ReturnsAsync(()=>null);
+            
+            mockRep.Setup(l => l.HentEn(1)).ReturnsAsync(()=>null);
 
-            var avgangController = new AvgangerController(mock.Object);
+            var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.HentEn(5);
 
             Assert.Null(resultat);

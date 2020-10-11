@@ -3,11 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Model
 {
+    [ExcludeFromCodeCoverage]
     public static class DBInit
     {
         public static void Initialize(IServiceScope serviceScope)

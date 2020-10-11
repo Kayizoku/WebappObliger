@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;

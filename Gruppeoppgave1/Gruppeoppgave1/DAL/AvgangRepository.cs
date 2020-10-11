@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Gruppeoppgave1.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class AvgangRepository : IAvgangerRepository
     {
         private readonly BestillingContext _db;
@@ -69,9 +71,9 @@ namespace Gruppeoppgave1.DAL
 
         public async Task<bool> Endre(Avgang avgang)
         {
-            Avganger enAvgang = await _db.Avganger.FindAsync(avgang.Id);
             try
             {
+                Avganger enAvgang = await _db.Avganger.FindAsync(avgang.Id);
                 enAvgang.Fra = avgang.Fra;
                 enAvgang.Til = avgang.Til;
                 enAvgang.Tid = avgang.Tid;

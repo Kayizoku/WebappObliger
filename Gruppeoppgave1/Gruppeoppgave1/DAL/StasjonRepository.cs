@@ -88,7 +88,6 @@ namespace Gruppeoppgave1.DAL
             }
             return true;
         }
-        
     }
     }
 

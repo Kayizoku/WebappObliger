@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gruppeoppgave1.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
@@ -19,7 +21,7 @@ namespace Gruppeoppgave1.DAL
         }
 
 
-        public async Task<bool> lagre(Bestilling innBestilling)
+        public async Task<bool> Lagre(Bestilling innBestilling)
         {
             try
             {
@@ -36,7 +38,6 @@ namespace Gruppeoppgave1.DAL
             catch
             {
                 return false;
-                throw new NotImplementedException();
             }
         }
 
@@ -53,19 +54,12 @@ namespace Gruppeoppgave1.DAL
                     Dato = b.Dato,
                     Tid = b.Tid
                 }).ToListAsync();
-                Console.WriteLine("REPOSITORY LIST: ");
-                Console.WriteLine(alleBestillinger.Count);
-                alleBestillinger.ForEach(bestilling =>
-                {
-                    Console.WriteLine(bestilling);
-                });
+                
                 return alleBestillinger;
-
             }
             catch
             {
                 return null;
-                throw new NotImplementedException();
             }  
         }
 
@@ -76,27 +70,34 @@ namespace Gruppeoppgave1.DAL
                 Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
                 _db.Bestillinger.Remove(enDBBestilling);
                 await _db.SaveChangesAsync();
-                return true;
             }
             catch
             {
                 return false;
             }
+            return true;
         }
 
         public async Task<Bestilling> HentEn(int id)
         {
-                Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
-            var hentetBestilling = new Bestilling()
+            try
             {
-                Id = enBestilling.Id,
-                pris = enBestilling.Pris,
-                Fra = enBestilling.Fra,
-                Til = enBestilling.Til,
-                Dato = enBestilling.Dato,
-                Tid = enBestilling.Tid
-            };
-            return hentetBestilling;
+                Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
+                var hentetBestilling = new Bestilling()
+                {
+                    Id = enBestilling.Id,
+                    pris = enBestilling.Pris,
+                    Fra = enBestilling.Fra,
+                    Til = enBestilling.Til,
+                    Dato = enBestilling.Dato,
+                    Tid = enBestilling.Tid
+                };
+                return hentetBestilling;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<bool> Endre(Bestilling endreBestilling)
@@ -114,7 +115,6 @@ namespace Gruppeoppgave1.DAL
             catch
             {
                 return false;
-                throw new NotImplementedException();
             }
             return true;
             

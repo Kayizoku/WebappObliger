@@ -8,8 +8,30 @@ var alleStasjoner = [];
 $(function () {
     //hentAlleBestillinger();
     visStasjonerAuto();
+    assignSubmitFunction();
 });
 
+
+function assignSubmitFunction() {
+    $("#bestill").on("submit", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "bestillinger/lagreBestilling",
+            data: lagre(),
+
+            success: function (data) {
+                document.location = "kvittering.html";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error, status = " + textStatus + ", " +
+                    "error thrown: " + errorThrown
+                );
+            }
+        });
+    });
+};
 
 
 function lagreBestilling(bestilling) {
@@ -132,9 +154,10 @@ function lagre() {
         Tid: $("#TidFelt").val()
     };
     console.log(bestilling)
-    lagreBestilling(bestilling);
+    //lagreBestilling(bestilling);
     //hentAlleBestillinger();
     resetInput();
+    return bestilling;
     //location.reload();
 }
 

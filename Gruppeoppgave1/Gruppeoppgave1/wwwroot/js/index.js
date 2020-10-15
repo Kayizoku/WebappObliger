@@ -12,6 +12,7 @@ $(function () {
 
 
 function lagreBestilling(bestilling) {
+    alert("pause");
     $.post("bestillinger/lagreBestilling", bestilling, function () {
         alert("Bestillingen er lagret");
     });
@@ -37,6 +38,7 @@ function formaterBestillinger(bestillinger) {
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
 }
+
 
 function prisKalk(frastasjon, tilstasjon) {
 

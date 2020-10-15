@@ -21,7 +21,7 @@
         <a href="kvittering.html"><h1 class="text-white">Bestill Billetter</h1></a>
     </nav>
     <div class="main-container">
-        <form>
+        <form id="bestill">
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Fra">Fra</label>
@@ -58,7 +58,7 @@
             <div id="feilmelding">
             </div>
 
-            <button class="btn btn-primary" id="lagreKnapp" onclick="lagre();">Bestill</button>
+            <input type="submit" class="btn btn-primary" id="lagreKnapp" value="Lagre">
             <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
         </form>
 

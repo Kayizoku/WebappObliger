@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Gruppeoppgave1.Controllers
 {
@@ -14,12 +13,9 @@ namespace Gruppeoppgave1.Controllers
     {
         private readonly IAvgangerRepository _db;
 
-        private ILogger<AvgangerController> _log;
-
-        public AvgangerController(IAvgangerRepository db, ILogger<AvgangerController> log)
+        public AvgangerController(IAvgangerRepository db)
         {
             _db = db;
-            _log = log;
         }
 
         [Route("hentAlleAvganger")]

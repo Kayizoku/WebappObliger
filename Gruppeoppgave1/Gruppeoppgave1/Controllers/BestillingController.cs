@@ -37,6 +37,7 @@ namespace Gruppeoppgave1.Controller
         [Route("hentAlleBestillinger")]
         public async Task<List<Bestilling>> HentAlle()
         {
+    
             return await _db.HentAlle();
         }
 

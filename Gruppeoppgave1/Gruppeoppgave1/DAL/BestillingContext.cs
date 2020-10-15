@@ -34,6 +34,22 @@ namespace Gruppeoppgave1.Model
         public int NummerPaaStopp { get; set; } 
     }
 
+    public class Ruter
+    {
+        public int Id { get; set; }
+        public string Navn { get; set; }
+        public List<Stasjon> StasjonerPaaRute { get; set; }
+    }
+
+    public class Bruker
+    {
+        public string BrukerNavn { get; set; }
+        public byte[] Passord { get; set; }
+        public byte[] Salt { get; set; }
+    }
+
+
+
     public class BestillingContext : DbContext
     {
         public BestillingContext(DbContextOptions<BestillingContext> options)
@@ -46,6 +62,8 @@ namespace Gruppeoppgave1.Model
         public DbSet<Bestillinger> Bestillinger { get; set; }
         public DbSet<Avganger> Avganger { get; set; }
         public DbSet<Stasjoner> Stasjoner { get; set; }
+        public DbSet<Bruker> Bruker { get; set; }
+        public DbSet<Ruter> Ruter { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

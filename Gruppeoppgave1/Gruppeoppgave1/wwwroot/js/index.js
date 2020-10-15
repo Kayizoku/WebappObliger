@@ -3,6 +3,7 @@ var pris = 0;
 var antallStasjoner = 0;
 var fraStasjon;
 var tilStasjon;
+var alleStasjoner = [];
 
 $(function () {
     hentAlleBestillinger();
@@ -12,6 +13,7 @@ $(function () {
 
 
 function lagreBestilling(bestilling) {
+    alert("Bestillingen er lagret");
     $.post("bestillinger/lagreBestilling", bestilling, function () {
         alert("Bestillingen er lagret");
     });
@@ -38,6 +40,8 @@ function formaterBestillinger(bestillinger) {
     $("#visAlleBestillinger").html(ut);
 }
 
+//Gammel statisk priskalk
+/*
 function prisKalk(frastasjon, tilstasjon) {
 
     var prisLokal = 0;
@@ -68,8 +72,26 @@ function prisKalk(frastasjon, tilstasjon) {
 
     prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
 
-    return prisLokal;
+    //return prisLokal;
+    //Venter på ny priskalk()
+    return 123;
+}
+*/
 
+function prisCalc(frastasjon, tilstasjon) {
+    var fraNr, tilNr;
+    
+    alleStasjoner.forEach(s => {
+        if (frastasjon == s.stasjonsNavn) {
+            fraNr = s.nummerPaaStopp;
+        }
+        if (tilstasjon == s.stasjonsNavn) {
+            tilNr = s.nummerPaaStopp;
+        }
+    })
+
+    var lokalpris = (Math.abs(fraNr - tilNr)) * 50;
+    return lokalpris;
 }
 
 
@@ -79,7 +101,7 @@ function lagre() {
         return;
     }
 
-    pris = prisKalk($("#FraFelt").val(), $("#TilFelt").val());
+    pris = prisCalc($("#FraFelt").val(), $("#TilFelt").val());
 
 
     const bestilling = {
@@ -89,11 +111,11 @@ function lagre() {
         Pris: pris,
         Tid: $("#TidFelt").val()
     };
-
+    console.log(bestilling)
     lagreBestilling(bestilling);
     hentAlleBestillinger();
     resetInput();
-    location.reload();
+    //location.reload();
 }
 
 function resetInput() {
@@ -134,10 +156,10 @@ function validerFelt() {
         $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
-    /*else if (dato.split(".")[2] !== "2020") {
+    else if (dato.split("-")[0] !== "2020") {
         feil++;
         $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
-    }*/
+    }
     return feil;
 }
 
@@ -165,6 +187,7 @@ function visDropDownFra(stasjoner) {
     stasjonerList = [];
     stasjoner.forEach(s => {
         stasjonerList.push(s.stasjonsNavn);
+        alleStasjoner.push(s);
     })
 
     const fraFelt = $("#FraFelt");

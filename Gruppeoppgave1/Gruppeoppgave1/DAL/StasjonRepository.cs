@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Gruppeoppgave1.DAL
 {
@@ -15,7 +16,7 @@ namespace Gruppeoppgave1.DAL
             _db = db;
         }
 
-        public async Task<List<Stasjon>> HentAlle()
+        public async Task<List<Stasjon>> HentAlleStasjoner()
         {
             try
             {
@@ -34,8 +35,10 @@ namespace Gruppeoppgave1.DAL
             }
         }
 
-        public async Task<Stasjon> HentEn(int id)
+        public async Task<Stasjon> HentEnStasjon(int id)
         { 
+            try
+            {
                 Stasjoner enStasjon = await _db.Stasjoner.FindAsync(id);
                 var hentetStasjon = new Stasjon()
                 {
@@ -45,7 +48,46 @@ namespace Gruppeoppgave1.DAL
 
                 };
                 return hentetStasjon;
+            } catch
+            {
+                return null;
             }
+                
         }
+
+        
+
+        public async Task<bool> EndreStasjon(Stasjon stasjon)
+        {
+            try
+            {
+                var gammelStasjon = await _db.Stasjoner.FindAsync(stasjon.Id);
+                gammelStasjon.NummerPaaStopp = stasjon.NummerPaaStopp;
+                gammelStasjon.StasjonsNavn = stasjon.StasjonsNavn;
+                await _db.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+        public async Task<bool> FjernStasjon(int id)
+        {
+            try
+            {
+                var fjernetStasjon = await _db.Stasjoner.FindAsync(id);
+                _db.Stasjoner.Remove(fjernetStasjon);
+                await _db.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+    }
     }
 

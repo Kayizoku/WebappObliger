@@ -38,20 +38,7 @@ function formaterBestillinger(bestillinger) {
     $("#visAlleBestillinger").html(ut);
 }
 
-
-
 function prisKalk(frastasjon, tilstasjon) {
-
-    var stasjoner = new Array();
-
-    $.get("stasjoner/hentAlleStasjoner", function (data) {
-        data.forEach(s => {
-            var stasjon = { stasjonsNavn: s.stasjonsNavn, stasjonsNummer: s.nummerPaaStopp };
-            stasjoner.push(stasjon);
-        })
-    });
-        console.log(stasjoner);
-    
 
     var prisLokal = 0;
 
@@ -106,7 +93,7 @@ function lagre() {
     lagreBestilling(bestilling);
     hentAlleBestillinger();
     resetInput();
-    location.reload(true);
+    location.reload();
 }
 
 function resetInput() {
@@ -147,10 +134,10 @@ function validerFelt() {
         $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
- /*   else if (dato.split(".")[2] !== "2020") {
+    /*else if (dato.split(".")[2] !== "2020") {
         feil++;
         $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
-    } */
+    }*/
     return feil;
 }
 
@@ -174,7 +161,8 @@ function formaterAvganger(avgangsliste) {
 
 function visDropDownFra(stasjoner) {
 
-stasjonerList = [];
+    //Henter ut hvert stasjonsnavn fra databasen
+    stasjonerList = [];
     stasjoner.forEach(s => {
         stasjonerList.push(s.stasjonsNavn);
     })

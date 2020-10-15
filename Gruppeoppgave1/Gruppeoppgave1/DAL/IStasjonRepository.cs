@@ -8,7 +8,10 @@ namespace Gruppeoppgave1.DAL
 {
     public interface IStasjonRepository
     {
-        Task<List<Stasjon>> HentAlle();
-        Task<Stasjon> HentEn(int id);
+        Task<List<Stasjon>> HentAlleStasjoner();
+        Task<Stasjon> HentEnStasjon(int id);
+        Task<bool> EndreStasjon(Stasjon stasjon);
+        Task<bool> FjernStasjon(int id);
+        
     }
 }

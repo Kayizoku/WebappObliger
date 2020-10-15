@@ -19,9 +19,28 @@ namespace Gruppeoppgave1.Controllers
         }
 
         [Route("hentAlleStasjoner")]
-        public async Task<List<Stasjon>> HentAlle()
+        public async Task<List<Stasjon>> HentAlleStasjoner()
         {
-            return await _db.HentAlle();
+            return await _db.HentAlleStasjoner();
+        }
+
+        [Route("hentEnStasjon")]
+        public async Task<Stasjon> HentEnStasjon(int id)
+        {
+            return await _db.HentEnStasjon(id);
+        }
+
+
+        [Route("fjernStasjon")]
+        public async Task<bool> FjernStasjon(int id)
+        {
+            return await _db.FjernStasjon(id);
+        }
+
+        [Route("endreStasjon")]
+        public async Task<bool> EndreStasjon(Stasjon stasjon)
+        {
+            return await _db.EndreStasjon(stasjon);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
+using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,15 +33,30 @@ namespace Gruppeoppgave1.Controllers
 
 
         [Route("fjernStasjon")]
-        public async Task<bool> FjernStasjon(int id)
+        public async Task<ActionResult> FjernStasjon(int id)
         {
-            return await _db.FjernStasjon(id);
+                bool ok = await _db.FjernStasjon(id);
+                if (!ok)
+                {
+                    return BadRequest("Kunne ikke slette stasjonen");
+                }
+                return Ok("Stasjonen ble fjernet");
+
         }
 
         [Route("endreStasjon")]
-        public async Task<bool> EndreStasjon(Stasjon stasjon)
+        public async Task<ActionResult> EndreStasjon(Stasjon stasjon)
         {
-            return await _db.EndreStasjon(stasjon);
+            if (ModelState.IsValid)
+            {
+                bool ok =  await _db.EndreStasjon(stasjon);
+                if (!ok)
+                {
+                    return BadRequest("Kunne ikke endre stasjon!");
+                }
+                return Ok("Stasjonen ble endret");
+            }
+            return BadRequest("Ikke gyldig Stasjon");
         }
     }
 }

@@ -10,8 +10,16 @@ namespace Gruppeoppgave1.Model
     {
         [Key]
         public int Id { get; set; }
+        
+        [Required]
+        [RegularExpression(@"^[a-zA-ZæøåÆØÅ. \-]{2,20}$")]
         public string Fra { get; set; }
+        
+        [Required]
+        [RegularExpression(@"^[a-zA-ZæøåÆØÅ. \-]{2,20}$")]
         public string Til { get; set; }
+        
+        [Required]
         public string Tid { get; set; }
     }
 }

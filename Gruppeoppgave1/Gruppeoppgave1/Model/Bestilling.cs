@@ -8,12 +8,17 @@ namespace Gruppeoppgave1.Model
 {
     public class Bestilling
     {
-        [Key]
+        
         public int Id { get; set; }
+        [Required]
         public double pris { get; set; }
+        [Required]
         public string Fra { get; set; }
+        [Required]
         public string Til { get; set; }
+        [Required]
         public string Dato { get; set; }
+        [Required]
         public string Tid { get; set; }
     }
 }

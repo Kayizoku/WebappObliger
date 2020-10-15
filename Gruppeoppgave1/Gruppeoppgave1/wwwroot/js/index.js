@@ -16,10 +16,13 @@ function assignSubmitFunction() {
     $("#bestill").on("submit", function (e) {
         e.preventDefault();
 
+        var data = lagre(e);
+        if (!data) return;
+
         $.ajax({
             type: "POST",
             url: "bestillinger/lagreBestilling",
-            data: lagre(),
+            data: data,
 
             success: function (data) {
                 document.location = "kvittering.html";
@@ -33,7 +36,7 @@ function assignSubmitFunction() {
     });
 };
 
-
+//Brukes ikke
 function lagreBestilling(bestilling) {
     alert("Bestillingen er lagret");
     /*
@@ -137,10 +140,10 @@ function prisCalc(frastasjon, tilstasjon) {
 }
 
 
-function lagre() {
-    if (validerFelt() != 0) {
-        alert("Feil i bestillingskjema");
-        return;
+function lagre(event) {
+    if (validerFelt(event) != 0) {
+        $("#feilmelding").get(0).classList.remove("invisible");
+        return false;
     }
 
     pris = prisCalc($("#FraFelt").val(), $("#TilFelt").val());
@@ -170,7 +173,7 @@ function resetInput() {
 }
 
 //generelt inputvalidering metode
-function validerFelt() {
+function validerFelt(event) {
     let feil = 0;
     var fra = $("#FraFelt").val();
     var til = $("#TilFelt").val();
@@ -181,27 +184,28 @@ function validerFelt() {
 
     if (fra === til) {
         feil++;
-        $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
+        $("#feilmelding").get(0).innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
+        console.log($("#feilmelding"));
         event.preventDefault();
     }
     else if (fra === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
+        $("#feilmelding").get(0).innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
         event.preventDefault();
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").get(0).innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        $("#feilmelding").get(0).innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
     else if (dato.split("-")[0] !== "2020") {
         feil++;
-        $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+        $("#feilmelding").get(0).innerHTML = "Vi kan kun tilby turer ut året foreløpig";
     }
     return feil;
 }

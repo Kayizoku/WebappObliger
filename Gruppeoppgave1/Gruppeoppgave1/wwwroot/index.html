@@ -3,62 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="media/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://example.com/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/index.js"></script>
     <title>Document</title>
-    
+
 </head>
 
 <body>
-    <div class="nav-header">
-        <h1>Bestill Billetter</h1>
-    </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a href="kvittering.html"><h1 class="text-white">Bestill Billetter</h1></a>
+    </nav>
     <div class="main-container">
-        <form>
+        <form id="bestill">
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Fra">Fra</label>
-                    <select class="form-control" id="FraFelt" name="" placeholder="Hvor vil du reise fra?">
-                    </select>
+                    <input type="text" class="form-control" id="FraFelt" name="" placeholder="Hvor vil du reise fra?">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Til">Til</label>
-                    <select class="form-control" id="TilFelt" name="" placeholder="Hvor vil du reise til?">
-                    </select>
+                    <input type="text" class="form-control" id="TilFelt" name="" placeholder="Hvor vil du reise til?">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Ticket_ValidFromDate">Reisedato</label>
-                    <input class="form-control text-box single-line"  id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                    <input class="form-control text-box single-line" id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="Tid">Til</label>
+                    <select class="form-control" id="TidFelt" name="" placeholder="Velg Tidspunkt">
+                        <option name="07:00" id="07:00">07:00</option>
+                        <option name="08:00" id="08:00">08:00</option>
+                    </select>
                 </div>
             </div>
 
 
             <br>
             <div id="feilmelding">
-                <p>Hei</p>
             </div>
 
-            <button class="btn btn-primary" id="lagreKnapp" onclick="lagre();">Bestill</button>
+            <input type="submit" class="btn btn-primary" id="lagreKnapp" value="Lagre">
             <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
         </form>
 
-        <div id="feilmelding"></div>
+        <div id="visAlleBestillinger"></div>
 
     </div>
-
     <div class="footer">
         <p>© 2020 Copyright: Amir, Eskil, Melissa, Benjamin og Tayyab</p>
     </div>
+
+
+
 </body>
 
 </html>

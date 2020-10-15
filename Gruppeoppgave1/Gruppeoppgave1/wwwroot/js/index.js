@@ -40,6 +40,9 @@ function assignSubmitFunction() {
 function lagreBestilling(bestilling) {
     alert("Bestillingen er lagret");
     /*
+
+    alert("pause");
+
     $.post("bestillinger/lagreBestilling", bestilling, function () {
         document.location = kvittering.js;
     }, "json");
@@ -84,9 +87,14 @@ function formaterBestillinger(bestillinger) {
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
 }
+
 */
 //Gammel statisk priskalk
 /*
+
+
+
+
 function prisKalk(frastasjon, tilstasjon) {
 
     var prisLokal = 0;

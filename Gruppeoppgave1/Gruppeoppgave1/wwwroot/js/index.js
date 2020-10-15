@@ -28,7 +28,7 @@ function hentAlleBestillinger() {
 }
 
 function formaterBestillinger(bestillinger) {
-    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
+    let ut = "<table class='table table-striped'><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
 
     bestillinger.forEach(bestilling => {
         ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +

@@ -1,13 +1,12 @@
 ﻿* {
     box-sizing: border-box;
-    padding: 0 auto;
+    padding: 0;
 }
 
 
 body {
-    padding-top: 84px;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin-bottom: 50px !important;
+    clear: both;
 }
 
 
@@ -21,8 +20,14 @@ body {
 }
 
 .main-container {
-    padding-left: 400px;
+    padding-left: 30px;
+    padding-top: 30px;
     justify-content: center;
+}
+
+#visAlleBestillinger {
+    margin-top: 30px;
+    padding-right: 30px;
 }
 
 .footer {

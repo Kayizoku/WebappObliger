@@ -12,6 +12,7 @@ $(function () {
 
 
 function lagreBestilling(bestilling) {
+    alert("pause");
     $.post("bestillinger/lagreBestilling", bestilling, function () {
         alert("Bestillingen er lagret");
     });
@@ -40,50 +41,8 @@ function formaterBestillinger(bestillinger) {
 
 
 
-function prisKalk(frastasjon, tilstasjon) {
 
-    var stasjoner = new Array();
 
-    $.get("stasjoner/hentAlleStasjoner", function (data) {
-        data.forEach(s => {
-            var stasjon = { stasjonsNavn: s.stasjonsNavn, stasjonsNummer: s.nummerPaaStopp };
-            stasjoner.push(stasjon);
-        })
-    });
-        console.log(stasjoner);
-    
-
-    var prisLokal = 0;
-
-    if (frastasjon === "Oslo") {
-        fraStasjon = 1;
-    }
-
-    else if (frastasjon === "Drammen") {
-        fraStasjon = 2;
-    }
-
-    else if (frastasjon === "Horten") {
-        fraStasjon = 3;
-    }
-
-    if (tilstasjon === "Oslo") {
-        tilStasjon = 1;
-    }
-
-    else if (tilstasjon === "Drammen") {
-        tilStasjon = 2;
-    }
-
-    else if (tilstasjon === "Horten") {
-        tilStasjon = 3;
-    }
-
-    prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
-
-    return prisLokal;
-
-}
 
 
 function lagre() {

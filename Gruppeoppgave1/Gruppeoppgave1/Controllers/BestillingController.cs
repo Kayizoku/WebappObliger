@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gruppeoppgave1.Controllers;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Gruppeoppgave1.Controller
 {
@@ -12,15 +14,24 @@ namespace Gruppeoppgave1.Controller
     {
         private readonly IBestillingRepository _db;
 
-        public BestillingController(IBestillingRepository db)
+        private ILogger<BestillingController> _log;
+
+        public BestillingController(IBestillingRepository db, ILogger<BestillingController> log)
         {
             _db = db;
+            _log = log;
         }
 
         [Route("lagreBestilling")]
-        public async Task<bool> Lagre(Bestilling innBestilling)
+        public async Task<ActionResult> Lagre(Bestilling innBestilling)
         {
-            return await _db.Lagre(innBestilling);
+            bool returOK = await _db.Lagre(innBestilling);
+            if (!returOK)
+            {
+                _log.LogInformation("Bestillingen ble ikke lagret");
+                return BadRequest("Kunden ble ikke lagret");
+            }
+            return Ok("Kunde lagret");
         }
 
         [Route("hentAlleBestillinger")]

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Mvc;
+using Gruppeoppgave1.DAL.IRepositories;
 
 namespace Gruppeoppgave1.DAL
 {
@@ -141,11 +141,11 @@ namespace Gruppeoppgave1.DAL
                 bool returnOK = await _db.LoggInn(bruker);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innlogging feilet" + bruker.Brukernavn);
-                    HttpContext.Session.SetString(_loggetInn, "");
+                    _log.LogInformation("Innlogging feilet" + bruker.BrukerNavn);
+                    HttpContext.Session.SetString(_innlogget, "");
                     return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, "innlogget");
+                HttpContext.Session.SetString(_innlogget, "innlogget");
                 return Ok(true);
             }
             _log.LogInformation("Feil i inputvalidering");

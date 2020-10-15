@@ -6,7 +6,7 @@ var tilStasjon;
 var alleStasjoner = [];
 
 $(function () {
-    hentAlleBestillinger();
+    //hentAlleBestillinger();
     visStasjonerAuto();
 });
 
@@ -14,13 +14,33 @@ $(function () {
 
 function lagreBestilling(bestilling) {
     alert("Bestillingen er lagret");
+    /*
     $.post("bestillinger/lagreBestilling", bestilling, function () {
-        alert("Bestillingen er lagret");
+        document.location = kvittering.js;
+    }, "json");
+    */
+
+    $.ajax({
+        type: "POST",
+        url: "bestillinger/lagreBestilling",
+        data: bestilling,
+
+        always: function (data) {
+            alert("yessssss");
+            //document.location = "kvittering.js";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown
+            );
+        }
     });
+
 }
 
 
-//henter alle bestillinger i et array
+//henter alle bestillinger i et array (Flyttet til kvittering.js)
+/*
 function hentAlleBestillinger() {
     $.get("bestillinger/hentAlleBestillinger", function (data) {
         formaterBestillinger(data);
@@ -39,7 +59,7 @@ function formaterBestillinger(bestillinger) {
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
 }
-
+*/
 //Gammel statisk priskalk
 /*
 function prisKalk(frastasjon, tilstasjon) {
@@ -113,7 +133,7 @@ function lagre() {
     };
     console.log(bestilling)
     lagreBestilling(bestilling);
-    hentAlleBestillinger();
+    //hentAlleBestillinger();
     resetInput();
     //location.reload();
 }

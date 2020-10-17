@@ -134,14 +134,14 @@ namespace Gruppeoppgave1.DAL
             
         }
 
-        public async Task<ActionResult> LoggInn(Bruker bruker)
+      /*  public async Task<ActionResult> LoggInn(Bruker bruker)
         {
             if (ModelState.IsValid)
             {
                 bool returnOK = await _db.LoggInn(bruker);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innlogging feilet" + bruker.BrukerNavn);
+                    _log.LogInformation("Innlogging feilet for" + bruker.BrukerNavn);
                     HttpContext.Session.SetString(_innlogget, "");
                     return Ok(false);
                 }
@@ -155,6 +155,6 @@ namespace Gruppeoppgave1.DAL
         public void LoggUt()
         {
             HttpContext.Session.SetString(_innlogget, "");
-        }
+        }*/
     }
 }

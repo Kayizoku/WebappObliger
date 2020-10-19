@@ -4,16 +4,21 @@ using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Logging;
+using System;
+using Gruppeoppgave1.DAL.IRepositories;
 
-namespace Gruppeoppgave1.DAL.IRepositories
+namespace Gruppeoppgave1.DAL.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class AvgangRepository : IAvgangerRepository
     {
         private readonly BestillingContext _db;
+        private ILogger<AvgangRepository> _log;
 
-        public AvgangRepository(BestillingContext db)
+        public AvgangRepository(BestillingContext db, ILogger<AvgangRepository> log)
         {
+            _log = log;
             _db = db;
         }
 
@@ -30,8 +35,9 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
@@ -49,23 +55,32 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 }).ToListAsync();
                 return alleAvganger;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return null;
             }
         }
 
         public async Task<Avgang> HentEn(int id)
         {
-            Avganger enAvgang = await _db.Avganger.FindAsync(id);
-            var hentetAvgang = new Avgang()
+            try
             {
-                Id = enAvgang.Id,
-                Fra = enAvgang.Fra,
-                Til = enAvgang.Til,
-                Tid = enAvgang.Tid
-            };
-            return hentetAvgang;
+                Avganger enAvgang = await _db.Avganger.FindAsync(id);
+                var hentetAvgang = new Avgang()
+                {
+                    Id = enAvgang.Id,
+                    Fra = enAvgang.Fra,
+                    Til = enAvgang.Til,
+                    Tid = enAvgang.Tid
+                };
+                return hentetAvgang;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
         }
 
 
@@ -78,9 +93,10 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 enAvgang.Til = avgang.Til;
                 enAvgang.Tid = avgang.Tid;
                 await _db.SaveChangesAsync();
-            } 
-            catch
+            }
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
             return true;
@@ -95,8 +111,9 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 _db.Avganger.Remove(enDBavgang);
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
             return true;

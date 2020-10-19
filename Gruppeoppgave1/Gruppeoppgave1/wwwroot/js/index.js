@@ -27,7 +27,7 @@ function assignSubmitFunction() {
             data: data,
 
             success: function (data) {
-                document.location = "kvittering.html";
+                document.location = "BetalingLosning.html";
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Error, status = " + textStatus + ", " +

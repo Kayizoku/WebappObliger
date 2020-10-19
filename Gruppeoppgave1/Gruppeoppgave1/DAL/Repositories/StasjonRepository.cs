@@ -4,15 +4,20 @@ using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Gruppeoppgave1.DAL.IRepositories;
+using Microsoft.Extensions.Logging;
+using System;
 
-namespace Gruppeoppgave1.DAL.IRepositories
+namespace Gruppeoppgave1.DAL.Repositories
 {
     public class StasjonRepository : IStasjonRepository
     {
         private readonly BestillingContext _db;
+        private ILogger<StasjonRepository> _log;
 
-        public StasjonRepository(BestillingContext db)
+        public StasjonRepository(BestillingContext db, ILogger<StasjonRepository> log)
         {
+            _log = log;
             _db = db;
         }
 
@@ -29,8 +34,9 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 }).ToListAsync();
                 return alleStasjoner;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }
         }
@@ -48,8 +54,10 @@ namespace Gruppeoppgave1.DAL.IRepositories
 
                 };
                 return hentetStasjon;
-            } catch
+            }
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }
                 
@@ -66,8 +74,9 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 gammelStasjon.StasjonsNavn = stasjon.StasjonsNavn;
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
             return true;
@@ -82,8 +91,9 @@ namespace Gruppeoppgave1.DAL.IRepositories
                 _db.Stasjoner.Remove(fjernetStasjon);
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
             return true;

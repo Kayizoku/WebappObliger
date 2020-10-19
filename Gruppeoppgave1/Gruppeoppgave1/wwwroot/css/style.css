@@ -39,3 +39,64 @@ body {
     color: white;
     text-align: center;
 }
+
+#paymentBody {
+    background-image: none;
+    background-color: white;
+    width: 600px;
+    height: 300px;
+    position: relative;
+    margin: 200px;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    width: 70%;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+.n-w.card {
+    float: right;
+}
+
+.n-w .link {
+    text-decoration: underline;
+    color: black;
+}
+
+.btn btn-success {
+    background-color: green;
+}
+
+#kvittering {
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    width: 50%;
+}
+
+

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Gruppeoppgave1.DAL.IRepositories;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.IRepositories
 {
     [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository

@@ -49,8 +49,8 @@ namespace Gruppeoppgave1.Model
                 Tid = "08:00"
             };
 
-            var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "01.01.2021" };
-            var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "02.01.2021" };
+            var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "2021-01-13" };
+            var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "2021-02-20" };
 
             foreach (Stasjoner s in stasjonerList)
             {

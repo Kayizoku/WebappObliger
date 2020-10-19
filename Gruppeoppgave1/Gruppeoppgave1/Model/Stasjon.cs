@@ -8,9 +8,10 @@ namespace Gruppeoppgave1.Model
 {
     public class Stasjon
     {
-        [Key]
         public int Id { get; set; }
+        [Required]
         public int NummerPaaStopp { get; set; }
+        [Required]
         public string StasjonsNavn { get; set; }
     }
 } 

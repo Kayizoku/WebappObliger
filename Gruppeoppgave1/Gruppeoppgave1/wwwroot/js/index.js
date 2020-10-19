@@ -3,23 +3,72 @@ var pris = 0;
 var antallStasjoner = 0;
 var fraStasjon;
 var tilStasjon;
+var alleStasjoner = [];
 
 $(function () {
-    hentAlleBestillinger();
+    //hentAlleBestillinger();
     visStasjonerAuto();
+    assignSubmitFunction();
 });
 
 
+function assignSubmitFunction() {
+    $("#bestill").on("submit", function (e) {
+        e.preventDefault();
 
-function lagreBestilling(bestilling) {
-    alert("pause");
-    $.post("bestillinger/lagreBestilling", bestilling, function () {
-        alert("Bestillingen er lagret");
+        var data = lagre(e);
+        if (!data) return;
+
+        $.ajax({
+            type: "POST",
+            url: "bestillinger/lagreBestilling",
+            data: data,
+
+            success: function (data) {
+                document.location = "kvittering.html";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error, status = " + textStatus + ", " +
+                    "error thrown: " + errorThrown
+                );
+            }
+        });
     });
+};
+
+//Brukes ikke
+function lagreBestilling(bestilling) {
+    alert("Bestillingen er lagret");
+    /*
+
+    alert("pause");
+
+    $.post("bestillinger/lagreBestilling", bestilling, function () {
+        document.location = kvittering.js;
+    }, "json");
+    */
+
+    $.ajax({
+        type: "POST",
+        url: "bestillinger/lagreBestilling",
+        data: bestilling,
+
+        always: function (data) {
+            alert("yessssss");
+            //document.location = "kvittering.js";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown
+            );
+        }
+    });
+
 }
 
 
-//henter alle bestillinger i et array
+//henter alle bestillinger i et array (Flyttet til kvittering.js)
+/*
 function hentAlleBestillinger() {
     $.get("bestillinger/hentAlleBestillinger", function (data) {
         formaterBestillinger(data);
@@ -27,7 +76,7 @@ function hentAlleBestillinger() {
 }
 
 function formaterBestillinger(bestillinger) {
-    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
+    let ut = "<table class='table table-striped'><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
 
     bestillinger.forEach(bestilling => {
         ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +
@@ -38,6 +87,12 @@ function formaterBestillinger(bestillinger) {
     ut += "</table>";
     $("#visAlleBestillinger").html(ut);
 }
+
+*/
+//Gammel statisk priskalk
+/*
+
+
 
 
 function prisKalk(frastasjon, tilstasjon) {
@@ -70,18 +125,36 @@ function prisKalk(frastasjon, tilstasjon) {
 
     prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
 
-    return prisLokal;
+    //return prisLokal;
+    //Venter på ny priskalk()
+    return 123;
+}
+*/
 
+function prisCalc(frastasjon, tilstasjon) {
+    var fraNr, tilNr;
+    
+    alleStasjoner.forEach(s => {
+        if (frastasjon == s.stasjonsNavn) {
+            fraNr = s.nummerPaaStopp;
+        }
+        if (tilstasjon == s.stasjonsNavn) {
+            tilNr = s.nummerPaaStopp;
+        }
+    })
+
+    var lokalpris = (Math.abs(fraNr - tilNr)) * 50;
+    return lokalpris;
 }
 
 
-function lagre() {
-    if (validerFelt() != 0) {
-        alert("Feil i bestillingskjema");
-        return;
+function lagre(event) {
+    if (validerFelt(event) != 0) {
+        $("#feilmelding").get(0).classList.remove("invisible");
+        return false;
     }
 
-    pris = prisKalk($("#FraFelt").val(), $("#TilFelt").val());
+    pris = prisCalc($("#FraFelt").val(), $("#TilFelt").val());
 
 
     const bestilling = {
@@ -91,11 +164,12 @@ function lagre() {
         Pris: pris,
         Tid: $("#TidFelt").val()
     };
-
-    lagreBestilling(bestilling);
-    hentAlleBestillinger();
+    console.log(bestilling)
+    //lagreBestilling(bestilling);
+    //hentAlleBestillinger();
     resetInput();
-    location.reload();
+    return bestilling;
+    //location.reload();
 }
 
 function resetInput() {
@@ -107,7 +181,7 @@ function resetInput() {
 }
 
 //generelt inputvalidering metode
-function validerFelt() {
+function validerFelt(event) {
     let feil = 0;
     var fra = $("#FraFelt").val();
     var til = $("#TilFelt").val();
@@ -118,28 +192,29 @@ function validerFelt() {
 
     if (fra === til) {
         feil++;
-        $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
+        $("#feilmelding").get(0).innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
+        console.log($("#feilmelding"));
         event.preventDefault();
     }
     else if (fra === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
+        $("#feilmelding").get(0).innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
         event.preventDefault();
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").get(0).innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        $("#feilmelding").get(0).innerHTML = "Dato er ikke valgt \nVelg Dato\n";
         event.preventDefault();
     }
-    /*else if (dato.split(".")[2] !== "2020") {
+    else if (dato.split("-")[0] !== "2020") {
         feil++;
-        $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
-    }*/
+        $("#feilmelding").get(0).innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+    }
     return feil;
 }
 
@@ -167,6 +242,7 @@ function visDropDownFra(stasjoner) {
     stasjonerList = [];
     stasjoner.forEach(s => {
         stasjonerList.push(s.stasjonsNavn);
+        alleStasjoner.push(s);
     })
 
     const fraFelt = $("#FraFelt");

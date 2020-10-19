@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="media/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://example.com/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,11 +17,22 @@
 </head>
 
 <body>
-    <div class="nav-header">
-        <h1>Bestill Billetter</h1>
-    </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a href="index.html"><h1 class="text-white">Bestill Billetter</h1></a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">logg inn</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 3</a>
+            </li>
+        </ul>
+    </nav>
     <div class="main-container">
-        <form>
+        <form id="bestill">
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="Fra">Fra</label>
@@ -50,20 +63,22 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group col-sm-6">
+                <input type="submit" class="btn btn-primary" id="lagreKnapp" value="Lagre">
+            </div>
 
 
             <br>
-            <div id="feilmelding">
+            <div id="feilmelding" class="alert alert-danger col-sm-6 invisible">
             </div>
 
-            <button class="btn btn-primary" id="lagreKnapp" onclick="lagre();">Bestill</button>
+            
             <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
         </form>
 
         <div id="visAlleBestillinger"></div>
 
     </div>
-
     <div class="footer">
         <p>© 2020 Copyright: Amir, Eskil, Melissa, Benjamin og Tayyab</p>
     </div>

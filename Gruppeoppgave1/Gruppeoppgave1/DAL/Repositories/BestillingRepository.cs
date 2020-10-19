@@ -7,6 +7,9 @@ using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Gruppeoppgave1.DAL.IRepositories;
 
 namespace Gruppeoppgave1.DAL
 {
@@ -14,6 +17,8 @@ namespace Gruppeoppgave1.DAL
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
+
+        private const string _innlogget = "innlogget";
 
         public BestillingRepository(BestillingContext db)
         {
@@ -65,6 +70,11 @@ namespace Gruppeoppgave1.DAL
 
         public async Task<bool> Slett(int id)
         {
+           /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) må ha med SetString i LoggInn
+            {
+                return Unauthorized();
+            }*/
+
             try
             {
                 Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
@@ -102,6 +112,10 @@ namespace Gruppeoppgave1.DAL
 
         public async Task<bool> Endre(Bestilling endreBestilling)
         {
+            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) må ha med SetString i LoggInn
+            {
+                return Unauthorized();
+            }*/
             try
             {
                 var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.Id);
@@ -119,5 +133,28 @@ namespace Gruppeoppgave1.DAL
             return true;
             
         }
+
+      /*  public async Task<ActionResult> LoggInn(Bruker bruker)
+        {
+            if (ModelState.IsValid)
+            {
+                bool returnOK = await _db.LoggInn(bruker);
+                if (!returnOK)
+                {
+                    _log.LogInformation("Innlogging feilet for" + bruker.BrukerNavn);
+                    HttpContext.Session.SetString(_innlogget, "");
+                    return Ok(false);
+                }
+                HttpContext.Session.SetString(_innlogget, "innlogget");
+                return Ok(true);
+            }
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering på server");
+        }
+
+        public void LoggUt()
+        {
+            HttpContext.Session.SetString(_innlogget, "");
+        }*/
     }
 }

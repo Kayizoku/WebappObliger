@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.IRepositories
 {
     public interface IBestillingRepository
     {

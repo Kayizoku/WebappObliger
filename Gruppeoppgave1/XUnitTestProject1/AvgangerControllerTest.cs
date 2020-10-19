@@ -1,7 +1,7 @@
-﻿using Gruppeoppgave1.Controller;
-using Gruppeoppgave1.Controllers;
-using Gruppeoppgave1.DAL;
+﻿using Gruppeoppgave1.Controllers;
+using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace XUnitTestProject1
             var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.LeggTil(avgang);
 
-            Assert.True(resultat);
+            Assert.IsType<OkObjectResult>(resultat);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace XUnitTestProject1
             var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.LeggTil(avgang);
 
-            Assert.False(resultat);
+            Assert.IsType<BadRequestResult>(resultat);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace XUnitTestProject1
             var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Endre(avgang);
 
-            Assert.True(resultat);
+            Assert.IsType<OkObjectResult>(resultat);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace XUnitTestProject1
             var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Endre(avgang);
 
-            Assert.False(resultat);
+            Assert.IsType<BadRequestResult>(resultat);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace XUnitTestProject1
             var avgangcontroller = new AvgangerController(mockRep.Object);
             var resultat = await avgangcontroller.Slett(1);
 
-            Assert.True(resultat);
+            Assert.IsType<OkObjectResult>(resultat);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace XUnitTestProject1
             var avgangController = new AvgangerController(mockRep.Object);
             var resultat = await avgangController.Slett(1);
 
-            Assert.False(resultat);
+            Assert.IsType<BadRequestResult>(resultat);
         }
 
         [Fact]
@@ -154,9 +154,9 @@ namespace XUnitTestProject1
 
             var avgangController = new AvgangerController(mockRep.Object);
 
-            List<Avgang> resultat = await avgangController.HentAlle();
+            ActionResult resultat = await avgangController.HentAlle();
 
-            Assert.Equal<List<Avgang>>(avgangsListe, resultat);
+            Assert.Equal<OkObjectResult>(avgangsListe, resultat);
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace XUnitTestProject1
 
             var avgangController = new AvgangerController(mockRep.Object);
 
-            List<Avgang> resultat = await avgangController.HentAlle();
+            ActionResult resultat = await avgangController.HentAlle();
 
             Assert.Null(resultat);
         }

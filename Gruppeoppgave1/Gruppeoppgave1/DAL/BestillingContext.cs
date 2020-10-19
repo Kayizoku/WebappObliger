@@ -41,7 +41,7 @@ namespace Gruppeoppgave1.DAL
         [Key]
         public int Id { get; set; }
         public string Navn { get; set; }
-        public List<Stasjon> StasjonerPaaRute { get; set; }
+        virtual public List<Stasjon> StasjonerPaaRute { get; set; }
     }
 
     public class Brukere

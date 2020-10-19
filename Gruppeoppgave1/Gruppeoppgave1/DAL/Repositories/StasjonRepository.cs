@@ -4,15 +4,20 @@ using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Gruppeoppgave1.DAL.IRepositories;
+using Microsoft.Extensions.Logging;
+using System;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.Repositories
 {
     public class StasjonRepository : IStasjonRepository
     {
         private readonly BestillingContext _db;
+        private ILogger<StasjonRepository> _log;
 
-        public StasjonRepository(BestillingContext db)
+        public StasjonRepository(BestillingContext db, ILogger<StasjonRepository> log)
         {
+            _log = log;
             _db = db;
         }
 
@@ -29,8 +34,9 @@ namespace Gruppeoppgave1.DAL
                 }).ToListAsync();
                 return alleStasjoner;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }
         }
@@ -48,8 +54,10 @@ namespace Gruppeoppgave1.DAL
 
                 };
                 return hentetStasjon;
-            } catch
+            }
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }
                 
@@ -66,8 +74,9 @@ namespace Gruppeoppgave1.DAL
                 gammelStasjon.StasjonsNavn = stasjon.StasjonsNavn;
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
             return true;
@@ -81,6 +90,24 @@ namespace Gruppeoppgave1.DAL
                 var fjernetStasjon = await _db.Stasjoner.FindAsync(id);
                 _db.Stasjoner.Remove(fjernetStasjon);
                 await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e.Message);
+                return false;
+            }
+            return true;
+        }
+        public async Task<bool> LagreStasjon(Stasjon stasjon)
+        {
+            try
+            {
+                var nyStasjon = new Stasjoner();
+                nyStasjon.StasjonsNavn = stasjon.StasjonsNavn;
+                nyStasjon.NummerPaaStopp = stasjon.NummerPaaStopp;
+                _db.Stasjoner.Add(nyStasjon);
+                await _db.SaveChangesAsync();
+                return true;
             }
             catch
             {

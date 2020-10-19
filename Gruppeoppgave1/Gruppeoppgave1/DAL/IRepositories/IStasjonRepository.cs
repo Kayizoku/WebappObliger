@@ -12,6 +12,7 @@ namespace Gruppeoppgave1.DAL.IRepositories
         Task<Stasjon> HentEnStasjon(int id);
         Task<bool> EndreStasjon(Stasjon stasjon);
         Task<bool> FjernStasjon(int id);
+        Task<bool> LagreStasjon(Stasjon stasjon);
         
     }
 }

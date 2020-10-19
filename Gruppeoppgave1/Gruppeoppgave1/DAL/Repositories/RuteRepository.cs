@@ -21,12 +21,12 @@ namespace Gruppeoppgave1.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<List<Ruter>> HentAlleRuter()
+        public async Task<List<Rute>> HentAlleRuter()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Rute> HentEnRute()
+        public async Task<Rute> HentEnRute(int id)
         {
             throw new NotImplementedException();
         }

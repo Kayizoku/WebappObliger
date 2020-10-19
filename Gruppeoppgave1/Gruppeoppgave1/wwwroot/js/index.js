@@ -4,10 +4,12 @@ var antallStasjoner = 0;
 var fraStasjon;
 var tilStasjon;
 var alleStasjoner = [];
+var stasjonerList;
 
 $(function () {
     //hentAlleBestillinger();
     visStasjonerAuto();
+    visAvgangerAuto();
     assignSubmitFunction();
 });
 
@@ -25,11 +27,11 @@ function assignSubmitFunction() {
             data: data,
 
             success: function (data) {
-                document.location = "kvittering.html";
+                document.location = "BetalingLosning.html";
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Error, status = " + textStatus + ", " +
-                    "error thrown: " + errorThrown
+                    "error thrown: " + errorThrown.message
                 );
             }
         });
@@ -187,33 +189,39 @@ function validerFelt(event) {
     var til = $("#TilFelt").val();
     var dato = $("#dato").val();
 
-
-
-
-    if (fra === til) {
-        feil++;
-        $("#feilmelding").get(0).innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
-        console.log($("#feilmelding"));
-        event.preventDefault();
-    }
-    else if (fra === "") {
-        feil++;
-        $("#feilmelding").get(0).innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
-        event.preventDefault();
+    if (fra === "") {
+            feil++;
+            $("#feilmelding").html("Sett inn gyldig verdi for FRA");
+            event.preventDefault();
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").html("Sett inn gyldig verdi for TIL");
+        event.preventDefault();
+    }
+    else if (!stasjonerList.includes(fra)) {
+        feil++;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + fra);
+        event.preventDefault();
+    }
+    else if (!stasjonerList.includes(til)){
+        feil++;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + til);
+        event.preventDefault();
+    }
+    else if (fra === til) {
+        feil++;
+        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner");
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        $("#feilmelding").html("Dato er ikke valgt");
         event.preventDefault();
     }
     else if (dato.split("-")[0] !== "2020") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+        $("#feilmelding").html("Vi kan kun tilby turer ut året foreløpig");
     }
     return feil;
 }
@@ -222,6 +230,18 @@ function visStasjonerAuto() {
     $.get("stasjoner/hentAlleStasjoner", function (data) {
         visDropDownFra(data);
         visDropDownTil(data);
+    });
+}
+
+function visAvgangerAuto() {
+    $.get("avganger/hentAlleAvganger", function (data) {
+        var $dropdown = $("#TidFelt");
+        data.forEach(x => {
+            $dropdown.append($('<option>').html(x.tid).attr({
+                name: x.tid,
+                id: x.tid
+            }))
+        })
     });
 }
 

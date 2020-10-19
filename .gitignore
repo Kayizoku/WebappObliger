@@ -38,6 +38,8 @@ Obj/
 hs_err_pid*
 
 *.csproj
+*.db
+*.txt
 
 # IntelliJ Platform Excludes
 **/.idea/

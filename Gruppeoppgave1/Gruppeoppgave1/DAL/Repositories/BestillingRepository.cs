@@ -10,18 +10,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Gruppeoppgave1.DAL.IRepositories;
+using Microsoft.Extensions.Logging;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
+        private ILogger<BestillingRepository> _log;
 
         private const string _innlogget = "innlogget";
 
-        public BestillingRepository(BestillingContext db)
+        public BestillingRepository(BestillingContext db, ILogger<BestillingRepository> log)
         {
+            _log = log;
             _db = db;
         }
 
@@ -40,8 +43,9 @@ namespace Gruppeoppgave1.DAL
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
         }
@@ -62,8 +66,9 @@ namespace Gruppeoppgave1.DAL
                 
                 return alleBestillinger;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }  
         }
@@ -81,8 +86,9 @@ namespace Gruppeoppgave1.DAL
                 _db.Bestillinger.Remove(enDBBestilling);
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
             return true;
@@ -104,15 +110,16 @@ namespace Gruppeoppgave1.DAL
                 };
                 return hentetBestilling;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return null;
             }
         }
 
         public async Task<bool> Endre(Bestilling endreBestilling)
         {
-            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) må ha med SetString i LoggInn
+            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) //må ha med SetString i LoggInn
             {
                 return Unauthorized();
             }*/
@@ -126,8 +133,9 @@ namespace Gruppeoppgave1.DAL
                 endreObjekt.Tid = endreBestilling.Tid;
                 await _db.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogError(e.Message);
                 return false;
             }
             return true;

@@ -103,7 +103,6 @@ namespace Gruppeoppgave1.DAL.IRepositories
             {
                 return false;
             }
-            return true;
         }
     }
     }

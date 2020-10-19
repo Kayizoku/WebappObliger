@@ -35,6 +35,13 @@ namespace Gruppeoppgave1
             services.AddScoped<IBestillingRepository, BestillingRepository>();
             services.AddScoped<IAvgangerRepository, AvgangRepository>();
             services.AddScoped<IStasjonRepository, StasjonRepository>();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(1800); // Hvis bruker ikke gjør noe på siden innen 30 min, vil bruker automatisk bli logget ut
+                options.Cookie.IsEssential = true;
+            });
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +54,8 @@ namespace Gruppeoppgave1
             }
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseStaticFiles();
 

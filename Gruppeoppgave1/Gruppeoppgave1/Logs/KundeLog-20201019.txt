@@ -1,0 +1,4 @@
+2020-10-19T13:45:08.1888230+02:00  [INF] Now listening on: "http://localhost:5000" (d826f4b8)
+2020-10-19T13:45:08.2211050+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-10-19T13:45:08.2791410+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-10-19T13:45:08.3167120+02:00  [INF] Content root path: "/Users/eskilnysether/Projects/WebappObliger/Gruppeoppgave1/Gruppeoppgave1" (b5d60022)

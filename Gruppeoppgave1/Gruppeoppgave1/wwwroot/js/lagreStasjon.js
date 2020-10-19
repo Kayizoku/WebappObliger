@@ -1,7 +1,7 @@
 ﻿function lagreStasjon() {
     const stasjon = {
         nummerPaaStopp: $("#nummerPaaStopp").val(),
-        stasjonsNavn: $("#stasjonsNavn").val()
+        stasjonsNavn: parseInt($("#stasjonsNavn").val())
     }
     const url = "stasjoner/lagreStasjon";
     $.post(url, stasjon, function (OK) {

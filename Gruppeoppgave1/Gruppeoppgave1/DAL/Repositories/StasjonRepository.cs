@@ -98,13 +98,14 @@ namespace Gruppeoppgave1.DAL.Repositories
             }
             return true;
         }
+
         public async Task<bool> LagreStasjon(Stasjon stasjon)
         {
             try
             {
                 var nyStasjon = new Stasjoner();
-                nyStasjon.StasjonsNavn = stasjon.StasjonsNavn;
                 nyStasjon.NummerPaaStopp = stasjon.NummerPaaStopp;
+                nyStasjon.StasjonsNavn = stasjon.StasjonsNavn;
                 _db.Stasjoner.Add(nyStasjon);
                 await _db.SaveChangesAsync();
                 return true;
@@ -113,7 +114,7 @@ namespace Gruppeoppgave1.DAL.Repositories
             {
                 return false;
             }
-            return true;
+
         }
     }
     }

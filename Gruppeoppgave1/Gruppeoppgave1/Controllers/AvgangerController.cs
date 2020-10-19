@@ -52,10 +52,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentAlleAvganger")]
         public async Task<ActionResult> HentAlle()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+          /*  if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Du er ikke logget inn!");
-            }
+            }*/
             List<Avgang> liste = await _db.HentAlle();
             return Ok(liste);
         }

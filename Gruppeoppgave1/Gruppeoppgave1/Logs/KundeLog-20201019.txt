@@ -316,3 +316,6 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updatin
 2020-10-19T15:38:20.1434751+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2020-10-19T15:38:20.1710777+02:00  [INF] Hosting environment: "Development" (c3307c92)
 2020-10-19T15:38:20.1747177+02:00  [INF] Content root path: "C:\Users\benja\Source\Repos\WebappObliger\Gruppeoppgave1\Gruppeoppgave1" (b5d60022)
+2020-10-19T16:09:08.0807429+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-10-19T16:09:08.0925856+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-10-19T16:09:08.0948487+02:00  [INF] Content root path: "C:\Users\benja\Source\Repos\WebappObliger\Gruppeoppgave1\Gruppeoppgave1" (b5d60022)

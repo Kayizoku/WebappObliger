@@ -88,6 +88,23 @@ namespace Gruppeoppgave1.DAL.IRepositories
             }
             return true;
         }
+        public async Task<bool> LagreStasjon(Stasjon stasjon)
+        {
+            try
+            {
+                var nyStasjon = new Stasjoner();
+                nyStasjon.StasjonsNavn = stasjon.StasjonsNavn;
+                nyStasjon.NummerPaaStopp = stasjon.NummerPaaStopp;
+                _db.Stasjoner.Add(nyStasjon);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
     }
 

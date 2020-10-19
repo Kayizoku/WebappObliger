@@ -5,7 +5,7 @@ using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.IRepositories
 {
     public class StasjonRepository : IStasjonRepository
     {

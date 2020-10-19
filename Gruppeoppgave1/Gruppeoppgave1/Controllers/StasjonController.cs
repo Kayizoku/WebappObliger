@@ -20,27 +20,33 @@ namespace Gruppeoppgave1.Controllers
         }
 
         [Route("hentAlleStasjoner")]
-        public async Task<List<Stasjon>> HentAlleStasjoner()
+        public async Task<ActionResult> HentAlleStasjoner()
         {
-            return await _db.HentAlleStasjoner();
+            List<Stasjon> liste =  await _db.HentAlleStasjoner();
+            return Ok(liste);
         }
 
         [Route("hentEnStasjon")]
-        public async Task<Stasjon> HentEnStasjon(int id)
+        public async Task<ActionResult> HentEnStasjon(int id)
         {
-            return await _db.HentEnStasjon(id);
+            var stasjon = await _db.HentEnStasjon(id);
+            if(stasjon == null)
+            {
+                return NotFound("Fant ikke stasjonen");
+            }
+            return Ok(stasjon);
         }
 
 
         [Route("fjernStasjon")]
         public async Task<ActionResult> FjernStasjon(int id)
         {
-                bool ok = await _db.FjernStasjon(id);
-                if (!ok)
-                {
-                    return BadRequest("Kunne ikke slette stasjonen");
-                }
-                return Ok("Stasjonen ble fjernet");
+            bool ok = await _db.FjernStasjon(id);
+            if (!ok)
+            {
+                return BadRequest("Kunne ikke slette stasjonen");
+            }
+            return Ok("Stasjonen ble fjernet");
 
         }
 

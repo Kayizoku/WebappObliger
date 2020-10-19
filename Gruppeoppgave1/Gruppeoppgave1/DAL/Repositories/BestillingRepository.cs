@@ -8,7 +8,7 @@ using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gruppeoppgave1.DAL
+namespace Gruppeoppgave1.DAL.IRepositories
 {
     [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository

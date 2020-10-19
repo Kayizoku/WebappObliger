@@ -189,41 +189,39 @@ function validerFelt(event) {
     var til = $("#TilFelt").val();
     var dato = $("#dato").val();
 
-
-    if (!stasjonerList.includes(fra)) {
+    if (fra === "") {
+            feil++;
+            $("#feilmelding").html("Sett inn gyldig verdi for FRA");
+            event.preventDefault();
+    }
+    else if (til === "") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Denne stasjonen er ikke tilgjengelig: " + fra;
+        $("#feilmelding").html("Sett inn gyldig verdi for TIL");
+        event.preventDefault();
+    }
+    else if (!stasjonerList.includes(fra)) {
+        feil++;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + fra);
         event.preventDefault();
     }
     else if (!stasjonerList.includes(til)){
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Denne stasjonen er ikke tilgjengelig: " + til;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + til);
         event.preventDefault();
     }
-
-    if (fra === til) {
+    else if (fra === til) {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
-        event.preventDefault();
-    }
-    else if (fra === "") {
-        feil++;
-        $("#feilmelding").get(0).innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
-        event.preventDefault();
-    }
-    else if (til === "") {
-        feil++;
-        $("#feilmelding").get(0).innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner");
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        $("#feilmelding").html("Dato er ikke valgt");
         event.preventDefault();
     }
     else if (dato.split("-")[0] !== "2020") {
         feil++;
-        $("#feilmelding").get(0).innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+        $("#feilmelding").html("Vi kan kun tilby turer ut året foreløpig");
     }
     return feil;
 }

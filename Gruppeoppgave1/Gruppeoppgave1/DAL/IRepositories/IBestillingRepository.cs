@@ -13,5 +13,6 @@ namespace Gruppeoppgave1.DAL.IRepositories
         Task<Bestilling> HentEn(int id);
         Task<bool> Slett(int id);
         Task<bool> Endre(Bestilling innBestilling);
+        Task<bool> LoggInn(Bruker bruker);
     }
 }

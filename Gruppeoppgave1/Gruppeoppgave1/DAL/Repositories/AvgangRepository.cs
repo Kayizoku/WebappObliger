@@ -119,5 +119,9 @@ namespace Gruppeoppgave1.DAL.Repositories
             return true;
         }
 
+        public Task<bool> LoggInn(Bruker bruker)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

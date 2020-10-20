@@ -1,3 +1,4 @@
+using Gruppeoppgave1.DAL.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -65,6 +66,21 @@ namespace Gruppeoppgave1.DAL
             context.Avganger.Add(avgang2);
             context.Bestillinger.Add(bestilling1);
             context.Bestillinger.Add(bestilling2);
+
+            var db = serviceScope.ServiceProvider.GetService<BestillingContext>();
+
+            var adminBruker = new Brukere();
+
+            adminBruker.Brukernavn = "Admin1";
+            string passord = "Passord1";
+
+            byte[] salt = BestillingRepository.Salt();
+            byte[] hash = BestillingRepository.Hash(passord, salt);
+
+            adminBruker.Passord = hash;
+            adminBruker.Salt = salt;
+
+            db.Brukere.Add(adminBruker);
 
             context.SaveChanges();
 

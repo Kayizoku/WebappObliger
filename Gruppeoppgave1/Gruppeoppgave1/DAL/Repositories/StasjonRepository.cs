@@ -113,7 +113,6 @@ namespace Gruppeoppgave1.DAL.Repositories
             {
                 return false;
             }
-            return true;
         }
     }
     }

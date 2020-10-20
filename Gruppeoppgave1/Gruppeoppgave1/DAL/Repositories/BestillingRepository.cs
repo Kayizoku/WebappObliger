@@ -119,10 +119,7 @@ namespace Gruppeoppgave1.DAL.Repositories
 
         public async Task<bool> Endre(Bestilling endreBestilling)
         {
-            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) //må ha med SetString i LoggInn
-            {
-                return Unauthorized();
-            }*/
+            
             try
             {
                 var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.Id);

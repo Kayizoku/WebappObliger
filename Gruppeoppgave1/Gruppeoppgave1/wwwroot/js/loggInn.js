@@ -5,7 +5,7 @@
     }
     $.post("Bestilling/LoggInn", bruker, function (OK) {
         if (OK) {
-            window.location.href = 'index.html'; //Må endres til admin.html
+            window.location.href = 'index.html'; //Må endres til admin sin html
         }
         else {
             $("#feil").html("Feil brukernavn eller passord");

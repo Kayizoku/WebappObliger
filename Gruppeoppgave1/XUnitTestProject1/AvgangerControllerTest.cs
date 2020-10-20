@@ -166,7 +166,7 @@ namespace XUnitTestProject1
 
             var avgangController = new AvgangerController(mockRep.Object);
 
-            List<Avgang> resultat = await avgangController.HentAlle();
+            ActionResult resultat = await avgangController.HentAlle();
 
             Assert.Null(resultat);
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gruppeoppgave1.Controllers
@@ -80,6 +81,7 @@ namespace Gruppeoppgave1.Controllers
             }
             return Ok("Avgangen ble slettet");
         }
-        
     }
+
 }
+

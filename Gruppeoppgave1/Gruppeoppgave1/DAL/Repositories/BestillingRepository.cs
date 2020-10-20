@@ -14,17 +14,17 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Logging;
 
-namespace Gruppeoppgave1.DAL.Repositories
+namespace Gruppeoppgave1.DAL.IRepositories
 {
     [ExcludeFromCodeCoverage]
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
+
         private ILogger<BestillingRepository> _log;
 
-        public BestillingRepository(BestillingContext db, ILogger<BestillingRepository> log)
+        public BestillingRepository(BestillingContext db)
         {
-            _log = log;
             _db = db;
         }
 
@@ -43,9 +43,8 @@ namespace Gruppeoppgave1.DAL.Repositories
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                _log.LogError(e.Message);
                 return false;
             }
         }
@@ -63,27 +62,26 @@ namespace Gruppeoppgave1.DAL.Repositories
                     Dato = b.Dato,
                     Tid = b.Tid
                 }).ToListAsync();
-
+                
                 return alleBestillinger;
             }
-            catch (Exception e)
+            catch
             {
-                _log.LogError(e.Message);
                 return null;
-            }
+            }  
         }
 
         public async Task<bool> Slett(int id)
         {
+
             try
             {
                 Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
                 _db.Bestillinger.Remove(enDBBestilling);
                 await _db.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch
             {
-                _log.LogError(e.Message);
                 return false;
             }
             return true;
@@ -105,16 +103,14 @@ namespace Gruppeoppgave1.DAL.Repositories
                 };
                 return hentetBestilling;
             }
-            catch (Exception e)
+            catch
             {
-                _log.LogError(e.Message);
                 return null;
             }
         }
 
         public async Task<bool> Endre(Bestilling endreBestilling)
         {
-
             try
             {
                 var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.Id);
@@ -125,16 +121,13 @@ namespace Gruppeoppgave1.DAL.Repositories
                 endreObjekt.Tid = endreBestilling.Tid;
                 await _db.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch
             {
-                _log.LogError(e.Message);
                 return false;
             }
             return true;
-
+            
         }
-
-    
 
         public static byte[] Hash(string passord, byte[] salt)
         {
@@ -159,18 +152,24 @@ namespace Gruppeoppgave1.DAL.Repositories
             try
             {
                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
-
-                byte[] hash = Hash(bruker.Passord, match.Salt);
-                bool hashMatch = hash.SequenceEqual(match.Passord);
-                if (hashMatch)
+                if (match == null)
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                else
+                {
+                    byte[] hash = Hash(bruker.Passord, match.Salt);
+                    bool hashMatch = hash.SequenceEqual(match.Passord);
+                    if (hashMatch)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
             catch (Exception e)
             {
-                _log.LogInformation(e.Message);
+              // _log.LogInformation(e.Message);
                 return false;
             }
         }

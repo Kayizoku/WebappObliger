@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
@@ -6,23 +7,25 @@ using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Stripe;
 
 namespace Gruppeoppgave1.Controller
 {
-    [Route("bestillinger/")]
+    [Route("[controller]/[action]")]
     public class BestillingController : ControllerBase
     {
         private readonly IBestillingRepository _db;
 
         private const string _innlogget = "innlogget";
 
+        private ILogger<BestillingController> _log;
+
         public BestillingController(IBestillingRepository db)
         {
             _db = db;
         }
 
-        [Route("lagreBestilling")]
         public async Task<ActionResult> Lagre(Bestilling innBestilling)
         {
             if (ModelState.IsValid)
@@ -71,7 +74,6 @@ namespace Gruppeoppgave1.Controller
             return Ok("Bestillingen ble slettet");
         }
 
-        [Route("endreEnBestilling")]
         public async Task<ActionResult> Endre(Bestilling innBestilling)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget)))
@@ -126,14 +128,14 @@ namespace Gruppeoppgave1.Controller
                 bool OK = await _db.LoggInn(bruker);
                 if (!OK)
                 {
-                    //  _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
+                   // _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
                     HttpContext.Session.SetString(_innlogget, "");
                     return Ok(false);
                 }
                 HttpContext.Session.SetString(_innlogget, "innlogget");
                 return Ok(true);
             }
-            //_log.LogInformation("Feil i inputvalidering");
+           // _log.LogInformation("Feil i inputvalidering");
             return BadRequest("Feil i inputvalidering på server");
         }
 

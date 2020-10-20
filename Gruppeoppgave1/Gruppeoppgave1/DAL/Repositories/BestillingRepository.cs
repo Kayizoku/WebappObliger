@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Gruppeoppgave1.DAL.IRepositories;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Logging;
 
 namespace Gruppeoppgave1.DAL.IRepositories
 {
@@ -19,6 +20,8 @@ namespace Gruppeoppgave1.DAL.IRepositories
     public class BestillingRepository : IBestillingRepository
     {
         private readonly BestillingContext _db;
+
+        private ILogger<BestillingRepository> _log;
 
         public BestillingRepository(BestillingContext db)
         {
@@ -149,18 +152,24 @@ namespace Gruppeoppgave1.DAL.IRepositories
             try
             {
                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
-
-                byte[] hash = Hash(bruker.Passord, match.Salt);
-                bool hashMatch = hash.SequenceEqual(match.Passord);
-                if (hashMatch)
+                if (match == null)
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                else
+                {
+                    byte[] hash = Hash(bruker.Passord, match.Salt);
+                    bool hashMatch = hash.SequenceEqual(match.Passord);
+                    if (hashMatch)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
             catch (Exception e)
             {
-               // _log.LogInformation(e.Message);
+              // _log.LogInformation(e.Message);
                 return false;
             }
         }

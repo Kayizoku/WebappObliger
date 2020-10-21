@@ -40,7 +40,7 @@ namespace Gruppeoppgave1
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(1800); // Hvis bruker ikke gjør noe på siden innen 30 min, vil bruker automatisk bli logget ut
+                options.IdleTimeout = TimeSpan.FromSeconds(1800); // Hvis bruker ikke gj?r noe p? siden innen 30 min, vil bruker automatisk bli logget ut
                 options.Cookie.IsEssential = true;
             });
             services.AddDistributedMemoryCache();

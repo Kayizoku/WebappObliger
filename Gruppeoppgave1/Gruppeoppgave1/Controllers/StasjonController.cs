@@ -30,10 +30,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentAlleStasjoner")]
         public async Task<ActionResult> HentAlleStasjoner()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+          /*  if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }
+            }*/
 
             List<Stasjon> liste =  await _db.HentAlleStasjoner();
             return Ok(liste);
@@ -95,5 +95,31 @@ namespace Gruppeoppgave1.Controllers
             _log.LogError("Ikke gyldig stasjon");
             return BadRequest("Ikke gyldig Stasjon");
         }
+
+
+        [Route("lagreStasjon")]
+        public async Task<ActionResult> LagreStasjon(Stasjon stasjon)
+        {
+             /*   if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+                {
+                    return Unauthorized("Ikke logget inn");
+                }
+             */
+                if (ModelState.IsValid)
+                {
+                    bool resultat = await _db.LagreStasjon(stasjon);
+                    if (!resultat)
+                    {
+                        _log.LogError("Kunne ikke legge til stasjon");
+                        return BadRequest("Kunne ikke legge til stasjon");
+                    }
+                    _log.LogInformation("Stasjonen ble lagt til");
+                    return Ok("Stasjonen ble lagt til");
+                }
+                _log.LogError("Stasjonsobjektet er ikke riktig");
+                return BadRequest("Stasjonsobjektet er ikke riktig");
+            }
+
+
     }
 }

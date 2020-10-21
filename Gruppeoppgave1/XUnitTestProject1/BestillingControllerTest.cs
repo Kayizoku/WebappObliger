@@ -1,64 +1,114 @@
 using Gruppeoppgave1.Controller;
-using Gruppeoppgave1.DAL;
+using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace XUnitTestProject1
+namespace EnhetstestingNor_Way
 {
     public class BestillingControllerTest
     {
+
+        private const string _loggetInn = "loggetInn";
+        private const string _ikkeLoggetInn = "";
+
+        private readonly Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
+        private readonly MockHttpSession mockSession = new MockHttpSession();
+
+        public readonly Mock<IBestillingRepository> mockRepo = new Mock<IBestillingRepository>();
+        private readonly Mock<ILogger<BestillingController>> mockLog = new Mock<ILogger<BestillingController>>();
+
         [Fact]
-        public async Task LagreOK()
+        public async Task LagreLoggetInnOK()
         {
-            //Arrange
-            var innBestilling = new Bestilling
-            {
-                Id = 1,
-                pris = 100.00,
-                Fra = "Sandvika",
-                Til = "Lysaker",
-                Dato = "2020-10-31",
-                Tid = "07:00"
-            };
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Lagre(innBestilling)).ReturnsAsync(true);
-            var bestillingController = new BestillingController(mock.Object);
-            //Act
-            bool resultat = await bestillingController.Lagre(innBestilling);
+            mockRepo.Setup(k => k.Lagre(It.IsAny<Bestilling>())).ReturnsAsync(true);
 
-            //Assert
-            Assert.True(resultat);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Lagre(It.IsAny<Bestilling>()) as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Bestillingen ble lagret", resultat.Value);
         }
 
         [Fact]
-        public async Task LagreIkkeOK()
+        public async Task LagreLoggetInnIkkeOK()
         {
-            var innBestilling = new Bestilling
-            {
-                Id = 1,
-                pris = 100.00,
-                Fra = "Sandvika",
-                Til = "Lysaker",
-                Dato = "2020-10-31",
-                Tid = "07:00"
-            };
+            mockRepo.Setup(k => k.Lagre(It.IsAny<Bestilling>())).ReturnsAsync(false);
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Lagre(innBestilling)).ReturnsAsync(false);
-            var bestillingController = new BestillingController(mock.Object);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            bool resultat = await bestillingController.Lagre(innBestilling);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            Assert.False(resultat);
+            var resultat = await bestillingController.Lagre(It.IsAny<Bestilling>()) as NotFoundObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.NotFound, resultat.StatusCode);
+            Assert.Equal("Kunne ikke lagre bestillingen", resultat.Value);
         }
 
         [Fact]
-        public async Task HentAlleBestillinger()
+        public async Task LagreLoggetInnFeilModel()
+        {
+            var bestilling1 = new Bestilling
+            {
+                Id = 2,
+                pris = 100.00,
+                Fra = "",
+                Til = "Drammen",
+                Dato = "2020-12-02",
+                Tid = "08:00"
+            };
+
+            mockRepo.Setup(k => k.Lagre(bestilling1)).ReturnsAsync(true);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+            bestillingController.ModelState.AddModelError("Fra", "Bestillingen er ikke riktig");
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Lagre(bestilling1) as BadRequestObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Bestillingen er ikke riktig", resultat.Value);
+        }
+
+        [Fact]
+        public async Task LagreIkkeLoggetInn()
+        {
+            
+            mockRepo.Setup(k => k.Lagre(It.IsAny<Bestilling>())).ReturnsAsync(false);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Lagre(It.IsAny<Bestilling>()) as UnauthorizedObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("ikke logget inn", resultat.Value);
+        }
+
+
+        [Fact]
+        public async Task HentAlleBestillingerLoggetInnOK()
         {
             var bestilling1 = new Bestilling
             {
@@ -95,47 +145,39 @@ namespace XUnitTestProject1
             bestillingListe.Add(bestilling2);
             bestillingListe.Add(bestilling3);
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(bestillingListe);
+            mockRepo.Setup(k => k.HentAlle()).ReturnsAsync(bestillingListe);
 
-            var BestillingController = new BestillingController(mock.Object);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            List<Bestilling> resultat = await BestillingController.HentAlle();
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            Assert.Equal<List<Bestilling>>(bestillingListe, resultat);
+            var resultat = await bestillingController.HentAlle() as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<List<Bestilling>>((List<Bestilling>)resultat.Value, bestillingListe);
         }
 
         [Fact]
-        public async Task HentAlleTom()
+        public async Task HentAlleIkkeLoggetInn()
         {
-            var bestillingListe = new List<Bestilling>();
+            mockRepo.Setup(k => k.HentAlle()).ReturnsAsync(()=>null);
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(bestillingListe);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            var BestillingController = new BestillingController(mock.Object);
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            List<Bestilling> resultat = await BestillingController.HentAlle();
+            var resultat = await bestillingController.HentAlle() as UnauthorizedObjectResult;
 
-            Assert.Equal<List<Bestilling>>(bestillingListe, resultat);
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("ikke logget inn", resultat.Value);
         }
 
         [Fact]
-        public async Task HentAlleNull()
-        {
-            
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.HentAlle()).ReturnsAsync(()=>null);
-
-            var BestillingController = new BestillingController(mock.Object);
-
-            List<Bestilling> resultat = await BestillingController.HentAlle();
-
-            Assert.Null(resultat);
-        }
-
-        [Fact]
-        public async Task HentEnBestillingOK()
+        public async Task HentEnBestillingLoggetInnOK()
         {
             var bestilling1 = new Bestilling
             {
@@ -147,53 +189,109 @@ namespace XUnitTestProject1
                 Tid = "15:00"
             };
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.HentEn(1)).ReturnsAsync(bestilling1);
+            mockRepo.Setup(k => k.HentEn(1)).ReturnsAsync(bestilling1);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.HentEn(1);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.Equal<Bestilling>(bestilling1, resultat);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.HentEn(1) as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<Bestilling>(bestilling1, (Bestilling)resultat.Value);
         }
 
         [Fact]
-        public async Task HentEnBestillingNull()
+        public async Task HentEnBestillingNotFound()
         {
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.HentEn(1)).ReturnsAsync(()=>null);
+            mockRepo.Setup(k => k.HentEn(1)).ReturnsAsync(() => null);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.HentEn(1);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.Null(resultat);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.HentEn(1) as NotFoundObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.NotFound, resultat.StatusCode);
+            Assert.Equal("Bestillingen ble ikke funnet", resultat.Value);
         }
 
         [Fact]
-        public async Task SlettTrue()
+        public async Task HentEnBestillingIkkeLoggetInn()
         {
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Slett(1)).ReturnsAsync(true);
+            mockRepo.Setup(k => k.HentEn(1)).ReturnsAsync(() => null);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.Slett(1);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.True(resultat);
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.HentEn(1) as UnauthorizedObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn", resultat.Value);
         }
 
+
         [Fact]
-        public async Task SlettFalse()
+        public async Task SlettBestillingLoggetInn()
         {
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Slett(1)).ReturnsAsync(false);
+            mockRepo.Setup(k => k.Slett(It.IsAny<int>())).ReturnsAsync(true);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.Slett(1);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.False(resultat);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Slett(It.IsAny<int>()) as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Bestillingen ble slettet", resultat.Value);
         }
 
         [Fact]
-        public async Task EndreTrue()
+        public async Task SlettBestillingIkkeFunnet()
+        {
+            mockRepo.Setup(k => k.Slett(It.IsAny<int>())).ReturnsAsync(false);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Slett(It.IsAny<int>()) as NotFoundObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.NotFound, resultat.StatusCode);
+            Assert.Equal("Kunne ikke slette bestillingen", resultat.Value);
+        }
+
+        [Fact]
+        public async Task SlettBestillingIkkeloggetInn()
+        {
+            mockRepo.Setup(k => k.Slett(1)).ReturnsAsync(true);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Slett(1) as UnauthorizedObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("ikke logget inn", resultat.Value);
+        }
+
+
+        [Fact]
+        public async Task EndreBestillingLoggetInnOk()
         {
             var bestilling = new Bestilling
             {
@@ -205,38 +303,75 @@ namespace XUnitTestProject1
                 Tid = "10:00"
             };
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Endre(bestilling)).ReturnsAsync(true);
+            mockRepo.Setup(k => k.Endre(bestilling)).ReturnsAsync(true);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.Endre(bestilling);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.True(resultat);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Endre(bestilling) as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Bestillingen ble endret", resultat.Value);
         }
 
         [Fact]
-        public async Task EndreFalse()
+        public async Task EndreBestillingIkkeOk()
         {
-            var bestilling = new Bestilling
-            {
-                Id = 3,
-                pris = 50.00,
-                Fra = "Horten",
-                Til = "Drammen",
-                Dato = "2020-09-12",
-                Tid = "10:00"
-            };
 
-            var mock = new Mock<IBestillingRepository>();
-            mock.Setup(k => k.Endre(bestilling)).ReturnsAsync(false);
+            mockRepo.Setup(k => k.Endre(It.IsAny<Bestilling>())).ReturnsAsync(false);
 
-            var bestillingController = new BestillingController(mock.Object);
-            var resultat = await bestillingController.Endre(bestilling);
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            Assert.False(resultat);
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Endre(It.IsAny<Bestilling>()) as NotFoundObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.NotFound, resultat.StatusCode);
+            Assert.Equal("Kunne ikke endre bestillingen", resultat.Value);
         }
 
 
+        [Fact]
+        public async Task EndreBestillingFeilModel()
+        {
 
+            mockRepo.Setup(k => k.Endre(It.IsAny<Bestilling>())).ReturnsAsync(false);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+            bestillingController.ModelState.AddModelError("Fra", "Bestillingen mangler felt");
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Endre(It.IsAny<Bestilling>()) as BadRequestObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Bestillingen mangler felt", resultat.Value);
+        }
+
+
+        [Fact]
+        public async Task EndreBestillingIkkeLoggetInn()
+        {
+
+            mockRepo.Setup(k => k.Endre(It.IsAny<Bestilling>())).ReturnsAsync(false);
+
+            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await bestillingController.Endre(It.IsAny<Bestilling>()) as UnauthorizedObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn", resultat.Value);
+        }
     }
 }

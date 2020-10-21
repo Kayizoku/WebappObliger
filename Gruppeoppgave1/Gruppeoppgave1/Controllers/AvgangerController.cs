@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -90,7 +89,7 @@ namespace Gruppeoppgave1.Controllers
                 if (!ok)
                 {
                     _log.LogError("Avgangen kunne ikke bli endret");
-                    return BadRequest("Kunne ikke endre på avgangen");
+                    return NotFound("Kunne ikke endre på avgangen");
                 }
                 _log.LogInformation("Avgangen ble endret");
                 return Ok("Avgangen ble endret");
@@ -111,7 +110,7 @@ namespace Gruppeoppgave1.Controllers
             if (!ok)
             {
                 _log.LogError("Kunne ikke slette avgangen");
-                return BadRequest("Kunne ikke slette avgangen");
+                return NotFound("Kunne ikke slette avgangen");
             }
             _log.LogInformation("Avgangen ble slettet");
             return Ok("Avgangen ble slettet");

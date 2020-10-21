@@ -17,7 +17,6 @@ $(function () {
 function assignSubmitFunction() {
     $("#bestill").on("submit", function (e) {
         e.preventDefault();
-
         var data = lagre(e);
         if (!data) return;
 

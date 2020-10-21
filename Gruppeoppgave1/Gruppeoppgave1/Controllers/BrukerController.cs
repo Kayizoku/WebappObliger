@@ -1,36 +1,59 @@
 ﻿using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 
 namespace Gruppeoppgave1.Controllers
 {
     [Route("bruker/")]
-    public class BrukerController
+    public class BrukerController:ControllerBase
     {
 
         private readonly IBrukerRepository _db;
+        private ILogger<BrukerController> _log;
+        private const string _loggetInn = "loggetInn";
 
-        public BrukerController(IBrukerRepository db)
+        public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
         {
+            _log = log;
             _db = db;
         }
 
-
-        [Route("LeggTilBruker")]
-        public async Task<bool> LeggTilBruker(Bruker bruker)
+        [Route("loggInn")]
+        public async Task<ActionResult> LoggInn(Bruker bruker)
         {
-            return await _db.LeggTilBruker(bruker);
+            if (ModelState.IsValid)
+            {
+                bool OK = await _db.LoggInn(bruker);
+                if (!OK)
+                {
+                    //_log.LogInformation feiler for It.IsAny<Bruker>(), nullReferenceException
+                    _log.LogInformation("Innloggingen feilet for bruker");
+                    HttpContext.Session.SetString(_loggetInn, "");
+                    return Ok(false);
+                }
+                //_log.LogInformation("Bruker " + bruker.Brukernavn + " ble logget inn");
+                //_log.LogInformation feiler for It.IsAny<Bruker>(), nullReferenceException
+                HttpContext.Session.SetString(_loggetInn, "loggetInn");
+                return Ok(true);
+            }
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering på server");
         }
 
-        [Route("SjekkBruker")]
-        public async Task<bool> SjekkBruker(Bruker bruker)
+        [Route("loggUt")]
+        public void LoggUt()
         {
-            return await _db.SjekkBruker(bruker);
+            _log.LogInformation("logget ut");
+            HttpContext.Session.SetString(_loggetInn, "");
         }
+
+        
     }
 }

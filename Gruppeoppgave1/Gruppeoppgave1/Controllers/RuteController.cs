@@ -39,7 +39,7 @@ namespace Gruppeoppgave1.Controllers
                 if (!leggTilOK)
                 {
                     _log.LogError("Kunne ikke legge til rute");
-                    return BadRequest("Kunne ikke legge til rute");
+                    return NotFound("Kunne ikke legge til rute");
                 }
                 _log.LogInformation("Ruten ble lagt til");
                 return Ok("Ruten ble lagt til");
@@ -60,7 +60,7 @@ namespace Gruppeoppgave1.Controllers
                if (!ruteOK)
                {
                  _log.LogError("Kunne ikke endre ruten");
-                 return BadRequest("Kunne ikke endre ruten");
+                 return NotFound("Kunne ikke endre ruten");
                }
                _log.LogInformation("Ruten ble endret");
                return Ok("Ruten ble endret");
@@ -80,7 +80,7 @@ namespace Gruppeoppgave1.Controllers
             if (!slettOK)
             {
                 _log.LogError("Kunne ikke slette ruten");
-                return BadRequest("Kunne ikke slette ruten");
+                return NotFound("Kunne ikke slette ruten");
             }
             _log.LogInformation("Ruten ble slettet");
             return Ok("Ruten ble slettet");
@@ -107,10 +107,10 @@ namespace Gruppeoppgave1.Controllers
             Rute ruten = await _db.HentEnRute(id);
             if (ruten == null)
             {
-                _log.LogError("Fant ikke ruten med id "+ id);
+                _log.LogError("Fant ikke ruten med id ");
                 return NotFound("Ruten ble ikke funnet");
             }
-            _log.LogInformation("Bestillingen med id "+id +" ble funnet");
+            _log.LogInformation("Bestillingen med id ble funnet");
             return Ok(ruten);
         }
     }

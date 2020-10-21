@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gruppeoppgave1", "Gruppeoppgave1\Gruppeoppgave1.csproj", "{3C9742BB-CF83-48D5-940E-C1E1606EAAC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject1", "XUnitTestProject1\XUnitTestProject1.csproj", "{EA535544-9F04-4EE4-996F-234E3149B37D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnhetstestingNor_Way", "XUnitTestProject1\EnhetstestingNor_Way.csproj", "{EA535544-9F04-4EE4-996F-234E3149B37D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

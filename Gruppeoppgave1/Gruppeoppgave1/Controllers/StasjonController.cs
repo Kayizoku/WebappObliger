@@ -44,7 +44,7 @@ namespace Gruppeoppgave1.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized("Ikke logget inn");
+                return Unauthorized("ikke logget inn");
             }
             var stasjon = await _db.HentEnStasjon(id);
             if(stasjon == null)
@@ -61,13 +61,13 @@ namespace Gruppeoppgave1.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized("Ikke logget inn");
+                return Unauthorized("ikke logget inn");
             }
             bool ok = await _db.FjernStasjon(id);
             if (!ok)
             {
                 _log.LogError("Kunne ikke fjerne stasjonen");
-                return BadRequest("Kunne ikke slette stasjonen");
+                return NotFound("Kunne ikke slette stasjonen");
             }
             _log.LogInformation("Stasjonen ble fjernet");
             return Ok("Stasjonen ble fjernet");
@@ -79,7 +79,7 @@ namespace Gruppeoppgave1.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized("Ikke logget inn");
+                return Unauthorized("ikke logget inn");
             }
             if (ModelState.IsValid)
             {
@@ -87,10 +87,10 @@ namespace Gruppeoppgave1.Controllers
                 if (!ok)
                 {
                     _log.LogError("Kunne ikke endre stasjonen");
-                    return BadRequest("Kunne ikke endre stasjon!");
+                    return NotFound("Kunne ikke endre stasjon!");
                 }
-                _log.LogInformation("Stasjonen " + stasjon.StasjonsNavn+" ble endret på");
-                return Ok("Stasjonen "+ stasjon.StasjonsNavn +" ble endret");
+                _log.LogInformation("Stasjonen ble endret på");
+                return Ok("Stasjonen ble endret");
             }
             _log.LogError("Ikke gyldig stasjon");
             return BadRequest("Ikke gyldig Stasjon");

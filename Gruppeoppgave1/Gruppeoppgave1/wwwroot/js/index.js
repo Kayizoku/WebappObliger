@@ -23,7 +23,7 @@ function assignSubmitFunction() {
 
         $.ajax({
             type: "POST",
-            url: "Bestilling/Lagre",
+            url: "bestillinger/lagreBestilling",
             data: data,
 
             success: function (data) {

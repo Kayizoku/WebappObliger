@@ -26,10 +26,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentAlleStasjoner")]
         public async Task<ActionResult> HentAlleStasjoner()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            /*if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }
+            }*/
 
             List<Stasjon> liste =  await _db.HentAlleStasjoner();
             return Ok(liste);

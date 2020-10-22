@@ -37,6 +37,8 @@ namespace Gruppeoppgave1
             services.AddScoped<IBestillingRepository, BestillingRepository>();
             services.AddScoped<IAvgangerRepository, AvgangRepository>();
             services.AddScoped<IStasjonRepository, StasjonRepository>();
+            services.AddScoped<IBrukerRepository, BrukerRepository>();
+            services.AddScoped<IRuteRepository, RuteRepository>();
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";

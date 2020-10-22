@@ -58,5 +58,3 @@ namespace Gruppeoppgave1.Controllers
         }
     }
 }
-    }
-}

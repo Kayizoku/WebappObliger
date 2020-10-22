@@ -131,36 +131,16 @@ function fjernStasjon(id) {
 }
 
 function slettEnBestilling(id) {
-    $.ajax({
-        type: "POST",
-        url: "bestillinger/slettEnBestilling",
-        data: id,
-
-        success: function (data) {
-            document.location = "admin.html";
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status = " + textStatus + ", " +
-                "error thrown: " + errorThrown.message
-            );
-        }
+    var url = "bestillinger/slettEnBestilling?id=" + id;
+    $.post(url, id, function (data) {
+        document.location.href = "admin.html";
     });
 }
 
 function slettAvgang(id) {
-    $.ajax({
-        type: "POST",
-        url: "avganger/slettAvgang",
-        data: id,
-
-        success: function (data) {
-            document.location = "admin.html";
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status = " + textStatus + ", " +
-                "error thrown: " + errorThrown.message
-            );
-        }
+    var url = "avganger/slettAvgang?id=" + id;
+    $.post(url, id, function (data) {
+        document.location.href = "admin.html";
     });
 }
 

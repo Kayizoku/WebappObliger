@@ -78,6 +78,7 @@ namespace Gruppeoppgave1.DAL.IRepositories
             try
             {
                 Bestillinger enDBBestilling = await _db.Bestillinger.FindAsync(id);
+                if (enDBBestilling == null) return false;
                 _db.Bestillinger.Remove(enDBBestilling);
                 await _db.SaveChangesAsync();
             }

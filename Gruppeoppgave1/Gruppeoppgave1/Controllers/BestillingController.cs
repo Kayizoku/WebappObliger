@@ -21,9 +21,10 @@ namespace Gruppeoppgave1.Controller
 
         private ILogger<BestillingController> _log;
 
-        public BestillingController(IBestillingRepository db)
+        public BestillingController(IBestillingRepository db, ILogger<BestillingController> log)
         {
             _db = db;
+            _log = log;
         }
 
         public async Task<ActionResult> Lagre(Bestilling innBestilling)
@@ -128,14 +129,21 @@ namespace Gruppeoppgave1.Controller
                 bool OK = await _db.LoggInn(bruker);
                 if (!OK)
                 {
-                   // _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
+                    try
+                    {
+                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                    }
                     HttpContext.Session.SetString(_innlogget, "");
                     return Ok(false);
                 }
                 HttpContext.Session.SetString(_innlogget, "innlogget");
                 return Ok(true);
             }
-           // _log.LogInformation("Feil i inputvalidering");
+            _log.LogInformation("Feil i inputvalidering");
             return BadRequest("Feil i inputvalidering på server");
         }
 

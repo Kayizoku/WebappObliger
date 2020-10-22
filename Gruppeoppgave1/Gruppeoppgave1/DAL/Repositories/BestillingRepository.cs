@@ -23,9 +23,10 @@ namespace Gruppeoppgave1.DAL.IRepositories
 
         private ILogger<BestillingRepository> _log;
 
-        public BestillingRepository(BestillingContext db)
+        public BestillingRepository(BestillingContext db, ILogger<BestillingRepository> log)
         {
             _db = db;
+            _log = log;
         }
 
 
@@ -147,31 +148,31 @@ namespace Gruppeoppgave1.DAL.IRepositories
             return salt;
         }
 
-        public async Task<bool> LoggInn(Bruker bruker)
-        {
-            try
-            {
-                Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
-                if (match == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    byte[] hash = Hash(bruker.Passord, match.Salt);
-                    bool hashMatch = hash.SequenceEqual(match.Passord);
-                    if (hashMatch)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            catch (Exception e)
-            {
-              // _log.LogInformation(e.Message);
-                return false;
-            }
-        }
+         public async Task<bool> LoggInn(Bruker bruker)
+         {
+             try
+             {
+                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
+                 if (match == null)
+                 {
+                     return false;
+                 }
+                 else
+                 {
+                     byte[] hash = Hash(bruker.Passord, match.Salt);
+                     bool hashMatch = hash.SequenceEqual(match.Passord);
+                     if (hashMatch)
+                     {
+                         return true;
+                     }
+                     return false;
+                 }
+             }
+             catch (Exception e)
+             {
+                 _log.LogInformation(e.Message);
+                 return false;
+             }
+         }
     }
 }

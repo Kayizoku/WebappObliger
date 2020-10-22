@@ -23,9 +23,10 @@ namespace Gruppeoppgave1.DAL.IRepositories
 
         private ILogger<BestillingRepository> _log;
 
-        public BestillingRepository(BestillingContext db)
+        public BestillingRepository(BestillingContext db, ILogger<BestillingRepository> log)
         {
             _db = db;
+            _log = log;
         }
 
 
@@ -128,5 +129,53 @@ namespace Gruppeoppgave1.DAL.IRepositories
             return true;
             
         }
+<<<<<<< HEAD
+=======
+
+        public static byte[] Hash(string passord, byte[] salt)
+        {
+            return KeyDerivation.Pbkdf2(
+                                password: passord,
+                                salt: salt,
+                                prf: KeyDerivationPrf.HMACSHA512,
+                                iterationCount: 1000,
+                                numBytesRequested: 32);
+        }
+
+        public static byte[] Salt()
+        {
+            var csp = new RNGCryptoServiceProvider();
+            var salt = new byte[24];
+            csp.GetBytes(salt);
+            return salt;
+        }
+
+         public async Task<bool> LoggInn(Bruker bruker)
+         {
+             try
+             {
+                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
+                 if (match == null)
+                 {
+                     return false;
+                 }
+                 else
+                 {
+                     byte[] hash = Hash(bruker.Passord, match.Salt);
+                     bool hashMatch = hash.SequenceEqual(match.Passord);
+                     if (hashMatch)
+                     {
+                         return true;
+                     }
+                     return false;
+                 }
+             }
+             catch (Exception e)
+             {
+                 _log.LogInformation(e.Message);
+                 return false;
+             }
+         }
+>>>>>>> cc3156f8a7beb418fd67072b5dcbcb6edfbf6513
     }
 }

@@ -12,6 +12,6 @@ CVC: hvilke tre siffer som helst.
 
 Admin-Innlogging:
 
-Brukernavn= = Admin1
+Brukernavn = Admin1
 
 Passord = Passord1

@@ -17,13 +17,76 @@ namespace Gruppeoppgave1.Controllers
 
 
         private readonly IBrukerRepository _db;
+        private readonly IAvgangerRepository _dbA;
+        private readonly IBestillingRepository _dbB;
+        private readonly IRuteRepository _dbR;
+        private readonly IStasjonRepository _dbS;
+
         private ILogger<BrukerController> _log;
         private const string _loggetInn = "logget inn";
 
-        public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
+        public BrukerController(IBrukerRepository db, IAvgangerRepository dbA, IBestillingRepository dbB,
+            IRuteRepository dbR, IStasjonRepository dbS, ILogger<BrukerController> log)
         {
             _log = log;
             _db = db;
+            _dbA = dbA;
+            _dbB = dbB;
+            _dbR = dbR;
+            _dbS = dbS;
+        }
+
+        [Route("hentAlleAvgangerAdmin")]
+        public async Task<ActionResult> HentAlleAvgangerAdmin()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
+            List<Avgang> alleAvganger = await _dbA.HentAlle();
+            return Ok(alleAvganger);
+        }
+
+        [Route("hentAlleBestillingerAdmin")]
+        public async Task<ActionResult> HentAlleBestillingerAdmin()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
+            List<Bestilling> alleBestillinger = await _dbB.HentAlle();
+            return Ok(alleBestillinger);
+        }
+
+        [Route("hentAlleRuterAdmin")]
+        public async Task<ActionResult> HentAlleRuterAdmin()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
+            List<Rute> alleRuter = await _dbR.HentAlleRuter();
+            return Ok(alleRuter);
+        }
+
+        [Route("hentAlleStasjonerAdmin")]
+        public async Task<ActionResult> HentAlleStasjonerAdmin()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
+            List<Stasjon> alleStasjoner = await _dbS.HentAlleStasjoner();
+            return Ok(alleStasjoner);
         }
 
         [Route("loggInn")]
@@ -58,3 +121,5 @@ namespace Gruppeoppgave1.Controllers
         }
     }
 }
+
+//hentAlle på all repo

@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stripe;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Controller
 {
@@ -28,10 +27,6 @@ namespace Gruppeoppgave1.Controller
         [Route("lagreBestilling")]
         public async Task<ActionResult> Lagre(Bestilling innBestilling)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("ikke logget inn");
-            }
             if (ModelState.IsValid)
             {
                 bool ok = await _db.Lagre(innBestilling);
@@ -50,11 +45,6 @@ namespace Gruppeoppgave1.Controller
         [Route("hentAlleBestillinger")]
         public async Task<ActionResult> HentAlle()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("ikke logget inn");
-            }
-
             List<Bestilling> bestillinger = await _db.HentAlle();
             return Ok(bestillinger);
         }
@@ -117,7 +107,7 @@ namespace Gruppeoppgave1.Controller
             return BadRequest("Bestillingen mangler felt");
         }
 
-
+        [ExcludeFromCodeCoverage]
         public bool Charge(string stripeEmail, string stripeToken)
         {
             var customers = new CustomerService();
@@ -137,10 +127,13 @@ namespace Gruppeoppgave1.Controller
             return charge.Paid;
         }
 
+        [ExcludeFromCodeCoverage]
         public IActionResult Index()
         {
             return RedirectToPage("/");
         }
+
+        [ExcludeFromCodeCoverage]
         public IActionResult Error()
         {
             return RedirectToAction("/");

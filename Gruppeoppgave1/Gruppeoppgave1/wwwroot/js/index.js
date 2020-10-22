@@ -23,7 +23,7 @@ function assignSubmitFunction() {
 
         $.ajax({
             type: "POST",
-            url: "Bestilling/Lagre",
+            url: "bestillinger/lagreBestilling",
             data: data,
 
             success: function (data) {
@@ -69,69 +69,7 @@ function lagreBestilling(bestilling) {
 }
 
 
-//henter alle bestillinger i et array (Flyttet til kvittering.js)
-/*
-function hentAlleBestillinger() {
-    $.get("bestillinger/hentAlleBestillinger", function (data) {
-        formaterBestillinger(data);
-    });
-}
 
-function formaterBestillinger(bestillinger) {
-    let ut = "<table class='table table-striped'><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
-
-    bestillinger.forEach(bestilling => {
-        ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +
-            bestilling.dato + "</td><td>" + bestilling.tid + "</td><td>" + bestilling.pris + "</td></tr>";
-
-    });
-
-    ut += "</table>";
-    $("#visAlleBestillinger").html(ut);
-}
-
-*/
-//Gammel statisk priskalk
-/*
-
-
-
-
-function prisKalk(frastasjon, tilstasjon) {
-
-    var prisLokal = 0;
-
-    if (frastasjon === "Oslo") {
-        fraStasjon = 1;
-    }
-
-    else if (frastasjon === "Drammen") {
-        fraStasjon = 2;
-    }
-
-    else if (frastasjon === "Horten") {
-        fraStasjon = 3;
-    }
-
-    if (tilstasjon === "Oslo") {
-        tilStasjon = 1;
-    }
-
-    else if (tilstasjon === "Drammen") {
-        tilStasjon = 2;
-    }
-
-    else if (tilstasjon === "Horten") {
-        tilStasjon = 3;
-    }
-
-    prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
-
-    //return prisLokal;
-    //Venter på ny priskalk()
-    return 123;
-}
-*/
 
 function prisCalc(frastasjon, tilstasjon) {
     var fraNr, tilNr;

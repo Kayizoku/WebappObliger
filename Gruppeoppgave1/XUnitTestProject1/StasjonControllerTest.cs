@@ -1,12 +1,10 @@
-﻿using Gruppeoppgave1.Controller;
-using Gruppeoppgave1.Controllers;
+﻿using Gruppeoppgave1.Controllers;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -67,22 +65,22 @@ namespace EnhetstestingNor_Way
         }
 
         
-        [Fact]
-        public async Task HentAlleIkkeLoggetInn()
-        {
-            mockRepo.Setup(k => k.HentAlleStasjoner()).ReturnsAsync(()=>null);
+        //[Fact]
+        //public async Task HentAlleIkkeLoggetInn()
+        //{
+        //    mockRepo.Setup(k => k.HentAlleStasjoner()).ReturnsAsync(()=>null);
 
-            var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
+        //    var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+        //    mockSession[_loggetInn] = _ikkeLoggetInn;
+        //    mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+        //    stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            var resultat = await stasjonController.HentAlleStasjoner() as UnauthorizedObjectResult;
+        //    var resultat = await stasjonController.HentAlleStasjoner() as UnauthorizedObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("Ikke logget inn", resultat.Value);
-        }
+        //    Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+        //    Assert.Equal("Ikke logget inn", resultat.Value);
+        //}
 
         [Fact]
         public async Task HentEnStasjonOK()

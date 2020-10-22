@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Gruppeoppgave1.DAL;
-using Gruppeoppgave1.DAL.IRepositories;
+﻿using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Mvc;
-using Gruppeoppgave1.DAL.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Controllers
 {
@@ -30,11 +26,6 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentAlleStasjoner")]
         public async Task<ActionResult> HentAlleStasjoner()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }
-
             List<Stasjon> liste =  await _db.HentAlleStasjoner();
             return Ok(liste);
         }
@@ -46,6 +37,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("ikke logget inn");
             }
+
             var stasjon = await _db.HentEnStasjon(id);
             if(stasjon == null)
             {
@@ -63,6 +55,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("ikke logget inn");
             }
+
             bool ok = await _db.FjernStasjon(id);
             if (!ok)
             {
@@ -81,6 +74,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("ikke logget inn");
             }
+
             if (ModelState.IsValid)
             {
                 bool ok =  await _db.EndreStasjon(stasjon);

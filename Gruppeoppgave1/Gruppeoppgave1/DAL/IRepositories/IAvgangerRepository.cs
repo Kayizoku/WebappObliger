@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Gruppeoppgave1.Model;
 
 namespace Gruppeoppgave1.DAL.IRepositories
 {
-    
     public interface IAvgangerRepository
     {
         Task<bool> LeggTil(Avgang avgang);

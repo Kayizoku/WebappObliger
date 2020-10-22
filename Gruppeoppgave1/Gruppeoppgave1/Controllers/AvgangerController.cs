@@ -19,6 +19,7 @@ namespace Gruppeoppgave1.Controllers
         private readonly IAvgangerRepository _db;
 
         private ILogger<AvgangerController> _log;
+        private const string _loggetInn = "logget inn";
 
         public AvgangerController(IAvgangerRepository db, ILogger<AvgangerController> log)
         {
@@ -29,10 +30,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("leggTilAvgang")]
         public async Task<ActionResult> LeggTil(Avgang avgang)
         {
-           /*if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+           if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }*/
+            }
 
             if (ModelState.IsValid)
                 {
@@ -59,6 +60,11 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentEnAvgang")]
         public async Task<ActionResult> HentEn(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
             Avgang avgang = await _db.HentEn(id);
             if(avgang == null)
             {
@@ -71,10 +77,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("endreAvgang")]
         public async Task<ActionResult> Endre(Avgang avgang)
         {
-          /*  if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }*/
+            }
 
             if (ModelState.IsValid)
             {
@@ -95,10 +101,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("slettAvgang")]
         public async Task<ActionResult> Slett(int id)
         {
-           /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }*/
+            }
 
             bool ok =  await _db.Slett(id);
             if (!ok)

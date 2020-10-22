@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Gruppeoppgave1.DAL.IRepositories;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.DAL.Repositories
 {

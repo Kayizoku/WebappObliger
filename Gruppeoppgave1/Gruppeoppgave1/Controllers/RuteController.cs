@@ -33,6 +33,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
+
             if (ModelState.IsValid)
             {
                 bool leggTilOK = await _db.LeggTilRute(rute);
@@ -55,6 +56,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
+
             if (ModelState.IsValid) {
                bool ruteOK = await _db.EndreRute(rute);
                if (!ruteOK)
@@ -76,6 +78,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
+
             bool slettOK = await _db.SlettRute(id);
             if (!slettOK)
             {
@@ -89,10 +92,6 @@ namespace Gruppeoppgave1.Controllers
         [Route("HentAlleRuter")]
         public async Task<ActionResult> HentAlleRuter()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }
             List<Rute> alleruter = await _db.HentAlleRuter();
             return Ok(alleruter);
         }
@@ -104,6 +103,7 @@ namespace Gruppeoppgave1.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
+
             Rute ruten = await _db.HentEnRute(id);
             if (ruten == null)
             {

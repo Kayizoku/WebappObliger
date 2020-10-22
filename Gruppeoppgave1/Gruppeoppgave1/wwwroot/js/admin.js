@@ -5,6 +5,14 @@
 function hentAlleStasjoner() {
     $.get("bruker/hentAlleStasjonerAdmin", function (stasjoner) {
         formaterStasjoner(stasjoner);
+    })
+    .fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 
@@ -33,6 +41,14 @@ $(function () {
 function hentAlleBestillinger() {
     $.get("bruker/hentAlleBestillingerAdmin", function (bestillinger) {
         formaterBestillinger(bestillinger);
+    })
+    .fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 
@@ -64,6 +80,13 @@ $(function () {
 function hentAlleAvganger() {
     $.get("bruker/hentAlleAvgangerAdmin", function (avganger) {
         formaterAvganger(avganger);
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 
@@ -92,6 +115,13 @@ $(function () {
 function hentAlleRuter() {
     $.get("bruker/hentAlleRuterAdmin", function (ruter) {
         formaterRuter(ruter);
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 

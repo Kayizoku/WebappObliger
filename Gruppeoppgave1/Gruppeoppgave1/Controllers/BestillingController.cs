@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gruppeoppgave1.DAL;
@@ -12,38 +11,50 @@ using Stripe;
 
 namespace Gruppeoppgave1.Controller
 {
-    [Route("[controller]/[action]")]
+    [Route("bestillinger/")]
     public class BestillingController : ControllerBase
     {
         private readonly IBestillingRepository _db;
-
-        private const string _innlogget = "innlogget";
-
         private ILogger<BestillingController> _log;
+
+        private const string _loggetInn = "loggetInn";
 
         public BestillingController(IBestillingRepository db, ILogger<BestillingController> log)
         {
-            _db = db;
             _log = log;
+            _db = db;
         }
 
+        [Route("lagreBestilling")]
         public async Task<ActionResult> Lagre(Bestilling innBestilling)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("ikke logget inn");
+            }
             if (ModelState.IsValid)
             {
                 bool ok = await _db.Lagre(innBestilling);
                 if (!ok)
                 {
-                    return BadRequest("Kunne ikke lagre");
+                    _log.LogError("Kunne ikke lagre bestillingen");
+                    return NotFound("Kunne ikke lagre bestillingen");
                 }
+                _log.LogInformation("Bestillingen ble lagret");
                 return Ok("Bestillingen ble lagret");
             }
+            _log.LogError("Bestillingen er ikke riktig");
             return BadRequest("Bestillingen er ikke riktig");
         }
 
         [Route("hentAlleBestillinger")]
         public async Task<ActionResult> HentAlle()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("ikke logget inn");
+            }
+
             List<Bestilling> bestillinger = await _db.HentAlle();
             return Ok(bestillinger);
         }
@@ -51,35 +62,44 @@ namespace Gruppeoppgave1.Controller
         [Route("hentEnBestilling")]
         public async Task<ActionResult> HentEn(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
             Bestilling bestilling =  await _db.HentEn(id);
             if(bestilling == null)
             {
+                _log.LogError("Bestillingen ble ikke funnet");
                 return NotFound("Bestillingen ble ikke funnet");
             }
+            
             return Ok(bestilling);
         }
 
         [Route("slettEnBestilling")]
         public async Task<ActionResult> Slett(int id)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("ikke logget inn");
             }
 
             bool ok = await _db.Slett(id);
             if (!ok)
             {
-                return BadRequest("Kunne ikke slette bestillingen");
+                _log.LogInformation("Kunne ikke slette bestillingen");
+                return NotFound("Kunne ikke slette bestillingen");
             }
             return Ok("Bestillingen ble slettet");
         }
 
+        [Route("endreEnBestilling")]
         public async Task<ActionResult> Endre(Bestilling innBestilling)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
 
             if (ModelState.IsValid)
@@ -87,9 +107,13 @@ namespace Gruppeoppgave1.Controller
                 bool ok = await _db.Endre(innBestilling);
                 if (!ok)
                 {
-                    return BadRequest("Kunne ikke endre bestillingen");
+                    _log.LogInformation("Kunne ikke endre bestillingen");
+                    return NotFound("Kunne ikke endre bestillingen");
                 }
+                _log.LogInformation("Bestillingen ble endret");
+                return Ok("Bestillingen ble endret");
             }
+            _log.LogInformation("Bestillingen er feil");
             return BadRequest("Bestillingen mangler felt");
         }
 
@@ -122,34 +146,6 @@ namespace Gruppeoppgave1.Controller
             return RedirectToAction("/");
         }
 
-        public async Task<ActionResult> LoggInn(Bruker bruker)
-        {
-            if (ModelState.IsValid)
-            {
-                bool OK = await _db.LoggInn(bruker);
-                if (!OK)
-                {
-                    try
-                    {
-                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                    }
-                    HttpContext.Session.SetString(_innlogget, "");
-                    return Ok(false);
-                }
-                HttpContext.Session.SetString(_innlogget, "innlogget");
-                return Ok(true);
-            }
-            _log.LogInformation("Feil i inputvalidering");
-            return BadRequest("Feil i inputvalidering på server");
-        }
-
-        public void LoggUt()
-        {
-            HttpContext.Session.SetString(_innlogget, "");
-        }
+        
     }
 }

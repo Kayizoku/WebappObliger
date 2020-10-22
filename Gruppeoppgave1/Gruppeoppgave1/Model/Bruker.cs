@@ -16,5 +16,9 @@ namespace Gruppeoppgave1.Model
 
        [RegularExpression(@"([0-9a-zA-ZæøåÆØÅ.\-]{8,20})")]
         public string Passord { get; set; }
+
+        public byte[] Hash { get; set; }
+
+        public byte[] Salt { get; set; }
     }
 }

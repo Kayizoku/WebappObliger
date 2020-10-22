@@ -18,6 +18,7 @@ namespace Gruppeoppgave1.DAL
         public string Dato { get; set; }
     }
 
+    [ExcludeFromCodeCoverage]
     public class Avganger
     {
         [Key]
@@ -27,6 +28,7 @@ namespace Gruppeoppgave1.DAL
         public string Tid { get; set; }
     }
 
+    [ExcludeFromCodeCoverage]
     public class Stasjoner
     {
         [Key]
@@ -35,6 +37,7 @@ namespace Gruppeoppgave1.DAL
         public int NummerPaaStopp { get; set; } 
     }
 
+    [ExcludeFromCodeCoverage]
     public class Ruter
     {
         [Key]
@@ -43,6 +46,7 @@ namespace Gruppeoppgave1.DAL
         virtual public List<Stasjon> StasjonerPaaRute { get; set; }
     }
 
+    [ExcludeFromCodeCoverage]
     public class Brukere
     {
         [Key]
@@ -53,7 +57,7 @@ namespace Gruppeoppgave1.DAL
     }
 
 
-
+    [ExcludeFromCodeCoverage]
     public class BestillingContext : DbContext
     {
         public BestillingContext(DbContextOptions<BestillingContext> options)

@@ -259,23 +259,7 @@ namespace EnhetstestingNor_Way
             Assert.Equal("Kunne ikke slette avgangen", resultat.Value);
         }
 
-        //[Fact]
-        //public async Task HentAlleAvgangerIkkeLoggetInn()
-        //{
 
-        //    mockRep.Setup(k => k.HentAlle()).ReturnsAsync(It.IsAny<List<Avgang>>());
-
-        //    var avgangController = new AvgangerController(mockRep.Object, mockLog.Object);
-
-        //    mockSession[_loggetInn] = _ikkeLoggetInn;
-        //    mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-        //    avgangController.ControllerContext.HttpContext = mockHttpContext.Object;
-
-        //    var resultat = await avgangController.HentAlle() as UnauthorizedObjectResult;
-
-        //    Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-        //    Assert.Equal("Ikke logget inn", resultat.Value);
-        //}
 
         [Fact]
         public async Task HentAlleAvgangerOK()

@@ -36,6 +36,12 @@ namespace Gruppeoppgave1.Controllers
             _dbS = dbS;
         }
 
+        public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
+        {
+            _log = log;
+            _db = db;
+        }
+
         [Route("hentAlleAvgangerAdmin")]
         public async Task<ActionResult> HentAlleAvgangerAdmin()
         {
@@ -44,7 +50,7 @@ namespace Gruppeoppgave1.Controllers
                 return Unauthorized("Ikke logget inn");
             }
 
-            List<Avgang> alleAvganger = await _dbA.HentAlle();
+            List<Avgang> alleAvganger = await _db.HentAlleAvgangerAdmin();
             return Ok(alleAvganger);
         }
 
@@ -56,12 +62,7 @@ namespace Gruppeoppgave1.Controllers
                 return Unauthorized("Ikke logget inn");
             }
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }
-
-            List<Bestilling> alleBestillinger = await _dbB.HentAlle();
+            List<Bestilling> alleBestillinger = await _db.HentAlleBestillingerAdmin();
             return Ok(alleBestillinger);
         }
 
@@ -73,7 +74,7 @@ namespace Gruppeoppgave1.Controllers
                 return Unauthorized("Ikke logget inn");
             }
 
-            List<Rute> alleRuter = await _dbR.HentAlleRuter();
+            List<Rute> alleRuter = await _db.HentAlleRuterAdmin();
             return Ok(alleRuter);
         }
 
@@ -85,7 +86,7 @@ namespace Gruppeoppgave1.Controllers
                 return Unauthorized("Ikke logget inn");
             }
 
-            List<Stasjon> alleStasjoner = await _dbS.HentAlleStasjoner();
+            List<Stasjon> alleStasjoner = await _db.HentAlleStasjonerAdmin();
             return Ok(alleStasjoner);
         }
 
@@ -97,14 +98,7 @@ namespace Gruppeoppgave1.Controllers
                 bool OK = await _db.LoggInn(bruker);
                 if (!OK)
                 {
-                    try
-                    {
-                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                    }
+                    _log.LogInformation("Innlogging feilet");
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }

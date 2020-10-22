@@ -6,13 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.DAL.Repositories
 {
-    public class BrukerRepository : IBrukerRepository
+    [ExcludeFromCodeCoverage]
+    public class BrukerRepository : IBrukerRepository, IAvgangerRepository
     {
         private readonly BestillingContext _db;
         private ILogger<BrukerRepository> _log;
@@ -39,6 +41,16 @@ namespace Gruppeoppgave1.DAL.Repositories
             var salt = new byte[24];
             csp.GetBytes(salt);
             return salt;
+        }
+
+        public Task<bool> Endre(Avgang avgang)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Avgang>> HentAlle()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<Avgang>> HentAlleAvgangerAdmin()
@@ -122,6 +134,16 @@ namespace Gruppeoppgave1.DAL.Repositories
             }
         }
 
+        public Task<Avgang> HentEn(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> LeggTil(Avgang avgang)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> LoggInn(Bruker bruker)
         {
             try
@@ -147,6 +169,11 @@ namespace Gruppeoppgave1.DAL.Repositories
                 _log.LogInformation(e.Message);
                 return false;
             }
+        }
+
+        public Task<bool> Slett(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

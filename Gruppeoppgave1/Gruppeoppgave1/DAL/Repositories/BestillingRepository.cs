@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -129,8 +129,6 @@ namespace Gruppeoppgave1.DAL.IRepositories
             return true;
             
         }
-<<<<<<< HEAD
-=======
 
         public static byte[] Hash(string passord, byte[] salt)
         {
@@ -176,6 +174,5 @@ namespace Gruppeoppgave1.DAL.IRepositories
                  return false;
              }
          }
->>>>>>> cc3156f8a7beb418fd67072b5dcbcb6edfbf6513
     }
 }

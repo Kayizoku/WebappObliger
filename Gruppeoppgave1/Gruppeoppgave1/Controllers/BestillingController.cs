@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Controller
@@ -116,7 +117,7 @@ namespace Gruppeoppgave1.Controller
             return BadRequest("Bestillingen mangler felt");
         }
 
-
+        [ExcludeFromCodeCoverage]
         public bool Charge(string stripeEmail, string stripeToken)
         {
             var customers = new CustomerService();
@@ -136,10 +137,13 @@ namespace Gruppeoppgave1.Controller
             return charge.Paid;
         }
 
+        [ExcludeFromCodeCoverage]
         public IActionResult Index()
         {
             return RedirectToPage("/");
         }
+
+        [ExcludeFromCodeCoverage]
         public IActionResult Error()
         {
             return RedirectToAction("/");

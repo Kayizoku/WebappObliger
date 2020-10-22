@@ -17,7 +17,7 @@ function endreBestilling() {
         id: $("#id").val(),
         pris: $("#pris").val(),
         fra: $("#fra").val(),
-        til: $("#til").val(), ¨
+        til: $("#til").val(),
         dato: $("#dato").val(),
         tid: $("#tid").val()
     };

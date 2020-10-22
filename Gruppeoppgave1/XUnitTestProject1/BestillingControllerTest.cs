@@ -87,23 +87,23 @@ namespace EnhetstestingNor_Way
             Assert.Equal("Bestillingen er ikke riktig", resultat.Value);
         }
 
-        [Fact]
-        public async Task LagreIkkeLoggetInn()
-        {
+        //[Fact]
+        //public async Task LagreIkkeLoggetInn()
+        //{
             
-            mockRepo.Setup(k => k.Lagre(It.IsAny<Bestilling>())).ReturnsAsync(false);
+        //    mockRepo.Setup(k => k.Lagre(It.IsAny<Bestilling>())).ReturnsAsync(false);
 
-            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+        //    var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+        //    mockSession[_loggetInn] = _ikkeLoggetInn;
+        //    mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+        //    bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            var resultat = await bestillingController.Lagre(It.IsAny<Bestilling>()) as UnauthorizedObjectResult;
+        //    var resultat = await bestillingController.Lagre(It.IsAny<Bestilling>()) as UnauthorizedObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("ikke logget inn", resultat.Value);
-        }
+        //    Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+        //    Assert.Equal("ikke logget inn", resultat.Value);
+        //}
 
 
         [Fact]
@@ -158,22 +158,22 @@ namespace EnhetstestingNor_Way
             Assert.Equal<List<Bestilling>>((List<Bestilling>)resultat.Value, bestillingListe);
         }
 
-        [Fact]
-        public async Task HentAlleIkkeLoggetInn()
-        {
-            mockRepo.Setup(k => k.HentAlle()).ReturnsAsync(()=>null);
+        //[Fact]
+        //public async Task HentAlleIkkeLoggetInn()
+        //{
+        //    mockRepo.Setup(k => k.HentAlle()).ReturnsAsync(()=>null);
 
-            var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
+        //    var bestillingController = new BestillingController(mockRepo.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
+        //    mockSession[_loggetInn] = _ikkeLoggetInn;
+        //    mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+        //    bestillingController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            var resultat = await bestillingController.HentAlle() as UnauthorizedObjectResult;
+        //    var resultat = await bestillingController.HentAlle() as UnauthorizedObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("ikke logget inn", resultat.Value);
-        }
+        //    Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+        //    Assert.Equal("ikke logget inn", resultat.Value);
+        //}
 
         [Fact]
         public async Task HentEnBestillingLoggetInnOK()

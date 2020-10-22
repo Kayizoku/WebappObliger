@@ -1,3 +1,4 @@
+using Gruppeoppgave1.DAL.Repositories;
 using Gruppeoppgave1.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

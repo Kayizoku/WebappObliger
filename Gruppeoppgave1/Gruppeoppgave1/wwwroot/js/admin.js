@@ -3,7 +3,7 @@
 });
 
 function hentAlleStasjoner() {
-    $.get("stasjon/hentAlleStasjoner", function (stasjoner) {
+    $.get("bruker/hentAlleStasjonerAdmin", function (stasjoner) {
         formaterStasjoner(stasjoner);
     });
 }
@@ -31,7 +31,7 @@ $(function () {
 });
 
 function hentAlleBestillinger() {
-    $.get("bestilling/hentAlleBestillinger", function (bestillinger) {
+    $.get("bruker/hentAlleBestillingerAdmin", function (bestillinger) {
         formaterBestillinger(bestillinger);
     });
 }
@@ -62,7 +62,7 @@ $(function () {
 });
 
 function hentAlleAvganger() {
-    $.get("avgang/hentAlleAvganger", function (avganger) {
+    $.get("bruker/hentAlleAvgangerAdmin", function (avganger) {
         formaterAvganger(avganger);
     });
 }
@@ -77,8 +77,8 @@ function formaterAvganger(avganger) {
             "<td>" + avgang.fra + "</td>" +
             "<td>" + avgang.til + "</td>" +
             "<td>" + avgang.tid + "</td>" +
-            "<a class='btn btn-primary' href='endreAvgang.html?id=" + avgang.id + "'>Endre</a></td > " +
-            "<td> <button class='btn btn-danger' onclick='slettAvgang()" + avgang.id + ")'>Slett</button></td>" +
+            "<td><a class='btn btn-primary' href='endreAvgang.html?id=" + avgang.id + "'>Endre</a></td> " +
+            "<td><button class='btn btn-danger' onclick='slettAvgang()" + avgang.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>";
@@ -90,7 +90,7 @@ $(function () {
 });
 
 function hentAlleRuter() {
-    $.get("rute/hentAlleRuter", function (ruter) {
+    $.get("bruker/hentAlleRuterAdmin", function (ruter) {
         formaterRuter(ruter);
     });
 }
@@ -104,7 +104,7 @@ function formaterRuter(ruter) {
         ut += "<tr>" +
             "<td>" + rute.navn + "</td>" +
             "<td>" + bestilling.stasjonerPaaRute + "</td>" +
-            "<td><a class='btn btn-primary' href='endreRute.html?id=" + rute.id + "'>Endre</a></td >" +
+            "<td><a class='btn btn-primary' href='endreRute.html?id=" + rute.id + "'>Endre</a></td>" +
             "<td> <button class='btn btn-danger' onclick='slettRute()" + rute.id + ")'>Slett</button></td>" +
             "</tr>";
     }

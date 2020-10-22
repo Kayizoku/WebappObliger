@@ -291,11 +291,8 @@ function visDropDownTil(stasjoner) {
 }
 
 
-
-
-
 /*
- * Skal være med i de funksjonene som trenger tilgang av admin
+ * Skal være med i de funksjonene som trenger innlogging
  * For når innlogging failer
  * .fail(function (feil) {
         if (feil.status == 401) {

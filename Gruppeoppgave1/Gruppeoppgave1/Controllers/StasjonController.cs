@@ -18,9 +18,6 @@ namespace Gruppeoppgave1.Controllers
         private readonly IStasjonRepository _db;
         private ILogger<StasjonController> _log;
 
-        private const string _loggetInn = "loggetInn";
-
-
         public StasjonController(IStasjonRepository db, ILogger<StasjonController> log)
         {
             _log = log;
@@ -30,11 +27,6 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentAlleStasjoner")]
         public async Task<ActionResult> HentAlleStasjoner()
         {
-          /*  if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }*/
-
             List<Stasjon> liste =  await _db.HentAlleStasjoner();
             return Ok(liste);
         }
@@ -42,10 +34,6 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentEnStasjon")]
         public async Task<ActionResult> HentEnStasjon(int id)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }
             var stasjon = await _db.HentEnStasjon(id);
             if(stasjon == null)
             {
@@ -59,10 +47,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("fjernStasjon")]
         public async Task<ActionResult> FjernStasjon(int id)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }
+            }*/
             bool ok = await _db.FjernStasjon(id);
             if (!ok)
             {
@@ -77,10 +65,10 @@ namespace Gruppeoppgave1.Controllers
         [Route("endreStasjon")]
         public async Task<ActionResult> EndreStasjon(Stasjon stasjon)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }
+            }*/
             if (ModelState.IsValid)
             {
                 bool ok =  await _db.EndreStasjon(stasjon);
@@ -95,31 +83,5 @@ namespace Gruppeoppgave1.Controllers
             _log.LogError("Ikke gyldig stasjon");
             return BadRequest("Ikke gyldig Stasjon");
         }
-
-
-        [Route("lagreStasjon")]
-        public async Task<ActionResult> LagreStasjon(Stasjon stasjon)
-        {
-             /*   if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-                {
-                    return Unauthorized("Ikke logget inn");
-                }
-             */
-                if (ModelState.IsValid)
-                {
-                    bool resultat = await _db.LagreStasjon(stasjon);
-                    if (!resultat)
-                    {
-                        _log.LogError("Kunne ikke legge til stasjon");
-                        return BadRequest("Kunne ikke legge til stasjon");
-                    }
-                    _log.LogInformation("Stasjonen ble lagt til");
-                    return Ok("Stasjonen ble lagt til");
-                }
-                _log.LogError("Stasjonsobjektet er ikke riktig");
-                return BadRequest("Stasjonsobjektet er ikke riktig");
-            }
-
-
     }
 }

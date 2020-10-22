@@ -12,21 +12,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/loggInn.js"></script>
+    <script src="js/Validering.js"></script>
     <title>Document</title>
 
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a href="index.html"><h1 class="text-white">Logg inn</h1></a>
+        <a href="index.html"><h1 class="text-white">Billettkjøp</h1></a>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Logg inn</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 3</a>
+                <a class="nav-link" href="index.html">Bestill billetter</a>
             </li>
         </ul>
     </nav>
@@ -35,14 +30,18 @@
         <form id="login">
             <div class="form-group col-sm-6">
                 <label for="uname">Brukernavn</label>
-                <input type="text" class="form-control" id="brukernavn" />
+                <input type="text" class="form-control" id="brukernavn" onchange="validerBrukernavn(this.value)" />
+                <span id="feilBrukernavn" style="color: red"></span>
             </div>
             <div class="form-group col-sm-6">
                 <label for="passord">Passord</label>
-                <input type="password" class="form-control" id="passord"/>
+                <input type="password" class="form-control" id="passord" onchange="validerPassord(this.value)"/>
             </div>
             <div class="form-group col-sm-6">
-                <input type="button" value="Logg inn" onClick="loggInn()" class="btn btn-primary"/>
+                <span id="feilPassord" style="color: red"></span>
+            </div>
+            <div>
+                <input type="button" value="Logg inn" onClick="loggInn()" class="btn btn-primary" />
             </div>
             <div id="feil" style="color: red"></div>
         </form>

@@ -93,6 +93,7 @@ namespace Gruppeoppgave1.DAL.Repositories
                 leggTilRute.Id = rute.Id;
                 leggTilRute.Navn = rute.Navn;
                 leggTilRute.StasjonerPaaRute = rute.StasjonerPaaRute;
+                _db.Ruter.Add(leggTilRute);
                 await _db.SaveChangesAsync();
                 return true;
             }

@@ -82,7 +82,7 @@ namespace Gruppeoppgave1.Controllers
                 if (!ok)
                 {
                     _log.LogError("Avgangen kunne ikke bli endret");
-                    return BadRequest("Kunne ikke endre på avgangen");
+                    return NotFound("Kunne ikke endre på avgangen");
                 }
                 _log.LogInformation("Avgangen ble endret");
                 return Ok("Avgangen ble endret");
@@ -104,7 +104,7 @@ namespace Gruppeoppgave1.Controllers
             if (!ok)
             {
                 _log.LogError("Kunne ikke slette avgangen");
-                return BadRequest("Kunne ikke slette avgangen");
+                return NotFound("Kunne ikke slette avgangen");
             }
             _log.LogInformation("Avgangen ble slettet");
             return Ok("Avgangen ble slettet");

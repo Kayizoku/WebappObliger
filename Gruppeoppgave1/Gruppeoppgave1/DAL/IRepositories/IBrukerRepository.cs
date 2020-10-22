@@ -8,8 +8,8 @@ namespace Gruppeoppgave1.DAL.IRepositories
 {
     public interface IBrukerRepository
     {
+
         Task<bool> LoggInn(Bruker bruker);
-
-
+        
     }
 }

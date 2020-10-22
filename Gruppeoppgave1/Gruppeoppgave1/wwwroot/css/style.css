@@ -2,13 +2,14 @@
     box-sizing: border-box;
     padding: 0;
 }
-
+html {
+    height: 100%;
+}
 
 body {
     margin-bottom: 50px !important;
     clear: both;
     height: 100%;
-    padding-bottom: 100px !important;
 }
 
 h1 {
@@ -21,8 +22,10 @@ h1 {
 }
 
 .bg {
-    background-image: url("https://www.nor-way.no/media/1169/oslo-by-night-foap-visitnorwaycom.jpg?crop=0,0.29135796440972223,0,0.20493833188657407&cropmode=percentage&width=1800&height=680&rnd=132465406010000000");
-    height: 670px !important;
+    background-image: url("../media/oslofjorden.jpg");
+    height: 100% !important;
+    background-attachment: fixed;
+    background-size:cover;
 }
 
 label {

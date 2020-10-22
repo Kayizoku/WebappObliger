@@ -67,6 +67,9 @@ namespace Gruppeoppgave1.DAL.Repositories
             try
             {
                 Avganger enAvgang = await _db.Avganger.FindAsync(id);
+                if (enAvgang == null) {
+                    return null;
+                };
                 var hentetAvgang = new Avgang()
                 {
                     Id = enAvgang.Id,

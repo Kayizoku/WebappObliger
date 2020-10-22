@@ -88,5 +88,8 @@ namespace EnhetstestingNor_Way
 
             Assert.Equal(_ikkeLoggetInn, mockSession[_loggetInn]);
         }
+
+        [Fact]
+        public async Task HentAlleBestillingerAdminIkkeOK
     }
 }

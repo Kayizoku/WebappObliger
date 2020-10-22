@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Gruppeoppgave1.DAL;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

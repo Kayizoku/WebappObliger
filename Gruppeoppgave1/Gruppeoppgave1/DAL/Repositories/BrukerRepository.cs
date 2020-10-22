@@ -18,7 +18,7 @@ namespace Gruppeoppgave1.DAL.Repositories
 
         public async Task<bool> LeggTilBruker(Bruker bruker)
         {
-            
+            throw new NotImplementedException();
         }
 
         public async Task<bool> SjekkBruker(Bruker bruker)

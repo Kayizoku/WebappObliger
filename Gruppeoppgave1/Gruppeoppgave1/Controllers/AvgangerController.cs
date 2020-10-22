@@ -60,6 +60,11 @@ namespace Gruppeoppgave1.Controllers
         [Route("hentEnAvgang")]
         public async Task<ActionResult> HentEn(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+
             Avgang avgang = await _db.HentEn(id);
             if(avgang == null)
             {

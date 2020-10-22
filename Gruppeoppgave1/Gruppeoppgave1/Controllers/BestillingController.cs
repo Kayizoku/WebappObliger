@@ -27,11 +27,6 @@ namespace Gruppeoppgave1.Controller
         [Route("lagreBestilling")]
         public async Task<ActionResult> Lagre(Bestilling innBestilling)
         {
-            
-            //if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            //{
-            //    return Unauthorized("ikke logget inn");
-            //}
             if (ModelState.IsValid)
             {
                 bool ok = await _db.Lagre(innBestilling);
@@ -50,11 +45,6 @@ namespace Gruppeoppgave1.Controller
         [Route("hentAlleBestillinger")]
         public async Task<ActionResult> HentAlle()
         {
-            /*if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("ikke logget inn");
-            }*/
-
             List<Bestilling> bestillinger = await _db.HentAlle();
             return Ok(bestillinger);
         }

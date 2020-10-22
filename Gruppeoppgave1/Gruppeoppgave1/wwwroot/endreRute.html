@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Endre Rute</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/endreRute.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Endre rute</h1>
+        <form class="form">
+            <input type="hidden" id="id" />
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="Navn">Navn</label>
+                    <input type="text" class="form-control" id="Navn" name="" placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="Til">Stasjoner på rute</label>
+                    <input type="text" class="form-control" id="Stasjoner på rute" name="" placeholder="">
+                    //Det kan legges inn en velger av stasjoner
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="button" id="reg" value="Endre" class="btn btn-primary" onclick="endreRute()" />
+            </div>
+            <div id="feil" style="color: red"></div>
+        </form>
+    </div>
+</body>
+</html>

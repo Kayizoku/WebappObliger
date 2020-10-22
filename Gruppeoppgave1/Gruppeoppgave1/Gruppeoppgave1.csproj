@@ -18,4 +18,13 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="DAL\Repositories\BestillingRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Bestilling.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\Validering.js" />
+  </ItemGroup>
 </Project>

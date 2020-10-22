@@ -227,22 +227,22 @@ namespace EnhetstestingNor_Way
             Assert.Equal("Kunne ikke slette ruten", resultat.Value);
         }
 
-        [Fact]
-        public async Task HentAlleRuterUnauthorized()
-        {
-            mockRepo.Setup(k => k.HentAlleRuter()).ReturnsAsync(It.IsAny<List<Rute>>());
+        //[Fact]
+        //public async Task HentAlleRuterUnauthorized()
+        //{
+        //    mockRepo.Setup(k => k.HentAlleRuter()).ReturnsAsync(It.IsAny<List<Rute>>());
 
-            var ruteController = new RuteController(mockRepo.Object, mockLog.Object);
+        //    var ruteController = new RuteController(mockRepo.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            ruteController.ControllerContext.HttpContext = mockHttpContext.Object;
+        //    mockSession[_loggetInn] = _ikkeLoggetInn;
+        //    mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+        //    ruteController.ControllerContext.HttpContext = mockHttpContext.Object;
 
-            var resultat = await ruteController.HentAlleRuter() as UnauthorizedObjectResult;
+        //    var resultat = await ruteController.HentAlleRuter() as UnauthorizedObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("Ikke logget inn", resultat.Value);
-        }
+        //    Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+        //    Assert.Equal("Ikke logget inn", resultat.Value);
+        //}
 
         [Fact]
         public async Task HentAlleRuterOK()

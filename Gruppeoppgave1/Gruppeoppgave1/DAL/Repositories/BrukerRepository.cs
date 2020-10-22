@@ -41,6 +41,87 @@ namespace Gruppeoppgave1.DAL.Repositories
             return salt;
         }
 
+        public async Task<List<Avgang>> HentAlleAvgangerAdmin()
+        {
+            try
+            {
+                List<Avgang> alleAvganger = await _db.Avganger.Select(a => new Avgang
+                {
+                    Id = a.Id,
+                    Fra = a.Fra,
+                    Til = a.Til,
+                    Tid = a.Tid
+                }).ToListAsync();
+                return alleAvganger;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Bestilling>> HentAlleBestillingerAdmin()
+        {
+            try
+            {
+                List<Bestilling> alleBestillinger = await _db.Bestillinger.Select(b => new Bestilling
+                {
+                    Id = b.Id,
+                    pris = b.Pris,
+                    Fra = b.Fra,
+                    Til = b.Til,
+                    Dato = b.Dato,
+                    Tid = b.Tid
+                }).ToListAsync();
+                return alleBestillinger;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Rute>> HentAlleRuterAdmin()
+        {
+            try
+            {
+                List<Rute> alleRuter = await _db.Ruter.Select(r => new Rute
+                {
+                    Id = r.Id,
+                    Navn = r.Navn,
+                    StasjonerPaaRute = r.StasjonerPaaRute
+                }).ToListAsync();
+                return alleRuter;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Stasjon>> HentAlleStasjonerAdmin()
+        {
+            try
+            {
+                List<Stasjon> alleStasjoner = await _db.Stasjoner.Select(s => new Stasjon
+                {
+                    Id = s.Id,
+                    NummerPaaStopp = s.NummerPaaStopp,
+                    StasjonsNavn = s.StasjonsNavn,
+
+                }).ToListAsync();
+                return alleStasjoner;
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e.Message);
+                return null;
+            }
+        }
+
         public async Task<bool> LoggInn(Bruker bruker)
         {
             try

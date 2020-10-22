@@ -7,8 +7,26 @@
 body {
     margin-bottom: 50px !important;
     clear: both;
+    height: 100%;
+    padding-bottom: 100px !important;
 }
 
+h1 {
+    color: white !important;
+}
+
+.card {
+    margin-right: 30px;
+}
+
+.bg {
+    background-image: url("https://www.nor-way.no/media/1169/oslo-by-night-foap-visitnorwaycom.jpg?crop=0,0.29135796440972223,0,0.20493833188657407&cropmode=percentage&width=1800&height=680&rnd=132465406010000000");
+    height: 670px !important;
+}
+
+label {
+    color: white;
+}
 
 .nav-header {
     position: fixed;
@@ -25,6 +43,10 @@ body {
     justify-content: center;
 }
 
+.container {
+    background-color: rgba(200,200,200,0.3);
+}
+
 #visAlleBestillinger {
     margin-top: 30px;
     padding-right: 30px;
@@ -35,9 +57,10 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.835);
+    background-color: black;
     color: white;
     text-align: center;
+    z-index: 100;
 }
 
 #paymentBody {

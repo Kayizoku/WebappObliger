@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -12,19 +12,76 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="nav-header">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="/media/nor-way.svg" height="30" alt="">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">logg inn</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 3</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-container bg">
+        <div class="row">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer avganger</h5>
+                    <p class="card-text">Klikk her for å endre eller legge til nye avganger</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    
+                    <li class="list-group-item"><a href="lagreAvgang.html" class="card-link">Lagre ny avgang</a></li>
+                    <li class="list-group-item"><a href="endreAvgang.html" class="card-link">Endre eksisterende avgang</a></li>
+                    <li class="list-group-item"><a href="#" class="card-link">Another link</a></li>
+                </ul><div id="avgangene"></div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer stasjoner</h5>
+                    <p class="card-text">Klikk her for å endre eller legge til nye stasjoner</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="lagreStasjon.html" class="card-link">Lagre ny stasjon</a></li>
+                    <li class="list-group-item"><a href="endreStasjon.html" class="card-link">Endre eksisterende stasjon</a></li>
+                    <li class="list-group-item"><a href="#" class="card-link">Another link</a></li>
+                </ul>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer bestillinger</h5>
+                    <p class="card-text">Klikk her for å endre bestillinger</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="endreBestilling.html" class="card-link">Endre eksisterende bestilling</a></li>
+                    <li class="list-group-item"><a href="#" class="card-link">Another link</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2020 Copyright: Amir, Eskil, Melissa, Benjamin og Tayyab</p>
+    </div>
+
+    <!--<div class="text-white">
         <h1>Administrer avganger</h1>
         <div id="avgangene"></div>
     </div>
     <a href="lagreAvgang.html" class="btn btn-primary">Lagre ny avgang</a>
-    <div class="nav-header">
+    <div class="">
         <h1>Administrer bestilling</h1>
         <div id="bestillingene"></div>
     </div>
-    <div class="nav-header">
+    <div class="">
         <h1>Administrer stasjoner</h1>
         <div id="stasjonene"></div>
     </div>
-    <a href="lagreStasjon.html" class="btn btn-primary">Lagre ny stasjon</a>
+    <a href="lagreStasjon.html" class="btn btn-primary">Lagre ny stasjon</a>-->
 </body>
 </html>

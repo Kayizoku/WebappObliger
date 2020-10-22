@@ -16,8 +16,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a href="index.html"><h1 class="text-white">Billettkjøp</h1></a>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="/media/nor-way.svg" height="30" alt="">
+        </a>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="login.html">logg inn</a>
@@ -30,49 +32,48 @@
             </li>
         </ul>
     </nav>
-    <div class="main-container">
+    <div class="main-container bg">
         <form id="bestill">
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="Fra">Fra</label>
-                    <input type="text" class="form-control" id="FraFelt" name="" placeholder="Hvor vil du reise fra?">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="Fra">Fra</label>
+                        <input type="text" class="form-control" id="FraFelt" name="" placeholder="Hvor vil du reise fra?">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="Til">Til</label>
-                    <input type="text" class="form-control" id="TilFelt" name="" placeholder="Hvor vil du reise til?">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="Til">Til</label>
+                        <input type="text" class="form-control" id="TilFelt" name="" placeholder="Hvor vil du reise til?">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="Ticket_ValidFromDate">Reisedato</label>
-                    <input class="form-control text-box single-line" id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="Ticket_ValidFromDate">Reisedato</label>
+                        <input class="form-control text-box single-line" id="dato" name="Ticket.ValidFromDate" type="date" value="">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="Tid">Til</label>
-                    <select class="form-control" id="TidFelt" name="" placeholder="Velg Tidspunkt">
-                    </select>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="Tid">Tid</label>
+                        <select class="form-control" id="TidFelt" name="" placeholder="Velg Tidspunkt">
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-sm-6">
-                <input type="submit" class="btn btn-primary" id="lagreKnapp" value="Lagre">
-            </div>
+                <div class="form-group col-sm-6">
+                    <input type="submit" class="btn btn-primary" id="lagreKnapp" value="Lagre">
+                </div>
 
 
-            <br>
-            <div id="feilmelding" class="alert alert-danger col-sm-6 invisible">
-            </div>
+                <br>
+                <div id="feilmelding" class="alert alert-danger col-sm-6 invisible">
+                </div>
 
             
-            <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
-        </form>
-
+                <!-- skal føre deg videre til kvittering siden. Vise kvitteringen og lagre den-->
+            </form>
         <div id="visAlleBestillinger"></div>
 
     </div>

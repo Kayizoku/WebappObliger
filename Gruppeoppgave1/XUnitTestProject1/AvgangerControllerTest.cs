@@ -276,7 +276,7 @@ namespace EnhetstestingNor_Way
             var resultat = await avgangController.HentAlle() as UnauthorizedObjectResult;
 
             Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("Du er ikke logget inn!", resultat.Value);
+            Assert.Equal("Ikke logget inn", resultat.Value);
         }
 
         [Fact]

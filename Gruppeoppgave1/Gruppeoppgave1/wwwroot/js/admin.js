@@ -85,4 +85,30 @@ function hentAlleStasjoner() {
                 $("#avgangene").html(ut);
             }
 
+$(function () {
+    hentAlleRuter();
+});
+
+function hentAlleRuter() {
+    $.get("rute/hentAlleRuter", function (ruter) {
+        formaterRuter(ruter);
+    });
+}
+
+function formaterRuter(ruter) {
+    let ut = "<table class='table table-striped'>" +
+        "<tr>" +
+        "<th>Pris</th><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th></th><th></th>" +
+        "</tr>";
+    for (let rute of ruter) {
+        ut += "<tr>" +
+            "<td>" + rute.navn + "</td>" +
+            "<td>" + bestilling.stasjonerPaaRute + "</td>" +
+            "<td><a class='btn btn-primary' href='endreBestilling.html?id=" + bestilling.id + "'>Endre</a></td >" +
+            "<td> <button class='btn btn-danger' onclick='slettEnBestilling()" + bestilling.id + ")'>Slett</button></td>" +
+            "</tr>";
+    }
+    ut += "</table>";
+    $("#bestillingene").html(ut);
+}
         

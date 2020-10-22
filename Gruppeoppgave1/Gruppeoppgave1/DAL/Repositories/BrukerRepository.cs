@@ -16,7 +16,7 @@ namespace Gruppeoppgave1.DAL.Repositories
         private readonly BestillingContext _db;
         private ILogger<BrukerRepository> _log;
 
-        private const string _loggetInn = "loggetInn";
+        
 
         public BrukerRepository(BestillingContext db, ILogger<BrukerRepository> log)
         {
@@ -48,14 +48,20 @@ namespace Gruppeoppgave1.DAL.Repositories
             try
             {
                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
-
-                byte[] hash = Hash(bruker.Passord, match.Salt);
-                bool hashMatch = hash.SequenceEqual(match.Passord);
-                if (hashMatch)
+                if (match == null)
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                else
+                {
+                    byte[] hash = Hash(bruker.Passord, match.Salt);
+                    bool hashMatch = hash.SequenceEqual(match.Passord);
+                    if (hashMatch)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
             catch (Exception e)
             {

@@ -8,6 +8,8 @@ using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Gruppeoppgave1.Controller;
+using Stripe.BillingPortal;
 
 namespace Gruppeoppgave1.Controllers
 {
@@ -27,7 +29,7 @@ namespace Gruppeoppgave1.Controllers
         [Route("leggTilAvgang")]
         public async Task<ActionResult> LeggTil(Avgang avgang)
         {
-           /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+           /*if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
             }*/

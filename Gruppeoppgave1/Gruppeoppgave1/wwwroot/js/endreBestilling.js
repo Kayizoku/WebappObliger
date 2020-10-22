@@ -9,6 +9,13 @@
         $("#til").val(bestilling.til);
         $("#dato").val(bestilling.dato);
         $("#tid").val(bestilling.tid);
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 });
 
@@ -27,6 +34,13 @@ function endreBestilling() {
         }
         else {
             $("#feil").html("Feil i db - prøv igjen senere");
+        }
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
         }
     });
 }

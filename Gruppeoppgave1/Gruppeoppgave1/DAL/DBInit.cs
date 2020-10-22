@@ -71,20 +71,20 @@ namespace Gruppeoppgave1.DAL
 
             var db = serviceScope.ServiceProvider.GetService<BestillingContext>();
 
-            var adminBruker = new Bruker();
+            var adminBruker = new Brukere();
 
             adminBruker.Brukernavn = "Admin1";
-            adminBruker.Passord = "Passord1";
+            string passord = "Passord1";
 
-            /*
-            byte[] salt = BestillingRepository.Salt();
-            byte[] hash = BestillingRepository.Hash(passord, salt);
+            
+            byte[] salt = BrukerRepository.Salt();
+            byte[] hash = BrukerRepository.Hash(passord, salt);
 
             adminBruker.Passord = hash;
             adminBruker.Salt = salt;
 
             db.Brukere.Add(adminBruker);
-            */
+            
 
             context.SaveChanges();
 

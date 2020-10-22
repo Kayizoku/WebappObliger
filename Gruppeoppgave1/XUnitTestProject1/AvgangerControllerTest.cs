@@ -1,12 +1,10 @@
-﻿using EnhetstestingNor_Way;
-using Gruppeoppgave1.Controllers;
+﻿using Gruppeoppgave1.Controllers;
 using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;

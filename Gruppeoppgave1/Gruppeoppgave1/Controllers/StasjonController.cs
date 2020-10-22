@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Gruppeoppgave1.DAL;
-using Gruppeoppgave1.DAL.IRepositories;
+﻿using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Mvc;
-using Gruppeoppgave1.DAL.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.Controllers
 {

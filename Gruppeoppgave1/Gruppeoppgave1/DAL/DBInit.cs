@@ -1,14 +1,7 @@
-using Gruppeoppgave1.DAL.IRepositories;
-using Gruppeoppgave1.DAL.Repositories;
 using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Gruppeoppgave1.DAL
 {

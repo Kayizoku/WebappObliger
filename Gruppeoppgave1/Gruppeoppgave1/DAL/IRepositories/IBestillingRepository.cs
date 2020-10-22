@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Gruppeoppgave1.Model;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Gruppeoppgave1.Model;
 
 namespace Gruppeoppgave1.DAL.IRepositories
 {

@@ -1,17 +1,11 @@
-﻿using System;
+﻿using Gruppeoppgave1.DAL.IRepositories;
+using Gruppeoppgave1.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using Gruppeoppgave1.DAL;
-using Gruppeoppgave1.Model;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Gruppeoppgave1.DAL.IRepositories;
-using Microsoft.Extensions.Logging;
-using SQLitePCL;
 
 namespace Gruppeoppgave1.DAL.Repositories
 {

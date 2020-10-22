@@ -1,4 +1,5 @@
-﻿using Gruppeoppgave1.DAL.IRepositories;
+﻿using Castle.Core.Logging;
+using Gruppeoppgave1.DAL.IRepositories;
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,11 @@ namespace Gruppeoppgave1.DAL.Repositories
         private readonly BestillingContext _db;
         private ILogger<BrukerRepository> _log;
 
-        
-
         public BrukerRepository(BestillingContext db, ILogger<BrukerRepository> log)
         {
             _log = log;
             _db = db;
         }
-
 
         public static byte[] Hash(string passord, byte[] salt)
         {

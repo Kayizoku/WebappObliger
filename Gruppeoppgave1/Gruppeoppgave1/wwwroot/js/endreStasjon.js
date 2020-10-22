@@ -5,7 +5,7 @@
     $.get(url, function (stasjon) {
         $("#id").val(stasjon.id); // må ha med id inn skjemaet, hidden i html
         $("#nummerPaaStopp").val(stasjon.nummerPaaStopp);
-        $("#stasjonsnavn").val(stasjon.stasjonsnavn);
+        $("#stasjonsnavn").val(stasjon.stasjonsNavn);
     });
 });
 

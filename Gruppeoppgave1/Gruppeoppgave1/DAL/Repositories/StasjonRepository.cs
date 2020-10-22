@@ -24,11 +24,15 @@ namespace Gruppeoppgave1.DAL.Repositories
         {
             try
             {
-                var stasj = new Stasjoner
-                {
-                    StasjonsNavn = stasjon.StasjonsNavn,
-                    NummerPaaStopp = stasjon.NummerPaaStopp
-                };
+                var stasj = new Stasjoner();
+                stasj.Id = stasjon.Id;
+                stasj.StasjonsNavn = stasjon.StasjonsNavn;
+                stasj.NummerPaaStopp = stasjon.NummerPaaStopp;
+                
+                //{
+                //    StasjonsNavn = stasjon.StasjonsNavn,
+                //    NummerPaaStopp = stasjon.NummerPaaStopp
+                //};
                 _db.Stasjoner.Add(stasj);
                 await _db.SaveChangesAsync();
                 return true;
@@ -65,6 +69,10 @@ namespace Gruppeoppgave1.DAL.Repositories
             try
             {
                 Stasjoner enStasjon = await _db.Stasjoner.FindAsync(id);
+                if (enStasjon == null)
+                {
+                    return null;
+                };
                 var hentetStasjon = new Stasjon()
                 {
                     Id = enStasjon.Id,

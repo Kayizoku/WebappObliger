@@ -14,7 +14,7 @@ namespace Gruppeoppgave1.Controllers
         private readonly IStasjonRepository _db;
         private ILogger<StasjonController> _log;
 
-        private const string _loggetInn = "loggetInn";
+        private const string _loggetInn = "logget inn";
 
 
         public StasjonController(IStasjonRepository db, ILogger<StasjonController> log)

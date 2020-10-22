@@ -56,11 +56,6 @@ namespace Gruppeoppgave1.Controllers
                 return Unauthorized("Ikke logget inn");
             }
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized("Ikke logget inn");
-            }
-
             List<Bestilling> alleBestillinger = await _dbB.HentAlle();
             return Ok(alleBestillinger);
         }

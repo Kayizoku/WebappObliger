@@ -4,11 +4,11 @@
     const url = "bestillinger/hentEnBestilling?" + id;
     $.get(url, function (bestilling) {
         $("#id").val(bestilling.id); // må ha med id inn skjemaet, hidden i html
-        $("#pris").val(avgang.pris);
-        $("#fra").val(avgang.fra);
-        $("#til").val(avgang.til);
-        $("#dato").val(avgang.dato);
-        $("#tid").val(avgang.tid);
+        $("#pris").val(bestilling.pris);
+        $("#fra").val(bestilling.fra);
+        $("#til").val(bestilling.til);
+        $("#dato").val(bestilling.dato);
+        $("#tid").val(bestilling.tid);
     });
 });
 

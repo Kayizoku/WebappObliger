@@ -92,18 +92,11 @@ namespace Gruppeoppgave1.Controllers
                 bool OK = await _db.LoggInn(bruker);
                 if (!OK)
                 {
-                    try
-                    {
-                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                    }
+                    _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, "innlogget");
+                HttpContext.Session.SetString(_loggetInn, "logget inn");
                 return Ok(true);
             }
             _log.LogInformation("Feil i inputvalidering");

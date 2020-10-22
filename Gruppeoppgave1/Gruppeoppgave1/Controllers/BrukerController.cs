@@ -25,16 +25,16 @@ namespace Gruppeoppgave1.Controllers
         private ILogger<BrukerController> _log;
         private const string _loggetInn = "logget inn";
 
-        public BrukerController(IBrukerRepository db, IAvgangerRepository dbA, IBestillingRepository dbB,
-            IRuteRepository dbR, IStasjonRepository dbS, ILogger<BrukerController> log)
-        {
-            _log = log;
-            _db = db;
-            _dbA = dbA;
-            _dbB = dbB;
-            _dbR = dbR;
-            _dbS = dbS;
-        }
+        //public BrukerController(IBrukerRepository db, IAvgangerRepository dbA, IBestillingRepository dbB,
+        //    IRuteRepository dbR, IStasjonRepository dbS, ILogger<BrukerController> log)
+        //{
+        //    _log = log;
+        //    _db = db;
+        //    _dbA = dbA;
+        //    _dbB = dbB;
+        //    _dbR = dbR;
+        //    _dbS = dbS;
+        //}
 
         public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
         {

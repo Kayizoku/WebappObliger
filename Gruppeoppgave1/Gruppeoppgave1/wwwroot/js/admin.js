@@ -49,7 +49,7 @@ function formaterBestillinger(bestillinger) {
             "<td>" + bestilling.dato + "</td>" +
             "<td>" + bestilling.tid + "</td>" +
             "<td><a class='btn btn-primary' href='endreBestilling.html?id=" + bestilling.id + "'>Endre</a></td >" +
-            "<td> <button class='btn btn-danger' onclick='slettEnBestilling()" + bestilling.id + ")'>Slett</button></td>" +
+            "<td> <button class='btn btn-danger' onclick='slettEnBestilling(" + bestilling.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>";
@@ -78,7 +78,7 @@ function formaterAvganger(avganger) {
             "<td>" + avgang.til + "</td>" +
             "<td>" + avgang.tid + "</td>" +
             "<td><a class='btn btn-primary' href='endreAvgang.html?id=" + avgang.id + "'>Endre</a></td> " +
-            "<td><button class='btn btn-danger' onclick='slettAvgang()" + avgang.id + ")'>Slett</button></td>" +
+            "<td><button class='btn btn-danger' onclick='slettAvgang(" + avgang.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>";
@@ -105,9 +105,78 @@ function formaterRuter(ruter) {
             "<td>" + rute.navn + "</td>" +
             "<td>" + bestilling.stasjonerPaaRute + "</td>" +
             "<td><a class='btn btn-primary' href='endreRute.html?id=" + rute.id + "'>Endre</a></td>" +
-            "<td> <button class='btn btn-danger' onclick='slettRute()" + rute.id + ")'>Slett</button></td>" +
+            "<td> <button class='btn btn-danger' onclick='slettRute(" + rute.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>";
     $("#rutene").html(ut);
+}
+
+
+function fjernStasjon(id) {
+    $.ajax({
+        type: "POST",
+        url: "stasjoner/fjernStasjon",
+        data: id,
+
+        success: function (data) {
+            document.location = "admin.html";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown.message
+            );
+        }
+    });
+}
+
+function slettEnBestilling(id) {
+    $.ajax({
+        type: "POST",
+        url: "bestillinger/slettEnBestilling",
+        data: id,
+
+        success: function (data) {
+            document.location = "admin.html";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown.message
+            );
+        }
+    });
+}
+
+function slettAvgang(id) {
+    $.ajax({
+        type: "POST",
+        url: "avganger/slettAvgang",
+        data: id,
+
+        success: function (data) {
+            document.location = "admin.html";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown.message
+            );
+        }
+    });
+}
+
+function slettRute(id) {
+    $.ajax({
+        type: "POST",
+        url: "ruter/slettRute",
+        data: id,
+
+        success: function (data) {
+            document.location = "admin.html";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown.message
+            );
+        }
+    });
 }

@@ -17,7 +17,7 @@ namespace Gruppeoppgave1.Controllers
         private readonly IRuteRepository _db;
         private ILogger<RuteController> _log;
 
-        private const string _loggetInn = "loggetInn";
+        private const string _loggetInn = "logget inn";
 
         public RuteController(IRuteRepository db, ILogger<RuteController> log)
         {

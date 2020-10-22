@@ -280,5 +280,78 @@ namespace EnhetstestingNor_Way
             Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
             Assert.Equal("Stasjonen ble fjernet", resultat.Value);
         }
+
+        [Fact]
+        public async Task LagreStasjonOK()
+        {
+
+            mockRepo.Setup(k => k.LagreStasjon(It.IsAny<Stasjon>())).ReturnsAsync(true);
+
+            var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await stasjonController.LagreStasjon(It.IsAny<Stasjon>()) as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Stasjonen ble lagt til", resultat.Value);
+        }
+
+        [Fact]
+        public async Task LagreStasjonIkkeOKLoggetInn()
+        {
+
+            mockRepo.Setup(k => k.LagreStasjon(It.IsAny<Stasjon>())).ReturnsAsync(true);
+
+            var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
+            stasjonController.ModelState.AddModelError("StasjonsNavn", "Stasjonen mangler felt");
+
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await stasjonController.LagreStasjon(It.IsAny<Stasjon>()) as BadRequestObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Stasjonen mangler felt", resultat.Value);
+        }
+
+        [Fact]
+        public async Task LagreStasjonUnauthorized()
+        {
+
+            mockRepo.Setup(k => k.LagreStasjon(It.IsAny<Stasjon>())).ReturnsAsync(true);
+
+            var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await stasjonController.LagreStasjon(It.IsAny<Stasjon>()) as UnauthorizedObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn", resultat.Value);
+        }
+
+        [Fact]
+        public async Task LagreStasjonIkkeOk()
+        {
+            mockRepo.Setup(k => k.LagreStasjon(It.IsAny<Stasjon>())).ReturnsAsync(false);
+
+            var stasjonController = new StasjonController(mockRepo.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            stasjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            var resultat = await stasjonController.LagreStasjon(It.IsAny<Stasjon>()) as BadRequestObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Kunne ikke legge til stasjon", resultat.Value);
+        }
     }
 }

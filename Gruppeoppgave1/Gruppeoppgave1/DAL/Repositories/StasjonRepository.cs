@@ -20,6 +20,26 @@ namespace Gruppeoppgave1.DAL.Repositories
             _db = db;
         }
 
+        public async Task<bool> LagreStasjon(Stasjon stasjon)
+        {
+            try
+            {
+                var stasj = new Stasjoner
+                {
+                    StasjonsNavn = stasjon.StasjonsNavn,
+                    NummerPaaStopp = stasjon.NummerPaaStopp
+                };
+                _db.Stasjoner.Add(stasj);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
+        }
+
         public async Task<List<Stasjon>> HentAlleStasjoner()
         {
             try
@@ -100,22 +120,6 @@ namespace Gruppeoppgave1.DAL.Repositories
                 return false;
             }
             return true;
-        }
-        public async Task<bool> LagreStasjon(Stasjon stasjon)
-        {
-            try
-            {
-                var nyStasjon = new Stasjoner();
-                nyStasjon.StasjonsNavn = stasjon.StasjonsNavn;
-                nyStasjon.NummerPaaStopp = stasjon.NummerPaaStopp;
-                _db.Stasjoner.Add(nyStasjon);
-                await _db.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
     }

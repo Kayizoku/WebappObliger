@@ -23,6 +23,28 @@ namespace Gruppeoppgave1.Controllers
             _db = db;
         }
 
+        [Route("lagreStasjon")]
+        public async Task<ActionResult> LagreStasjon(Stasjon stasjon)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized("Ikke logget inn");
+            }
+            if (ModelState.IsValid)
+            {
+                bool ok = await _db.LagreStasjon(stasjon);
+                if (!ok)
+                {
+                    _log.LogInformation("Kunne ikke legge til stasjon");
+                    return BadRequest("Kunne ikke legge til stasjon");
+                }
+                _log.LogInformation("Stasjonen ble lagt til");
+                return Ok("Stasjonen ble lagt til");
+            }
+            _log.LogInformation("Feil i inputvalidering på stasjon");
+            return BadRequest("Stasjonen mangler felt");
+        }
+
         [Route("hentAlleStasjoner")]
         public async Task<ActionResult> HentAlleStasjoner()
         {

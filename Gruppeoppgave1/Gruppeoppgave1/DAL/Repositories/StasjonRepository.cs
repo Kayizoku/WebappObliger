@@ -45,6 +45,10 @@ namespace Gruppeoppgave1.DAL.Repositories
             try
             {
                 Stasjoner enStasjon = await _db.Stasjoner.FindAsync(id);
+                if (enStasjon == null)
+                {
+                    return null;
+                };
                 var hentetStasjon = new Stasjon()
                 {
                     Id = enStasjon.Id,

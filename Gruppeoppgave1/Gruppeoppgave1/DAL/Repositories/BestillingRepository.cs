@@ -93,6 +93,8 @@ namespace Gruppeoppgave1.DAL.IRepositories
             try
             {
                 Bestillinger enBestilling = await _db.Bestillinger.FindAsync(id);
+                if(enBestilling == null) return null;
+                
                 var hentetBestilling = new Bestilling()
                 {
                     Id = enBestilling.Id,

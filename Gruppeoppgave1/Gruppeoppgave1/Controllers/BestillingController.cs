@@ -16,7 +16,7 @@ namespace Gruppeoppgave1.Controller
         private readonly IBestillingRepository _db;
         private ILogger<BestillingController> _log;
 
-        private const string _loggetInn = "loggetInn";
+        private const string _loggetInn = "logget inn";
 
         public BestillingController(IBestillingRepository db, ILogger<BestillingController> log)
         {

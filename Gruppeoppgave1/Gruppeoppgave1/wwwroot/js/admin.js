@@ -144,18 +144,15 @@ function formaterRuter(ruter) {
 
 
 function fjernStasjon(id) {
-    $.ajax({
-        type: "POST",
-        url: "stasjoner/fjernStasjon",
-        data: id,
-
-        success: function (data) {
-            document.location = "admin.html";
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status = " + textStatus + ", " +
-                "error thrown: " + errorThrown.message
-            );
+    var url = "stasjoner/fjernStasjon?id=" + id;
+    $.post(url, id, function (data) {
+        document.location.href = "admin.html";
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
         }
     });
 }
@@ -164,6 +161,13 @@ function slettEnBestilling(id) {
     var url = "bestillinger/slettEnBestilling?id=" + id;
     $.post(url, id, function (data) {
         document.location.href = "admin.html";
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 
@@ -171,22 +175,26 @@ function slettAvgang(id) {
     var url = "avganger/slettAvgang?id=" + id;
     $.post(url, id, function (data) {
         document.location.href = "admin.html";
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        }
     });
 }
 
 function slettRute(id) {
-    $.ajax({
-        type: "POST",
-        url: "ruter/slettRute",
-        data: id,
-
-        success: function (data) {
-            document.location = "admin.html";
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status = " + textStatus + ", " +
-                "error thrown: " + errorThrown.message
-            );
+    var url = "rute/slettRute?id=" + id;
+    $.post(url, id, function (data) {
+        document.location.href = "admin.html";
+    }).fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+        }
+        else {
+            $("#feil").html("Feil på server - prøv igjen senere");
         }
     });
 }

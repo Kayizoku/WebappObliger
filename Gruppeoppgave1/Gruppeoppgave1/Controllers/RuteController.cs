@@ -71,7 +71,7 @@ namespace Gruppeoppgave1.Controllers
              return BadRequest("Ruteobjektet er ikke validert");
         }
 
-        [Route("SlettRute")]
+        [Route("slettRute")]
         public async Task<ActionResult> SlettRute(int id)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))

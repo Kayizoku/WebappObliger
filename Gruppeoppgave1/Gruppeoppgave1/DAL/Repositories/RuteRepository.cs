@@ -1,9 +1,17 @@
-﻿using Gruppeoppgave1.DAL.IRepositories;
-using Gruppeoppgave1.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Gruppeoppgave1.DAL;
+using Gruppeoppgave1.Model;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Gruppeoppgave1.DAL.IRepositories;
+using Microsoft.Extensions.Logging;
+using SQLitePCL;
 
 namespace Gruppeoppgave1.DAL.Repositories
 {
@@ -11,34 +19,105 @@ namespace Gruppeoppgave1.DAL.Repositories
     {
         private readonly BestillingContext _db;
 
-        public RuteRepository(BestillingContext db)
+        private ILogger<RuteRepository> _log;
+
+        public RuteRepository(BestillingContext db, ILogger<RuteRepository> log)
         {
+            _log = log;
             _db = db;
         }
 
-        public async Task<bool> EndreRute(Rute rute)
+        public async Task<bool> EndreRute(Rute nyRute)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var gammelRute = await _db.Ruter.FindAsync(nyRute.Id);
+                gammelRute.Navn = nyRute.Navn;
+                gammelRute.StasjonerPaaRute = nyRute.StasjonerPaaRute;
+                gammelRute.Id = nyRute.Id;
+                await _db.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                _log.LogError(e.Message);
+                return false;
+            }
+            return true;
         }
 
         public async Task<List<Rute>> HentAlleRuter()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Rute> alleRuter = await _db.Ruter.Select(r => new Rute
+                {
+                    Id = r.Id,
+                    Navn = r.Navn,
+                    StasjonerPaaRute = r.StasjonerPaaRute
+                }).ToListAsync();
+
+                return alleRuter;
+            } 
+            catch (Exception e)
+            {
+                _log.LogError(e.Message);
+                return null;
+            }
         }
 
         public async Task<Rute> HentEnRute(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Ruter rute = await _db.Ruter.FindAsync(id);
+                var hentetRute = new Rute()
+                {
+                    Id = rute.Id,
+                    Navn = rute.Navn,
+                    StasjonerPaaRute = rute.StasjonerPaaRute
+                };
+                return hentetRute;
+            } 
+            catch(Exception e)
+            {
+                _log.LogError(e.Message);
+                return null;
+            }
         }
 
         public async Task<bool> LeggTilRute(Rute rute)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var leggTilRute = new Ruter();
+                leggTilRute.Id = rute.Id;
+                leggTilRute.Navn = rute.Navn;
+                leggTilRute.StasjonerPaaRute = rute.StasjonerPaaRute;
+                _db.Ruter.Add(leggTilRute);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                _log.LogError(e.Message);
+                return false;
+            }
         }
 
         public async Task<bool> SlettRute(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Ruter enDBRute = await _db.Ruter.FindAsync(id);
+                _db.Ruter.Remove(enDBRute);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                _log.LogError(e.Message);
+                return false;
+            }
         }
     }
 }

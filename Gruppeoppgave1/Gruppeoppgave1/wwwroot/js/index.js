@@ -23,11 +23,11 @@ function assignSubmitFunction() {
 
         $.ajax({
             type: "POST",
-            url: "bestillinger/lagreBestilling",
+            url: "Bestilling/Lagre",
             data: data,
 
             success: function (data) {
-                document.location = "kvittering.html";
+                document.location = "BetalingLosning.html";
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Error, status = " + textStatus + ", " +
@@ -52,7 +52,7 @@ function lagreBestilling(bestilling) {
 
     $.ajax({
         type: "POST",
-        url: "bestillinger/lagreBestilling",
+        url: "Bestilling/Lagre",
         data: bestilling,
 
         always: function (data) {
@@ -291,3 +291,14 @@ function visDropDownTil(stasjoner) {
 }
 
 
+/*
+ * Skal være med i de funksjonene som trenger innlogging
+ * For når innlogging failer
+ * .fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html'; 
+        }
+        else {
+            $("#feil").html("Feil på server. Prøv igjen om en liten stund");
+        }
+    });*/

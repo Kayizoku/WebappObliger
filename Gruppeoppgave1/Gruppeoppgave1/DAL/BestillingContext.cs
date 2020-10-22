@@ -48,7 +48,7 @@ namespace Gruppeoppgave1.DAL
     {
         [Key]
         public int Id { get; set; }
-        public string BrukerNavn { get; set; }
+        public string Brukernavn { get; set; }
         public byte[] Passord { get; set; }
         public byte[] Salt { get; set; }
     }

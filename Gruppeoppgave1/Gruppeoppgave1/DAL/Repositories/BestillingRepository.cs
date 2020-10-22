@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Gruppeoppgave1.DAL.IRepositories;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Logging;
 
 namespace Gruppeoppgave1.DAL.IRepositories
 {
@@ -18,11 +21,12 @@ namespace Gruppeoppgave1.DAL.IRepositories
     {
         private readonly BestillingContext _db;
 
-        private const string _innlogget = "innlogget";
+        private ILogger<BestillingRepository> _log;
 
-        public BestillingRepository(BestillingContext db)
+        public BestillingRepository(BestillingContext db, ILogger<BestillingRepository> log)
         {
             _db = db;
+            _log = log;
         }
 
 
@@ -70,10 +74,6 @@ namespace Gruppeoppgave1.DAL.IRepositories
 
         public async Task<bool> Slett(int id)
         {
-           /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) må ha med SetString i LoggInn
-            {
-                return Unauthorized();
-            }*/
 
             try
             {
@@ -112,10 +112,6 @@ namespace Gruppeoppgave1.DAL.IRepositories
 
         public async Task<bool> Endre(Bestilling endreBestilling)
         {
-            /* if (string.IsNullOrEmpty(HttpContext.Session.GetString(_innlogget))) må ha med SetString i LoggInn
-            {
-                return Unauthorized();
-            }*/
             try
             {
                 var endreObjekt = await _db.Bestillinger.FindAsync(endreBestilling.Id);
@@ -134,27 +130,49 @@ namespace Gruppeoppgave1.DAL.IRepositories
             
         }
 
-      /*  public async Task<ActionResult> LoggInn(Bruker bruker)
+        public static byte[] Hash(string passord, byte[] salt)
         {
-            if (ModelState.IsValid)
-            {
-                bool returnOK = await _db.LoggInn(bruker);
-                if (!returnOK)
-                {
-                    _log.LogInformation("Innlogging feilet for" + bruker.BrukerNavn);
-                    HttpContext.Session.SetString(_innlogget, "");
-                    return Ok(false);
-                }
-                HttpContext.Session.SetString(_innlogget, "innlogget");
-                return Ok(true);
-            }
-            _log.LogInformation("Feil i inputvalidering");
-            return BadRequest("Feil i inputvalidering på server");
+            return KeyDerivation.Pbkdf2(
+                                password: passord,
+                                salt: salt,
+                                prf: KeyDerivationPrf.HMACSHA512,
+                                iterationCount: 1000,
+                                numBytesRequested: 32);
         }
 
-        public void LoggUt()
+        public static byte[] Salt()
         {
-            HttpContext.Session.SetString(_innlogget, "");
-        }*/
+            var csp = new RNGCryptoServiceProvider();
+            var salt = new byte[24];
+            csp.GetBytes(salt);
+            return salt;
+        }
+
+         public async Task<bool> LoggInn(Bruker bruker)
+         {
+             try
+             {
+                 Brukere match = await _db.Brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
+                 if (match == null)
+                 {
+                     return false;
+                 }
+                 else
+                 {
+                     byte[] hash = Hash(bruker.Passord, match.Salt);
+                     bool hashMatch = hash.SequenceEqual(match.Passord);
+                     if (hashMatch)
+                     {
+                         return true;
+                     }
+                     return false;
+                 }
+             }
+             catch (Exception e)
+             {
+                 _log.LogInformation(e.Message);
+                 return false;
+             }
+         }
     }
 }

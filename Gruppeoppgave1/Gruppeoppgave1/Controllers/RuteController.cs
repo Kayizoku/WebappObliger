@@ -92,6 +92,7 @@ namespace Gruppeoppgave1.Controllers
         [Route("HentAlleRuter")]
         public async Task<ActionResult> HentAlleRuter()
         {
+
             List<Rute> alleruter = await _db.HentAlleRuter();
             return Ok(alleruter);
         }

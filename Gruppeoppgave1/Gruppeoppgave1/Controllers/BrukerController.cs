@@ -2,22 +2,23 @@
 using Gruppeoppgave1.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
+
 
 namespace Gruppeoppgave1.Controllers
 {
     [Route("bruker/")]
-    public class BrukerController:ControllerBase
+    public class BrukerController: ControllerBase
     {
+
 
         private readonly IBrukerRepository _db;
         private ILogger<BrukerController> _log;
-        private const string _loggetInn = "loggetInn";
+        private const string _loggetInn = "logget inn";
 
         public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
         {
@@ -33,27 +34,29 @@ namespace Gruppeoppgave1.Controllers
                 bool OK = await _db.LoggInn(bruker);
                 if (!OK)
                 {
-                    //_log.LogInformation feiler for It.IsAny<Bruker>(), nullReferenceException
-                    _log.LogInformation("Innloggingen feilet for bruker");
+                    try
+                    {
+                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                    }
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
-                //_log.LogInformation("Bruker " + bruker.Brukernavn + " ble logget inn");
-                //_log.LogInformation feiler for It.IsAny<Bruker>(), nullReferenceException
-                HttpContext.Session.SetString(_loggetInn, "loggetInn");
+                HttpContext.Session.SetString(_loggetInn, "innlogget");
                 return Ok(true);
             }
             _log.LogInformation("Feil i inputvalidering");
             return BadRequest("Feil i inputvalidering på server");
         }
 
-        [Route("loggUt")]
         public void LoggUt()
         {
-            _log.LogInformation("logget ut");
             HttpContext.Session.SetString(_loggetInn, "");
         }
-
-        
+    }
+}
     }
 }

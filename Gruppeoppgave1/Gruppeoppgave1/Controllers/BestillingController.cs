@@ -17,7 +17,7 @@ namespace Gruppeoppgave1.Controller
     {
         private readonly IBestillingRepository _db;
 
-        public const string _innlogget = "innlogget";
+        
 
         private ILogger<BestillingController> _log;
 
@@ -122,34 +122,6 @@ namespace Gruppeoppgave1.Controller
             return RedirectToAction("/");
         }
 
-        public async Task<ActionResult> LoggInn(Bruker bruker)
-        {
-            if (ModelState.IsValid)
-            {
-                bool OK = await _db.LoggInn(bruker);
-                if (!OK)
-                {
-                    try
-                    {
-                        _log.LogInformation("Innloggingen feilet for bruker" + bruker.Brukernavn);
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                    }
-                    HttpContext.Session.SetString(_innlogget, "");
-                    return Ok(false);
-                }
-                HttpContext.Session.SetString(_innlogget, "innlogget");
-                return Ok(true);
-            }
-            _log.LogInformation("Feil i inputvalidering");
-            return BadRequest("Feil i inputvalidering på server");
-        }
-
-        public void LoggUt()
-        {
-            HttpContext.Session.SetString(_innlogget, "");
-        }
+        
     }
 }

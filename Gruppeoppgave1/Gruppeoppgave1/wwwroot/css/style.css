@@ -1,15 +1,36 @@
 ﻿* {
     box-sizing: border-box;
-    padding: 0 auto;
+    padding: 0;
 }
-
+html {
+    height: 100%;
+}
 
 body {
-    padding-top: 84px;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin-bottom: 50px !important;
+    clear: both;
+    height: 100%;
 }
 
+h1 {
+    color: white !important;
+}
+
+.card {
+    margin-right: 30px;
+    margin-bottom: 1rem;
+}
+
+.bg {
+    background-image: url("../media/oslofjorden.jpg");
+    height: 100% !important;
+    background-attachment: fixed;
+    background-size:cover;
+}
+
+label {
+    color: white;
+}
 
 .nav-header {
     position: fixed;
@@ -21,8 +42,18 @@ body {
 }
 
 .main-container {
-    padding-left: 400px;
+    padding-left: 30px;
+    padding-top: 30px;
     justify-content: center;
+}
+
+.container {
+    background-color: rgba(200,200,200,0.3);
+}
+
+#visAlleBestillinger {
+    margin-top: 30px;
+    padding-right: 30px;
 }
 
 .footer {
@@ -30,7 +61,69 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.835);
+    background-color: black;
     color: white;
     text-align: center;
+    z-index: 100;
 }
+
+#paymentBody {
+    background-image: none;
+    background-color: white;
+    width: 600px;
+    height: 300px;
+    position: relative;
+    margin: 200px;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    width: 70%;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+.n-w.card {
+    float: right;
+}
+
+.n-w .link {
+    text-decoration: underline;
+    color: black;
+}
+
+.btn btn-success {
+    background-color: green;
+}
+
+#kvittering {
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    width: 50%;
+}
+
+

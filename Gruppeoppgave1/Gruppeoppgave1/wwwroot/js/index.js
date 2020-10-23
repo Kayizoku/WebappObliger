@@ -3,83 +3,98 @@ var pris = 0;
 var antallStasjoner = 0;
 var fraStasjon;
 var tilStasjon;
+var alleStasjoner = [];
+var stasjonerList;
 
 $(function () {
-    hentAlleBestillinger();
+    //hentAlleBestillinger();
     visStasjonerAuto();
+    visAvgangerAuto();
+    assignSubmitFunction();
 });
 
 
+function assignSubmitFunction() {
+    $("#bestill").on("submit", function (e) {
+        e.preventDefault();
 
+        var data = lagre(e);
+        if (!data) return;
+
+        $.ajax({
+            type: "POST",
+            url: "bestillinger/lagreBestilling",
+            data: data,
+
+            success: function (data) {
+                document.location = "BetalingLosning.html";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error, status = " + textStatus + ", " +
+                    "error thrown: " + errorThrown.message
+                );
+            }
+        });
+    });
+};
+
+//Brukes ikke
 function lagreBestilling(bestilling) {
+    alert("Bestillingen er lagret");
+    /*
+
+    alert("pause");
+
     $.post("bestillinger/lagreBestilling", bestilling, function () {
-        alert("Bestillingen er lagret");
+        document.location = kvittering.js;
+    }, "json");
+    */
+
+    $.ajax({
+        type: "POST",
+        url: "Bestilling/Lagre",
+        data: bestilling,
+
+        always: function (data) {
+            alert("yessssss");
+            //document.location = "kvittering.js";
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+                "error thrown: " + errorThrown
+            );
+        }
     });
-}
-
-
-//henter alle bestillinger i et array
-function hentAlleBestillinger() {
-    $.get("bestillinger/hentAlleBestillinger", function (data) {
-        formaterBestillinger(data);
-    });
-}
-
-function formaterBestillinger(bestillinger) {
-    let ut = "<table><tr><th>Fra</th><th>Til</th><th>Dato</th><th>Tid</th><th>Pris</th></tr>";
-
-    bestillinger.forEach(bestilling => {
-        ut += "<tr><td>" + bestilling.fra + "</td><td>" + bestilling.til + "</td><td>" +
-            bestilling.dato + "</td><td>" + bestilling.tid + "</td><td>" + bestilling.pris + "</td></tr>";
-
-    });
-
-    ut += "</table>";
-    $("#visAlleBestillinger").html(ut);
-}
-
-function prisKalk(frastasjon, tilstasjon) {
-
-    var prisLokal = 0;
-
-    if (frastasjon === "Oslo") {
-        fraStasjon = 1;
-    }
-
-    else if (frastasjon === "Drammen") {
-        fraStasjon = 2;
-    }
-
-    else if (frastasjon === "Horten") {
-        fraStasjon = 3;
-    }
-
-    if (tilstasjon === "Oslo") {
-        tilStasjon = 1;
-    }
-
-    else if (tilstasjon === "Drammen") {
-        tilStasjon = 2;
-    }
-
-    else if (tilstasjon === "Horten") {
-        tilStasjon = 3;
-    }
-
-    prisLokal = Math.abs((tilStasjon - fraStasjon) * 50);
-
-    return prisLokal;
 
 }
 
 
-function lagre() {
-    if (validerFelt() != 0) {
-        alert("Feil i bestillingskjema");
-        return;
+
+
+function prisCalc(frastasjon, tilstasjon) {
+    var fraNr, tilNr;
+    
+    alleStasjoner.forEach(s => {
+        if (frastasjon == s.stasjonsNavn) {
+            fraNr = s.nummerPaaStopp;
+        }
+        if (tilstasjon == s.stasjonsNavn) {
+            tilNr = s.nummerPaaStopp;
+        }
+    })
+
+    var lokalpris = (Math.abs(fraNr - tilNr)) * 50;
+    return lokalpris;
+}
+
+
+function lagre(event) {
+    if (validerFelt(event) != 0) {
+        $("#feilmelding").get(0).classList.remove("invisible");
+        return false;
     }
 
-    pris = prisKalk($("#FraFelt").val(), $("#TilFelt").val());
+    pris = prisCalc($("#FraFelt").val(), $("#TilFelt").val());
 
 
     const bestilling = {
@@ -89,11 +104,12 @@ function lagre() {
         Pris: pris,
         Tid: $("#TidFelt").val()
     };
-
-    lagreBestilling(bestilling);
-    hentAlleBestillinger();
+    console.log(bestilling)
+    //lagreBestilling(bestilling);
+    //hentAlleBestillinger();
     resetInput();
-    location.reload();
+    return bestilling;
+    //location.reload();
 }
 
 function resetInput() {
@@ -105,38 +121,45 @@ function resetInput() {
 }
 
 //generelt inputvalidering metode
-function validerFelt() {
+function validerFelt(event) {
     let feil = 0;
     var fra = $("#FraFelt").val();
     var til = $("#TilFelt").val();
     var dato = $("#dato").val();
 
-
-
-
-    if (fra === til) {
-        feil++;
-        $("#feilmelding").innerHTML = "Du må velge ulike FRA- og TIL-stasjoner!";
-        event.preventDefault();
-    }
-    else if (fra === "") {
-        feil++;
-        $("#feilmelding").innerHTML = "Feil i FRA-boksen" + "\nSett inn gyldig verdi for FRA\n";
-        event.preventDefault();
+    if (fra === "") {
+            feil++;
+            $("#feilmelding").html("Sett inn gyldig verdi for FRA");
+            event.preventDefault();
     }
     else if (til === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Feil i TIL-boksen" + "\nSett inn gyldig verdi for TIL\n";
+        $("#feilmelding").html("Sett inn gyldig verdi for TIL");
+        event.preventDefault();
+    }
+    else if (!stasjonerList.includes(fra)) {
+        feil++;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + fra);
+        event.preventDefault();
+    }
+    else if (!stasjonerList.includes(til)){
+        feil++;
+        $("#feilmelding").html("Denne stasjonen er ikke tilgjengelig: " + til);
+        event.preventDefault();
+    }
+    else if (fra === til) {
+        feil++;
+        $("#feilmelding").html("Du må velge ulike FRA- og TIL-stasjoner");
         event.preventDefault();
     }
     else if (dato === "") {
         feil++;
-        $("#feilmelding").innerHTML = "Dato er ikke valgt \nVelg Dato\n";
+        $("#feilmelding").html("Dato er ikke valgt");
         event.preventDefault();
     }
-    else if (dato.split(".")[2] !== "2020") {
+    else if (dato.split("-")[0] !== "2020") {
         feil++;
-        $("#feilmelding").innerHTML = "Vi kan kun tilby turer ut året foreløpig";
+        $("#feilmelding").html("Vi kan kun tilby turer ut året foreløpig");
     }
     return feil;
 }
@@ -145,6 +168,18 @@ function visStasjonerAuto() {
     $.get("stasjoner/hentAlleStasjoner", function (data) {
         visDropDownFra(data);
         visDropDownTil(data);
+    });
+}
+
+function visAvgangerAuto() {
+    $.get("avganger/hentAlleAvganger", function (data) {
+        var $dropdown = $("#TidFelt");
+        data.forEach(x => {
+            $dropdown.append($('<option>').html(x.tid).attr({
+                name: x.tid,
+                id: x.tid
+            }))
+        })
     });
 }
 
@@ -161,33 +196,47 @@ function formaterAvganger(avgangsliste) {
 
 function visDropDownFra(stasjoner) {
 
-    const fraFelt = $("#FraFelt")[0];
+    //Henter ut hvert stasjonsnavn fra databasen
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
+        alleStasjoner.push(s);
+    })
 
+    const fraFelt = $("#FraFelt");
+    fraFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 
-    stasjoner.forEach(stasjon => {
-
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-        fraFelt.appendChild(option);
-
-    });
 }
 
 function visDropDownTil(stasjoner) {
-    const tilFelt = $("#TilFelt")[0];
+    stasjonerList = [];
+    stasjoner.forEach(s => {
+        stasjonerList.push(s.stasjonsNavn);
+    })
 
-    stasjoner.forEach(stasjon => {
-
-        const option = document.createElement("option");
-        option.value = stasjon.stasjonsNavn;
-        option.innerHTML = stasjon.stasjonsNavn;
-
-
-        tilFelt.appendChild(option);
-    });
+    const tilFelt = $("#TilFelt");
+    tilFelt.autocomplete({
+        source: stasjonerList,
+        onSelect: function (suggestion) {
+            alert(suggestion.value);
+        }
+    })
 }
 
 
+/*
+ * Skal være med i de funksjonene som trenger innlogging
+ * For når innlogging failer
+ * .fail(function (feil) {
+        if (feil.status == 401) {
+            window.location.href = 'login.html'; 
+        }
+        else {
+            $("#feil").html("Feil på server. Prøv igjen om en liten stund");
+        }
+    });*/

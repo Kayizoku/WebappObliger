@@ -1,0 +1,42 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Endre Bestilling</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/endreBestilling.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Endre bestilling</h1>
+        <form class="form">
+            <input type="hidden" id="id" />
+            <div class="form-group">
+                <label>Pris</label>
+                <input type="text" id="pris" />
+            </div>
+            <div class="form-group">
+                <label>Fra</label>
+                <input type="text" id="fra" />
+            </div>
+            <div class="form-group">
+                <label>Til</label>
+                <input type="text" id="til" />
+            </div>
+            <div class="form-group">
+                <label>Dato</label>
+                <input type="text" id="dato" />
+            </div>
+            <div class="form-group">
+                <label>Tid</label>
+                <input type="text" id="tid" />
+            </div>
+            <div class="form-group">
+                <input type="button" id="reg" value="Endre" onClick="endreBestilling()" class="btn btn-primary" />
+            </div>
+            <div id="feil" style="color: red"></div>
+        </form>
+    </div>
+</body>
+</html>

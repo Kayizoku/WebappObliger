@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/admin.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light sticky-top">
+        <a class="navbar-brand" href="index.html">
+            <img src="/media/nor-way.svg" height="30" alt="">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">logg inn</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 3</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-container bg">
+        <div class="">
+            <div class="card" style="min-width: 60rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer avganger</h5>
+                    <p class="card-text">Her kan du endre eller legge til nye avganger</p>
+                </div>
+                <a href="lagreAvgang.html" class="card-link">Legg til ny avgang</a>
+                <div id="avgangene"></div>
+            </div>
+            <div class="card" style="min-width: 60rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer stasjoner</h5>
+                    <p class="card-text">Her kan du endre eller legge til nye stasjoner</p>
+                </div>
+                <a href="lagreStasjon.html" class="card-link">Legg til ny stasjon</a>
+                <div id="stasjonene"></div>
+            </div>
+            <div class="card" style="min-width: 60rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Administrer bestillinger</h5>
+                    <p class="card-text">Her kan du endre bestillinger</p>
+                </div>
+                <div id="bestillingene"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2020 Copyright: Amir, Eskil, Melissa, Benjamin og Tayyab</p>
+    </div>
+
+    <!--<div class="text-white">
+        <h1>Administrer avganger</h1>
+        <div id="avgangene"></div>
+    </div>
+    <a href="lagreAvgang.html" class="btn btn-primary">Lagre ny avgang</a>
+    <div class="">
+        <h1>Administrer bestilling</h1>
+        <div id="bestillingene"></div>
+    </div>
+    <div class="">
+        <h1>Administrer stasjoner</h1>
+        <div id="stasjonene"></div>
+    </div>
+    <a href="lagreStasjon.html" class="btn btn-primary">Lagre ny stasjon</a>-->
+</body>
+</html>

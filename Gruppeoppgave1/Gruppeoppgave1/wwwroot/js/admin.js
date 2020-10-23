@@ -8,7 +8,7 @@ function hentAlleStasjoner() {
     })
     .fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -44,7 +44,7 @@ function hentAlleBestillinger() {
     })
     .fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -82,7 +82,7 @@ function hentAlleAvganger() {
         formaterAvganger(avganger);
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -117,7 +117,7 @@ function hentAlleRuter() {
         formaterRuter(ruter);
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -149,7 +149,7 @@ function fjernStasjon(id) {
         document.location.href = "admin.html";
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -163,7 +163,7 @@ function slettEnBestilling(id) {
         document.location.href = "admin.html";
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -177,7 +177,7 @@ function slettAvgang(id) {
         document.location.href = "admin.html";
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';  
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");
@@ -191,7 +191,7 @@ function slettRute(id) {
         document.location.href = "admin.html";
     }).fail(function (feil) {
         if (feil.status == 401) {
-            window.location.href = 'login.html';  // ikke logget inn, redirect til loggInn.html
+            window.location.href = 'login.html';
         }
         else {
             $("#feil").html("Feil på server - prøv igjen senere");

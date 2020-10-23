@@ -17,24 +17,11 @@ namespace Gruppeoppgave1.Controllers
 
 
         private readonly IBrukerRepository _db;
-        private readonly IAvgangerRepository _dbA;
-        private readonly IBestillingRepository _dbB;
-        private readonly IRuteRepository _dbR;
-        private readonly IStasjonRepository _dbS;
 
         private ILogger<BrukerController> _log;
         private const string _loggetInn = "logget inn";
 
-        //public BrukerController(IBrukerRepository db, IAvgangerRepository dbA, IBestillingRepository dbB,
-        //    IRuteRepository dbR, IStasjonRepository dbS, ILogger<BrukerController> log)
-        //{
-        //    _log = log;
-        //    _db = db;
-        //    _dbA = dbA;
-        //    _dbB = dbB;
-        //    _dbR = dbR;
-        //    _dbS = dbS;
-        //}
+        
 
         public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
         {
@@ -102,7 +89,7 @@ namespace Gruppeoppgave1.Controllers
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, "innlogget");
+                HttpContext.Session.SetString(_loggetInn, "logget inn");
                 return Ok(true);
             }
             _log.LogInformation("Feil i inputvalidering");

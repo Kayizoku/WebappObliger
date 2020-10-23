@@ -15,7 +15,7 @@ namespace EnhetstestingNor_Way
     public class BestillingControllerTest
     {
 
-        private const string _loggetInn = "loggetInn";
+        private const string _loggetInn = "logget inn";
         private const string _ikkeLoggetInn = "";
 
         private readonly Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();

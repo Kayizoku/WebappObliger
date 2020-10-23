@@ -46,6 +46,45 @@ namespace Gruppeoppgave1.DAL
                 Tid = "08:00"
             };
 
+            var avgang3 = new Avganger
+            {
+                Fra = stasjonerList[5].StasjonsNavn,
+                Til = stasjonerList[6].StasjonsNavn,
+                Tid = "11:00"
+            };
+            var avgang4 = new Avganger
+            {
+                Fra = stasjonerList[7].StasjonsNavn,
+                Til = stasjonerList[8].StasjonsNavn,
+                Tid = "12:00"
+            };
+
+            var avgang5 = new Avganger
+            {
+                Fra = stasjonerList[0].StasjonsNavn,
+                Til = stasjonerList[1].StasjonsNavn,
+                Tid = "14:00"
+            };
+            var avgang6 = new Avganger
+            {
+                Fra = stasjonerList[3].StasjonsNavn,
+                Til = stasjonerList[4].StasjonsNavn,
+                Tid = "15:00"
+            };
+
+            var avgang7 = new Avganger
+            {
+                Fra = stasjonerList[5].StasjonsNavn,
+                Til = stasjonerList[6].StasjonsNavn,
+                Tid = "18:00"
+            };
+            var avgang8 = new Avganger
+            {
+                Fra = stasjonerList[7].StasjonsNavn,
+                Til = stasjonerList[8].StasjonsNavn,
+                Tid = "21:00"
+            };
+
             var bestilling1 = new Bestillinger { Fra = "Oslo", Til = "Drammen", Tid = "07:00", Pris = double.Parse("50"), Dato = "2021-01-13" };
             var bestilling2 = new Bestillinger { Fra = "Drammen", Til = "Horten", Tid = "08:00", Pris = double.Parse("50"), Dato = "2021-02-20" };
 
